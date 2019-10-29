@@ -23,8 +23,4 @@ public class Menu_Main extends JPanel {
 		mainBtn[3].setLocation(90, 400);
 		
 	}
-
-	public static void main(String[] args) {
-		new Menu_Main();
-	}
 }

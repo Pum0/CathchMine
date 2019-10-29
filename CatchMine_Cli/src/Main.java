@@ -49,8 +49,14 @@ public class Main extends JFrame implements ActionListener {
 		singleMenu.modeButton[3].addActionListener(this);
 
 		// 멀티 패널
-		multiMenu.backButton.addActionListener(this);
-
+	
+		
+		// 회원가입 패널
+		signUp.checkButton[0].addActionListener(this);
+		signUp.checkButton[1].addActionListener(this);
+		signUp.checkButton[2].addActionListener(this);
+		signUp.checkButton[3].addActionListener(this);
+		signUp.checkButton[4].addActionListener(this);
 		setVisible(true);
 	}
 
@@ -58,7 +64,7 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// 로그인 액션 리스너 -------------------------------
-		if (e.getSource() == mainLogin.loginButton && LoginCheck()) {
+		if (e.getSource() == mainLogin.loginButton || LoginCheck()) {
 			mainLogin.setVisible(false);
 			mainMenu.setVisible(true);
 		}
@@ -73,7 +79,10 @@ public class Main extends JFrame implements ActionListener {
 		// -------------------------------------------------
 
 		// 회원가입 액션 리스너 -----------------------------
-
+		if (e.getSource() == signUp.checkButton[4]) {
+			signUp.setVisible(false);
+			mainLogin.setVisible(true);
+		}
 		// -------------------------------------------------
 
 		// 메뉴 액션 리스너 --------------------------------
@@ -82,11 +91,14 @@ public class Main extends JFrame implements ActionListener {
 			mainMenu.setVisible(false);
 			singleMenu.setVisible(true);
 		}
-		// Multi Button
+		
+		// Multi Button -----------------------------------
 		if (e.getSource() == mainMenu.mainBtn[1]) {
 			mainMenu.setVisible(false);
 			multiMenu.setVisible(true);
 		}
+		
+		
 		// Role Button
 		if (e.getSource() == mainMenu.mainBtn[2]) {
 			mainMenu.setVisible(false);
@@ -114,10 +126,7 @@ public class Main extends JFrame implements ActionListener {
 		// ------------------------------------------------
 
 		// 멀티 액션 리스너 --------------------------------
-		if (e.getSource() == multiMenu.backButton) {
-			multiMenu.setVisible(false);
-			mainMenu.setVisible(true);
-		}
+		
 		// ------------------------------------------------
 
 		// 옵션 액션 리스너 --------------------------------
