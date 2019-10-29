@@ -1,5 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
@@ -123,16 +126,18 @@ public class Main extends JFrame implements ActionListener {
 		// 可记 咀记 府胶呈 --------------------------------
 		// ------------------------------------------------
 	}
-	
+
 	public boolean LoginCheck() {
-		if(mainLogin.idText.getText().equals("admin") && mainLogin.pwText.getText().equals("admin"))
+		if (mainLogin.idText.getText().equals("admin") && mainLogin.pwText.getText().equals("admin"))
 			return true;
-		
+
 		return false;
 	}
 
 	public static void main(String[] args) {
 		new Main();
+		
+		
 	}
 
 }
