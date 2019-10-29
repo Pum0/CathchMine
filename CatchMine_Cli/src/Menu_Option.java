@@ -22,7 +22,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 
 		selectMusic = new JLabel("음악 선택"); // 음악선택 레이블
 		add(selectMusic);
-		selectMusic.setBounds(50, 100, 100, 20);
+		selectMusic.setBounds(50, 100, 100, 20); // setBounds() 크기 위치 설정
 
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
 		music.setSelectedIndex(0); // 맨 처음 선택된게 0번 인덱스
@@ -42,7 +42,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		volumeValue.setBounds(350, 80, 100, 100);
 		add(volumeValue);
 		
-		box = new JPanel() {
+		box = new JPanel() {	//패널에다가 페인트 추가해서 사각형 생성
 			@Override
 			public void paint(Graphics g) {
 				g.drawRoundRect(0, 0, 30, 15, 5, 5);
@@ -51,7 +51,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		box.setBounds(348, 121, 100, 100);
 		add(box);
 		
-		musicVolume.addChangeListener(new ChangeListener() {
+		musicVolume.addChangeListener(new ChangeListener() {	//슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				volumeValue.setText(" " + musicVolume.getValue());
