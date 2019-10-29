@@ -26,7 +26,7 @@ public class Menu_Multi extends JPanel {
 
 		chatAreaPanel = new JPanel();
 		chatAreaPanel.setLayout(null);
-		chatAreaPanel.setSize(400,260);
+		chatAreaPanel.setSize(400,225);
 		chatAreaPanel.setLocation(0, 300);
 		
 		chatPanel = new JPanel();
