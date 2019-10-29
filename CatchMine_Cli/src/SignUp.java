@@ -161,8 +161,5 @@ public class SignUp extends JPanel {
 		add(submitPanel);
 	}
 
-	public static void main(String[] args) {
-		new SignUp();
-	}
 
 }

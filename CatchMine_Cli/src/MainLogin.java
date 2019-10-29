@@ -77,8 +77,4 @@ public class MainLogin extends JPanel {
 		add(loginPanel);
 		
 	}
-
-	public static void main(String[] args) {
-		new MainLogin();
-	}
 }

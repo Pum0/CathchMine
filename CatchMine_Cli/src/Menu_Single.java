@@ -22,8 +22,4 @@ public class Menu_Single extends JPanel {
 		modeButton[3].setLocation(90, 400);
 	}
 
-	public static void main(String[] args) {
-		new Menu_Single();
-	}
-
 }
