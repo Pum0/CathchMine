@@ -52,7 +52,9 @@ public class Main extends JFrame implements ActionListener {
 		singleMenu.modeButton[3].addActionListener(this);
 
 		// 멀티 패널
-	
+		multiMenu.multiButton[0].addActionListener(this);
+		multiMenu.multiButton[1].addActionListener(this);
+		multiMenu.multiButton[2].addActionListener(this);
 		
 		// 회원가입 패널
 		signUp.checkButton[0].addActionListener(this);
@@ -60,6 +62,7 @@ public class Main extends JFrame implements ActionListener {
 		signUp.checkButton[2].addActionListener(this);
 		signUp.checkButton[3].addActionListener(this);
 		signUp.checkButton[4].addActionListener(this);
+		
 		setVisible(true);
 	}
 
@@ -94,14 +97,11 @@ public class Main extends JFrame implements ActionListener {
 			mainMenu.setVisible(false);
 			singleMenu.setVisible(true);
 		}
-		
-		// Multi Button -----------------------------------
+		// Multi button
 		if (e.getSource() == mainMenu.mainBtn[1]) {
 			mainMenu.setVisible(false);
 			multiMenu.setVisible(true);
 		}
-		
-		
 		// Role Button
 		if (e.getSource() == mainMenu.mainBtn[2]) {
 			mainMenu.setVisible(false);
@@ -129,7 +129,11 @@ public class Main extends JFrame implements ActionListener {
 		// ------------------------------------------------
 
 		// 멀티 액션 리스너 --------------------------------
-		
+		//Back
+		if(e.getSource() == multiMenu.multiButton[2]) {
+			multiMenu.setVisible(false);
+			mainMenu.setVisible(true);
+		}
 		// ------------------------------------------------
 
 		// 옵션 액션 리스너 --------------------------------
