@@ -1,3 +1,4 @@
+package Main;
 import javax.swing.JPanel;
 
 public class Menu_Rule extends JPanel{

@@ -5,10 +5,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import com.jcraft.jorbis.Block;
-
 import Control.GameObject;
-import Main.mainTest;
 
 class point {
 

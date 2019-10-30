@@ -1,3 +1,4 @@
+package Main;
 import javax.swing.*;
 
 public class Menu_Multi extends JPanel {
