@@ -24,7 +24,8 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		setLayout(null);
 
 		selectMusic = new JLabel("음악 선택"); // 음악선택 레이블
-		add(selectMusic);
+		selectMusic.setForeground(Color.WHITE);	// 폰트색 화이트
+		add(selectMusic);	//추가
 		selectMusic.setBounds(50, 100, 100, 20); // setBounds() 크기 위치 설정
 
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
@@ -43,6 +44,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		musicVolume.setBounds(45, 120, 300, 50);
 
 		volumeValue = new JLabel("50"); // 볼륨값 표시
+		volumeValue.setForeground(Color.white);
 		volumeValue.setBounds(350, 80, 100, 100);
 		add(volumeValue);
 		
@@ -53,6 +55,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 			}
 		};
 		box.setBounds(348, 121, 100, 100);
+		box.setForeground(Color.white);
 		add(box);
 		
 		musicVolume.addChangeListener(new ChangeListener() {	//슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋
@@ -62,8 +65,14 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 
 			}
 		});
+		
+		
 
 		add(de.setBackground());
 	}
 
 }
+
+
+
+
