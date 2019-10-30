@@ -40,7 +40,7 @@ public class Main extends JFrame implements ActionListener {
 		add(mainLogin);
 		
 		// 메인 배경음악 재생
-		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic.mp3", true);
+		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic2.mp3", true);
 		backgroundMusic.start();
 
 		signUp.setVisible(false);
@@ -57,33 +57,29 @@ public class Main extends JFrame implements ActionListener {
 		optionMenu.setVisible(false);
 
 		// 로그인 패널
-		mainLogin.loginButton.addActionListener(this);
-		mainLogin.signUpButton.addActionListener(this);
-		mainLogin.exitButton.addActionListener(this);
+		for (int i = 0 ; i < mainLogin.loginButton.length ; i++) {
+			mainLogin.loginButton[i].addActionListener(this);
+		}
 
 		// 회원가입 패널
-		signUp.checkButton[0].addActionListener(this);
-		signUp.checkButton[1].addActionListener(this);
-		signUp.checkButton[2].addActionListener(this);
-		signUp.checkButton[3].addActionListener(this);
-		signUp.checkButton[4].addActionListener(this);
+		for (int i = 0 ; i < signUp.checkButton.length ; i++) {
+			signUp.checkButton[i].addActionListener(this);
+		}
 
 		// 메뉴 패널
-		mainMenu.mainBtn[0].addActionListener(this);
-		mainMenu.mainBtn[1].addActionListener(this);
-		mainMenu.mainBtn[2].addActionListener(this);
-		mainMenu.mainBtn[3].addActionListener(this);
+		for (int i = 0 ; i < mainMenu.mainBtn.length ; i++) {
+			mainMenu.mainBtn[i].addActionListener(this);
+		}
 
 		// 싱글 패널
-		singleMenu.modeButton[0].addActionListener(this);
-		singleMenu.modeButton[1].addActionListener(this);
-		singleMenu.modeButton[2].addActionListener(this);
-		singleMenu.modeButton[3].addActionListener(this);
+		for (int i = 0 ; i < singleMenu.modeButton.length ; i++) {
+			singleMenu.modeButton[i].addActionListener(this);
+		}
 
 		// 멀티 패널
-		multiMenu.multiButton[0].addActionListener(this);
-		multiMenu.multiButton[1].addActionListener(this);
-		multiMenu.multiButton[2].addActionListener(this);
+		for (int i = 0 ; i < multiMenu.multiButton.length ; i++) {
+			multiMenu.multiButton[i].addActionListener(this);
+		}
 
 		setVisible(true);
 	}
@@ -98,7 +94,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 
 		// 회원 가입 창
-		if (e.getSource() == mainLogin.signUpButton) {
+		if (e.getSource() == mainLogin.loginButton[1]) {
 			try {
 				conn = DriverManager.getConnection(url, id, pass);
 				System.out.println("연결 성공");
@@ -108,7 +104,7 @@ public class Main extends JFrame implements ActionListener {
 			signUp.setVisible(true);
 		}
 
-		if (e.getSource() == mainLogin.exitButton)
+		if (e.getSource() == mainLogin.loginButton[2])
 			System.exit(0);
 		// -------------------------------------------------
 
