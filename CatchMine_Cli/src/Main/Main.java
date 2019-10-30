@@ -38,10 +38,6 @@ public class Main extends JFrame implements ActionListener {
 
 		// 메뉴 추가 부분
 		add(mainLogin);
-		
-		// 메인 배경음악 재생
-		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic.mp3", true);
-		backgroundMusic.start();
 
 		signUp.setVisible(false);
 
@@ -97,7 +93,7 @@ public class Main extends JFrame implements ActionListener {
 			mainMenu.setVisible(true);
 		}
 
-		// 회원 가입 창
+		// 회원 가입 액션 리스너 -----------------------------
 		if (e.getSource() == mainLogin.signUpButton) {
 			try {
 				conn = DriverManager.getConnection(url, id, pass);
