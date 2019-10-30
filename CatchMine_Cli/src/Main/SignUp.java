@@ -178,8 +178,6 @@ public class SignUp extends JFrame  {
 		add(pwCheckPanel);
 		add(submitPanel);
 
-		// ---------------------- 리스너 추가 ----------------------------------
-
 		setVisible(false);
 	}
 

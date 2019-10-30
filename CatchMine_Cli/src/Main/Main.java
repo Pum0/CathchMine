@@ -143,7 +143,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// 가입하기 버튼
 		if (e.getSource() == signUp.checkButton[3]) {
-			if (idCheck && nickCheck && pwCheck && signUp.nameField.getText().equals("")) {
+			if (idCheck && nickCheck && pwCheck && !signUp.nameField.getText().equals("")) {
 				intsertSQL(signUp.idField.getText(), signUp.pwField.getText(), signUp.nameField.getText(),
 						signUp.nickField.getText());
 				signUp.setVisible(false);
