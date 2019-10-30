@@ -3,6 +3,9 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
@@ -176,7 +179,17 @@ public class mainTest extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
-
 		new mainTest("").new Main();
+		
+		String url = "jdbc:mysql://45.119.145.165:3306/catchmine";
+		String id = "root";
+		String pass = "daehwan";
+		try {
+			Connection conn = DriverManager.getConnection(url, id, pass);
+			System.out.println("연결 성공");
+
+		} catch (SQLException ee) {
+			System.err.println("SQL Error = " + ee.toString());
+		}
 	}
 }

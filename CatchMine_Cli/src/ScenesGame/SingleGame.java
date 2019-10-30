@@ -1,7 +1,5 @@
 package ScenesGame;
 
-import java.time.chrono.Era;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -76,7 +74,7 @@ public class SingleGame extends BasicGameState {
 				block[p.myYpoint()][p.myXpoint() + 1] = new Image("image/block2.png");
 
 		// 캐릭터의 현재 좌표 확인용
-		System.out.println(p.myXpoint() + " , " + p.myYpoint());
+//		System.out.println(p.myXpoint() + " , " + p.myYpoint());
 
 	}
 

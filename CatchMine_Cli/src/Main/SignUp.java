@@ -14,8 +14,8 @@ public class SignUp extends JFrame implements ActionListener {
 	String[] signUpString = { "사용자 이름", "ID", "닉네임", "비밀번호", "비밀번호 확인" };
 
 	JLabel idCheckLabel, nickCheckLabel, pwCheckLabel;
-	String[] idChekLabelString = { "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
-	String[] nickCheckLabelString = { "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
+	String[] idChekLabelString = {"ID를 입력해주세요", "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
+	String[] nickCheckLabelString = {"닉네임을 입력해주세요", "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
 	String[] pwCheckLabelString = { "비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
 	JButton[] checkButton;
 	String[] buttonString = { "확인", "확인", "확인", "가입하기", "뒤로가기" };
@@ -23,7 +23,7 @@ public class SignUp extends JFrame implements ActionListener {
 	Design de = new Design();
 
 	public SignUp() {
-
+		setTitle("회원가입");
 		setSize(400, 450);
 		setResizable(false);
 		setLayout(null);
@@ -187,11 +187,16 @@ public class SignUp extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// ID 확인 버튼
 		if (e.getSource() == checkButton[0]) {
-
+			if(idField.getText().equals(""))
+				idCheckLabel.setText(idChekLabelString[0]);
 		}
+		
+		// 닉네임 확인 버튼
 		if (e.getSource() == checkButton[1]) {
-
+			if(nickField.getText().equals(""))
+				nickCheckLabel.setText(nickCheckLabelString[0]);
 		}
 
 		// 비밀번호 확인 버튼
