@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+
+import org.mariadb.jdbc.internal.util.dao.PrepareStatementCacheKey;
 
 public class Main extends JFrame implements ActionListener {
 	MainLogin mainLogin = new MainLogin();
@@ -16,6 +19,15 @@ public class Main extends JFrame implements ActionListener {
 	Menu_Rule ruleMenu = new Menu_Rule();
 	Menu_Option optionMenu = new Menu_Option();
 	SignUp signUp = new SignUp();
+
+	boolean idCheck = false, nickCheck = false, pwCheck = false;
+
+	// SQL 연결 부분
+	static String url = "jdbc:mysql://45.119.145.165:3306/catchmine";
+	static String id = "root";
+	static String pass = "daehwan";
+	static Connection conn = null;
+	static PreparedStatement pstmt = null;
 
 	public Main() {
 		setTitle("Catch-Mine");
@@ -81,8 +93,14 @@ public class Main extends JFrame implements ActionListener {
 			mainMenu.setVisible(true);
 		}
 
+		// 회원 가입 창
 		if (e.getSource() == mainLogin.signUpButton) {
-//			signUp = new SignUp();
+			try {
+				conn = DriverManager.getConnection(url, id, pass);
+				System.out.println("연결 성공");
+			} catch (SQLException ee) {
+				System.out.println("Insert Connection Error : " + ee);
+			}
 			signUp.setVisible(true);
 		}
 
@@ -95,11 +113,17 @@ public class Main extends JFrame implements ActionListener {
 		if (e.getSource() == signUp.checkButton[0]) {
 			if (signUp.idField.getText().equals(""))
 				signUp.idCheckLabel.setText(signUp.idChekLabelString[0]);
+			else {
+				idCheck = true;
+			}
 		}
 		// 닉네임 확인 버튼
 		if (e.getSource() == signUp.checkButton[1]) {
 			if (signUp.nickField.getText().equals(""))
 				signUp.nickCheckLabel.setText(signUp.nickCheckLabelString[0]);
+			else {
+				nickCheck = true;
+			}
 		}
 		// 비밀번호 확인 버튼
 		if (e.getSource() == signUp.checkButton[2]) {
@@ -107,14 +131,18 @@ public class Main extends JFrame implements ActionListener {
 				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[0]);
 			else if (signUp.pwField.getText().equals(signUp.pwCheckField.getText())) {
 				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[1]);
-				
+				pwCheck = true;
 			} else
 				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[2]);
-
 		}
 		// 가입하기 버튼
 		if (e.getSource() == signUp.checkButton[3]) {
-			signUp.reset();
+			if (idCheck && nickCheck && pwCheck) {
+				intsertSQL(signUp.idField.getText(), signUp.pwField.getText(), signUp.nameField.getText(),
+						signUp.nickField.getText());
+				signUp.setVisible(false);
+				signUp.reset();
+			}
 		}
 		// 뒤로가기 버튼
 		if (e.getSource() == signUp.checkButton[4]) {
@@ -179,17 +207,49 @@ public class Main extends JFrame implements ActionListener {
 		return false;
 	}
 
+	public void intsertSQL(String id, String pw, String name, String nick) {
+		try {
+			String sql = "insert into CatchMine(ID, PW, NAME, NICK_NAME) values(?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, name);
+			pstmt.setString(4, nick);
+
+			pstmt.executeUpdate(); // 쿼리 실행
+
+			System.out.println("Insert 성공");
+
+		} catch (SQLException e) {
+			System.out.println("insert Error : " + e);
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException sqle) {
+
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+					System.out.println("연결 종료");
+				} catch (SQLException sqle) {
+
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		new Main();
-		String url = "jdbc:mysql://45.119.145.165:3306/catchmine";
-		String id = "root";
-		String pass = "daehwan";
-		try {
-			Connection conn = DriverManager.getConnection(url, id, pass);
-			System.out.println("연결 성공");
 
-		} catch (SQLException ee) {
-			System.err.println("SQL Error = " + ee.toString());
-		}
+//		try {
+//			conn = DriverManager.getConnection(url, id, pass);
+//			System.out.println("연결 성공");
+//
+//		} catch (SQLException ee) {
+//			System.err.println("SQL Error = " + ee.toString());
+//		}
 	}
 }
