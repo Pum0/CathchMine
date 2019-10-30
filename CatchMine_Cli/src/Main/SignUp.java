@@ -187,39 +187,39 @@ public class SignUp extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// ID 확인 버튼
-		if (e.getSource() == checkButton[0]) {
-			if(idField.getText().equals(""))
-				idCheckLabel.setText(idChekLabelString[0]);
-		}
-		
-		// 닉네임 확인 버튼
-		if (e.getSource() == checkButton[1]) {
-			if(nickField.getText().equals(""))
-				nickCheckLabel.setText(nickCheckLabelString[0]);
-		}
-
-		// 비밀번호 확인 버튼
-		if (e.getSource() == checkButton[2]) {
-			if (pwField.getText().equals("") && pwCheckField.getText().equals(""))
-				pwCheckLabel.setText(pwCheckLabelString[0]);
-			else if (pwField.getText().equals(pwCheckField.getText()))
-				pwCheckLabel.setText(pwCheckLabelString[1]);
-			else
-				pwCheckLabel.setText(pwCheckLabelString[2]);
-
-		}
-
-		// 가입하기 버튼
-		if (e.getSource() == checkButton[3]) {
-			reset();
-		}
-
-		// 뒤로가기 버튼
-		if (e.getSource() == checkButton[4]) {
-			this.setVisible(false);
-			reset();
-		}
+//		// ID 확인 버튼
+//		if (e.getSource() == checkButton[0]) {
+//			if(idField.getText().equals(""))
+//				idCheckLabel.setText(idChekLabelString[0]);
+//		}
+//		
+//		// 닉네임 확인 버튼
+//		if (e.getSource() == checkButton[1]) {
+//			if(nickField.getText().equals(""))
+//				nickCheckLabel.setText(nickCheckLabelString[0]);
+//		}
+//
+//		// 비밀번호 확인 버튼
+//		if (e.getSource() == checkButton[2]) {
+//			if (pwField.getText().equals("") && pwCheckField.getText().equals(""))
+//				pwCheckLabel.setText(pwCheckLabelString[0]);
+//			else if (pwField.getText().equals(pwCheckField.getText()))
+//				pwCheckLabel.setText(pwCheckLabelString[1]);
+//			else
+//				pwCheckLabel.setText(pwCheckLabelString[2]);
+//
+//		}
+//
+//		// 가입하기 버튼
+//		if (e.getSource() == checkButton[3]) {
+//			reset();
+//		}
+//
+//		// 뒤로가기 버튼
+//		if (e.getSource() == checkButton[4]) {
+//			this.setVisible(false);
+//			reset();
+//		}
 	}
 
 	// 가입하기나 뒤로하기 입력시 초기화

@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import Control.GameObject;
-import Control.GameObject;
 import Main.mainTest;
 
 class point {

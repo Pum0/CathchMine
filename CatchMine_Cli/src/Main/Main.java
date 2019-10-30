@@ -1,12 +1,10 @@
 package Main;
-import java.awt.Font;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JFrame;
 
@@ -28,9 +26,9 @@ public class Main extends JFrame implements ActionListener {
 
 		// 메뉴 추가 부분
 		add(mainLogin);
-		
+
 		signUp.setVisible(false);
-		
+
 		add(mainMenu);
 		mainMenu.setVisible(false);
 		add(singleMenu);
@@ -46,8 +44,13 @@ public class Main extends JFrame implements ActionListener {
 		mainLogin.loginButton.addActionListener(this);
 		mainLogin.signUpButton.addActionListener(this);
 		mainLogin.exitButton.addActionListener(this);
-		
+
 		// 회원가입 패널
+		signUp.checkButton[0].addActionListener(this);
+		signUp.checkButton[1].addActionListener(this);
+		signUp.checkButton[2].addActionListener(this);
+		signUp.checkButton[3].addActionListener(this);
+		signUp.checkButton[4].addActionListener(this);
 
 		// 메뉴 패널
 		mainMenu.mainBtn[0].addActionListener(this);
@@ -85,6 +88,39 @@ public class Main extends JFrame implements ActionListener {
 
 		if (e.getSource() == mainLogin.exitButton)
 			System.exit(0);
+		// -------------------------------------------------
+
+		// 회원가입 액션 리스너 -----------------------------
+		// ID 확인 버튼
+		if (e.getSource() == signUp.checkButton[0]) {
+			if (signUp.idField.getText().equals(""))
+				signUp.idCheckLabel.setText(signUp.idChekLabelString[0]);
+		}
+		// 닉네임 확인 버튼
+		if (e.getSource() == signUp.checkButton[1]) {
+			if (signUp.nickField.getText().equals(""))
+				signUp.nickCheckLabel.setText(signUp.nickCheckLabelString[0]);
+		}
+		// 비밀번호 확인 버튼
+		if (e.getSource() == signUp.checkButton[2]) {
+			if (signUp.pwField.getText().equals("") && signUp.pwCheckField.getText().equals(""))
+				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[0]);
+			else if (signUp.pwField.getText().equals(signUp.pwCheckField.getText())) {
+				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[1]);
+				
+			} else
+				signUp.pwCheckLabel.setText(signUp.pwCheckLabelString[2]);
+
+		}
+		// 가입하기 버튼
+		if (e.getSource() == signUp.checkButton[3]) {
+			signUp.reset();
+		}
+		// 뒤로가기 버튼
+		if (e.getSource() == signUp.checkButton[4]) {
+			signUp.setVisible(false);
+			signUp.reset();
+		}
 		// -------------------------------------------------
 
 		// 메뉴 액션 리스너 --------------------------------
