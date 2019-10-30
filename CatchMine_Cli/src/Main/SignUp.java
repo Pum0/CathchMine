@@ -1,10 +1,13 @@
 package Main;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-import javax.swing.*;
-
-public class SignUp extends JFrame implements ActionListener {
+public class SignUp extends JFrame  {
 	JTextField nameField, idField, nickField;
 	JPasswordField pwField;
 	JPasswordField pwCheckField;
@@ -176,50 +179,8 @@ public class SignUp extends JFrame implements ActionListener {
 		add(submitPanel);
 
 		// ---------------------- 리스너 추가 ----------------------------------
-		checkButton[0].addActionListener(this);
-		checkButton[1].addActionListener(this);
-		checkButton[2].addActionListener(this);
-		checkButton[3].addActionListener(this);
-		checkButton[4].addActionListener(this);
 
 		setVisible(false);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-//		// ID 확인 버튼
-//		if (e.getSource() == checkButton[0]) {
-//			if(idField.getText().equals(""))
-//				idCheckLabel.setText(idChekLabelString[0]);
-//		}
-//		
-//		// 닉네임 확인 버튼
-//		if (e.getSource() == checkButton[1]) {
-//			if(nickField.getText().equals(""))
-//				nickCheckLabel.setText(nickCheckLabelString[0]);
-//		}
-//
-//		// 비밀번호 확인 버튼
-//		if (e.getSource() == checkButton[2]) {
-//			if (pwField.getText().equals("") && pwCheckField.getText().equals(""))
-//				pwCheckLabel.setText(pwCheckLabelString[0]);
-//			else if (pwField.getText().equals(pwCheckField.getText()))
-//				pwCheckLabel.setText(pwCheckLabelString[1]);
-//			else
-//				pwCheckLabel.setText(pwCheckLabelString[2]);
-//
-//		}
-//
-//		// 가입하기 버튼
-//		if (e.getSource() == checkButton[3]) {
-//			reset();
-//		}
-//
-//		// 뒤로가기 버튼
-//		if (e.getSource() == checkButton[4]) {
-//			this.setVisible(false);
-//			reset();
-//		}
 	}
 
 	// 가입하기나 뒤로하기 입력시 초기화

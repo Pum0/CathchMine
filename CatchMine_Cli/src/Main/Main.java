@@ -5,11 +5,10 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
-
-import org.mariadb.jdbc.internal.util.dao.PrepareStatementCacheKey;
 
 public class Main extends JFrame implements ActionListener {
 	MainLogin mainLogin = new MainLogin();
@@ -35,7 +34,6 @@ public class Main extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
-//		signUp.setVisible(false);
 
 		// 메뉴 추가 부분
 		add(mainLogin);
@@ -54,7 +52,6 @@ public class Main extends JFrame implements ActionListener {
 		ruleMenu.setVisible(false);
 		add(optionMenu);
 		optionMenu.setVisible(false);
-		
 
 		// 로그인 패널
 		for (int i = 0; i < mainLogin.loginButton.length; i++) {
@@ -88,9 +85,16 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// 로그인 액션 리스너 -------------------------------
-		if (e.getSource() == mainLogin.loginButton[0] || LoginCheck()) {
-			mainLogin.setVisible(false);
-			mainMenu.setVisible(true);
+		if (e.getSource() == mainLogin.loginButton[0]) {
+			ConnectSQL();
+			if (LoginCheck()) {
+				mainLogin.setVisible(false);
+				mainMenu.setVisible(true);
+				disConnectSQL();
+			} else {
+				mainLogin.pwText.setText("");
+				disConnectSQL();
+			}
 		}
 		// 회원 가입 창
 		if (e.getSource() == mainLogin.loginButton[1]) {
@@ -106,17 +110,25 @@ public class Main extends JFrame implements ActionListener {
 		// ID 확인 버튼
 		if (e.getSource() == signUp.checkButton[0]) {
 			if (signUp.idField.getText().equals(""))
-				signUp.idCheckLabel.setText(signUp.idChekLabelString[0]);
-			else {
-				idCheck = true;
+				signUp.idCheckLabel.setText(signUp.idChekLabelString[1]);
+			else if (idCheck = SelectSQL(signUp.idField.getText(), 1)) {
+				signUp.idCheckLabel.setText(signUp.idChekLabelString[1]);
+				System.out.println(idCheck);
+			} else {
+				signUp.idCheckLabel.setText(signUp.idChekLabelString[2]);
+				System.out.println(idCheck);
 			}
 		}
 		// 닉네임 확인 버튼
 		if (e.getSource() == signUp.checkButton[1]) {
 			if (signUp.nickField.getText().equals(""))
 				signUp.nickCheckLabel.setText(signUp.nickCheckLabelString[0]);
-			else {
-				nickCheck = true;
+			else if (nickCheck = SelectSQL(signUp.nickField.getText(), 4)) {
+				signUp.nickCheckLabel.setText(signUp.nickCheckLabelString[1]);
+				System.out.println(nickCheck);
+			} else {
+				signUp.nickCheckLabel.setText(signUp.nickCheckLabelString[2]);
+				System.out.println(nickCheck);
 			}
 		}
 		// 비밀번호 확인 버튼
@@ -131,7 +143,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// 가입하기 버튼
 		if (e.getSource() == signUp.checkButton[3]) {
-			if (idCheck && nickCheck && pwCheck) {
+			if (idCheck && nickCheck && pwCheck && signUp.nameField.getText().equals("")) {
 				intsertSQL(signUp.idField.getText(), signUp.pwField.getText(), signUp.nameField.getText(),
 						signUp.nickField.getText());
 				signUp.setVisible(false);
@@ -195,9 +207,24 @@ public class Main extends JFrame implements ActionListener {
 		// ------------------------------------------------
 	}
 
+	// SQL --------------------------------------------------------------------------------------
 	public boolean LoginCheck() {
-		if (mainLogin.idText.getText().equals("admin") && mainLogin.pwText.getText().equals("admin"))
-			return true;
+		if (!mainLogin.idText.getText().isEmpty() && !mainLogin.idText.getText().isEmpty())
+			try {
+				pstmt = null;
+				String selectSql = "select * from CatchMine";
+				pstmt = conn.prepareStatement(selectSql);
+				ResultSet rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					if (mainLogin.idText.getText().equals(rs.getString(1)))
+						if (mainLogin.pwText.getText().equals(rs.getString(2)))
+							return true;
+				}
+
+			} catch (SQLException ssql) {
+				System.out.println("ssql error : " + ssql);
+			}
 
 		return false;
 	}
@@ -206,6 +233,7 @@ public class Main extends JFrame implements ActionListener {
 		try {
 			String sql = "insert into CatchMine(ID, PW, NAME, NICK_NAME) values(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
+
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			pstmt.setString(3, name);
@@ -222,6 +250,25 @@ public class Main extends JFrame implements ActionListener {
 		}
 	}
 
+	public boolean SelectSQL(String str, int i) {
+		try {
+			pstmt = null;
+			String selectSql = "select * from CatchMine";
+			pstmt = conn.prepareStatement(selectSql);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				if (str.equals(rs.getString(i))) {
+					return false;
+				}
+			}
+		} catch (SQLException ssql) {
+			System.out.println("ssql error : " + ssql);
+		}
+
+		return true;
+	}
+
 	public void ConnectSQL() {
 		try {
 			conn = DriverManager.getConnection(url, id, pass);
@@ -230,22 +277,22 @@ public class Main extends JFrame implements ActionListener {
 			System.out.println("Insert Connection Error : " + ee);
 		}
 	}
-	
+
 	public void disConnectSQL() {
 		if (pstmt != null)
 			try {
 				pstmt.close();
 			} catch (SQLException sqle) {
 			} // PreparedStatement 객체 해제
-		
+
 		if (conn != null)
 			try {
 				conn.close();
 				System.out.println("연결 종료");
 			} catch (SQLException sqle) {
 			} // Connection 해제
-
 	}
+// -------------------------------------------------------------------
 
 	public static void main(String[] args) {
 		new Main();

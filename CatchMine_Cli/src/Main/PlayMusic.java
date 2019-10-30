@@ -20,7 +20,7 @@ class PlayMusic extends Thread {
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 			player = new Player(bis);
-					
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
