@@ -35,10 +35,10 @@ public class Main extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
+//		signUp.setVisible(false);
 
 		// 메뉴 추가 부분
 		add(mainLogin);
-		signUp.setVisible(false);
 
 		// 메인 배경음악 재생
 		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic2.mp3", true);
@@ -54,6 +54,7 @@ public class Main extends JFrame implements ActionListener {
 		ruleMenu.setVisible(false);
 		add(optionMenu);
 		optionMenu.setVisible(false);
+		
 
 		// 로그인 패널
 		for (int i = 0; i < mainLogin.loginButton.length; i++) {

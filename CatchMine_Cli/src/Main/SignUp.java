@@ -182,7 +182,7 @@ public class SignUp extends JFrame implements ActionListener {
 		checkButton[3].addActionListener(this);
 		checkButton[4].addActionListener(this);
 
-		setVisible(true);
+		setVisible(false);
 	}
 
 	@Override
