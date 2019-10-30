@@ -11,7 +11,10 @@ import javax.swing.SwingConstants;
 
 public class MainLogin extends JPanel {
 	JPanel loginPanel, loginTop, loginBottom;
-	JButton loginButton, exitButton, signUpButton;
+//	JButton loginButton, exitButton, signUpButton;
+	
+	JButton loginButton[];
+	private String button[] = { "1", "SingUp", "나가기" };
 	
 	JLabel idLabel = new JLabel("ID : ");
 	JLabel pwLabel = new JLabel("PW : ");
@@ -54,16 +57,17 @@ public class MainLogin extends JPanel {
 		pwLabel.setLocation(5, 30);
 		pwText.setLocation(40, 30);
 		
-		loginButton = new JButton();
-		loginButton.setIcon(de.setButton());
-		loginButton.setSize(40, 45);
-		loginButton.setLocation(150, 5);
+		loginButton = new JButton[3];
+		loginButton[0] = new JButton(button[0], de.setButton());
+		loginButton[0].setIcon(de.setButton());
+		loginButton[0].setSize(40, 45);
+		loginButton[0].setLocation(150, 5);
 		
 		loginTop.add(idLabel);
 		loginTop.add(pwLabel);
 		loginTop.add(idText);
 		loginTop.add(pwText);
-		loginTop.add(loginButton);
+		loginTop.add(loginButton[0]);
 		
 		// -----------------------------------------------------------
 		
@@ -73,21 +77,29 @@ public class MainLogin extends JPanel {
 		loginBottom.setSize(200, 50);
 		loginBottom.setLocation(0, 50);
 		
-		signUpButton = new JButton("SignUp", de.setButton());
-		signUpButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		signUpButton.setFont(de.font);
-		signUpButton.setContentAreaFilled(false);
-		signUpButton.setSize(90, 30);
-		signUpButton.setLocation(5, 10);
+		// loginButton[0]은 사이즈랑 설정 달라서 따로 뺐음
+		for(int i = 1 ; i < loginButton.length ; i++) {
+			loginButton[i] = new JButton(button[i], de.setButton());
+			loginButton[i].setHorizontalAlignment(SwingConstants.CENTER);
+			loginButton[i].setFont(de.font);
+			loginButton[i].setSize(90, 30);
+			loginBottom.add(loginButton[i]);
+		}
 		
-		exitButton = new JButton("나가기", de.setButton());
-		exitButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		exitButton.setFont(de.font);
-		exitButton.setSize(90, 30);
-		exitButton.setLocation(105, 10);
-		
-		loginBottom.add(signUpButton);
-		loginBottom.add(exitButton);
+		loginButton[1].setLocation(5, 10);
+		loginButton[2].setLocation(105, 10);
+//		signUpButton = new JButton("SignUp", de.setButton());
+//		signUpButton.setHorizontalTextPosition(SwingConstants.CENTER);
+//		signUpButton.setFont(de.font);
+//		signUpButton.setContentAreaFilled(false);
+//		signUpButton.setSize(90, 30);
+//		
+//		exitButton = new JButton("나가기", de.setButton());
+//		exitButton.setHorizontalTextPosition(SwingConstants.CENTER);
+//		exitButton.setFont(de.font);
+//		exitButton.setSize(90, 30);
+//		loginBottom.add(signUpButton);
+//		loginBottom.add(exitButton);
 		
 		loginPanel.add(loginTop);
 		loginPanel.add(loginBottom);
