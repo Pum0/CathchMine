@@ -8,12 +8,12 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame implements ActionListener {
 	MainLogin mainLogin = new MainLogin();
-	SignUp signUp = new SignUp();
 	Menu_Main mainMenu = new Menu_Main();
 	Menu_Single singleMenu = new Menu_Single();
 	Menu_Multi multiMenu = new Menu_Multi();
 	Menu_Option optionMenu = new Menu_Option();
-
+	SignUp signUp;
+	
 	public Main() {
 		setTitle("Catch-Mine");
 		setSize(400, 600);
@@ -23,8 +23,6 @@ public class Main extends JFrame implements ActionListener {
 
 		// 메뉴 추가 부분
 		add(mainLogin);
-		add(signUp);
-		signUp.setVisible(false);
 		add(mainMenu);
 		mainMenu.setVisible(false);
 		add(singleMenu);
@@ -38,7 +36,7 @@ public class Main extends JFrame implements ActionListener {
 		mainLogin.loginButton.addActionListener(this);
 		mainLogin.signUpButton.addActionListener(this);
 		mainLogin.exitButton.addActionListener(this);
-
+		
 		// 메뉴 패널
 		mainMenu.mainBtn[0].addActionListener(this);
 		mainMenu.mainBtn[1].addActionListener(this);
@@ -56,12 +54,6 @@ public class Main extends JFrame implements ActionListener {
 		multiMenu.multiButton[1].addActionListener(this);
 		multiMenu.multiButton[2].addActionListener(this);
 		
-		// 회원가입 패널
-		signUp.checkButton[0].addActionListener(this);
-		signUp.checkButton[1].addActionListener(this);
-		signUp.checkButton[2].addActionListener(this);
-		signUp.checkButton[3].addActionListener(this);
-		signUp.checkButton[4].addActionListener(this);
 		
 		setVisible(true);
 	}
@@ -76,21 +68,14 @@ public class Main extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == mainLogin.signUpButton) {
-			mainLogin.setVisible(false);
-			signUp.setVisible(true);
+			signUp = new SignUp();
 		}
 
 		if (e.getSource() == mainLogin.exitButton)
 			System.exit(0);
 		// -------------------------------------------------
 
-		// 회원가입 액션 리스너 -----------------------------
-		if (e.getSource() == signUp.checkButton[4]) {
-			signUp.setVisible(false);
-			mainLogin.setVisible(true);
-		}
-		// -------------------------------------------------
-
+		
 		// 메뉴 액션 리스너 --------------------------------
 		// Single Button
 		if (e.getSource() == mainMenu.mainBtn[0]) {
@@ -114,6 +99,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// ------------------------------------------------
 
+		
 		// 싱글 액션 리스너 --------------------------------
 		// EASY
 
@@ -128,6 +114,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// ------------------------------------------------
 
+		
 		// 멀티 액션 리스너 --------------------------------
 		//Back
 		if(e.getSource() == multiMenu.multiButton[2]) {
@@ -136,6 +123,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// ------------------------------------------------
 
+		
 		// 옵션 액션 리스너 --------------------------------
 		// ------------------------------------------------
 	}

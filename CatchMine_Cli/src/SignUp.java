@@ -1,6 +1,9 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class SignUp extends JPanel {
+public class SignUp extends JFrame implements ActionListener {
 	JTextField nameField, idField, nickField;
 	JPasswordField pwField;
 	JPasswordField pwCheckField;
@@ -12,46 +15,48 @@ public class SignUp extends JPanel {
 	JLabel idCheckLabel, nickCheckLabel, pwCheckLabel;
 	String[] idChekLabelString = { "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
 	String[] nickCheckLabelString = { "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
-	String[] pwCheckLabelString = { "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
+	String[] pwCheckLabelString = {"비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
 	JButton[] checkButton;
-	String[] buttonString = { "확인", "확인","확인", "제출","뒤로가기" };
+	String[] buttonString = { "확인", "확인","확인", "가입하기","뒤로가기" };
 
 	public SignUp() {
 
-		setSize(400, 600);
+		setSize(400, 450);
+		setResizable(false);
 		setLayout(null);
+		setLocationRelativeTo(null);
 
 		// ------------------------패널 설정,생성 ------------------------
 
 		namePanel = new JPanel(); // 이름 패널
 		namePanel.setLayout(null);
 		namePanel.setSize(400, 60);
-		namePanel.setLocation(0, 90);
+		namePanel.setLocation(0, 20);
 
 		idPanel = new JPanel(); // ID 패널
 		idPanel.setLayout(null);
 		idPanel.setSize(400, 60);
-		idPanel.setLocation(0, 150);
+		idPanel.setLocation(0, 80);
 
 		nickPanel = new JPanel(); // 닉네임 패널
 		nickPanel.setLayout(null);
 		nickPanel.setSize(400, 60);
-		nickPanel.setLocation(0, 210);
+		nickPanel.setLocation(0, 140);
 
 		pwPanel = new JPanel(); // 비밀번호 패널
 		pwPanel.setLayout(null);
 		pwPanel.setSize(400, 60);
-		pwPanel.setLocation(0, 270);
+		pwPanel.setLocation(0, 200);
 
 		pwCheckPanel = new JPanel(); // 비밀번호 확인 패널
 		pwCheckPanel.setLayout(null);
 		pwCheckPanel.setSize(400, 60);
-		pwCheckPanel.setLocation(0, 330);
+		pwCheckPanel.setLocation(0, 260);
 
 		submitPanel = new JPanel(); // 제출버튼 패널
 		submitPanel.setLayout(null);
 		submitPanel.setSize(400, 60);
-		submitPanel.setLocation(0, 390);
+		submitPanel.setLocation(0, 330);
 
 		// -----------------------라벨 생성--------------------------
 		signUpLabel = new JLabel[5];
@@ -68,7 +73,6 @@ public class SignUp extends JPanel {
 		nickCheckLabel.setSize(200, 25);
 
 		pwCheckLabel = new JLabel();
-	//	pwCheckLabel.setText(pwCheckLabelString[0]);
 		pwCheckLabel.setSize(200, 25);
 
 		// ------------------------텍스트 필드생성--------------------------
@@ -94,8 +98,8 @@ public class SignUp extends JPanel {
 		checkButton[0].setSize(60, 25);
 		checkButton[1].setSize(60, 25);
 		checkButton[2].setSize(60, 25);
-		checkButton[3].setSize(120, 50);
-		checkButton[4].setSize(120, 50);
+		checkButton[3].setSize(120, 40);
+		checkButton[4].setSize(120, 40);
 
 		// -----------------------이름 패널에 라벨,필드 추가-----------------
 		signUpLabel[0].setLocation(20, 10);
@@ -107,7 +111,7 @@ public class SignUp extends JPanel {
 		// -------------Id 패널에 라벨,필드,확인 라벨,버튼 추가--------------
 		signUpLabel[1].setLocation(40, 10);
 		idField.setLocation(100, 10);
-		checkButton[0].setLocation(320, 10);
+		checkButton[0].setLocation(310, 10);
 		idCheckLabel.setLocation(100, 35);
 
 		idPanel.add(signUpLabel[1]);
@@ -118,7 +122,7 @@ public class SignUp extends JPanel {
 		// -----------닉네임 패널에 라벨,필드,확인 라벨,버튼 추가------------
 		signUpLabel[2].setLocation(30, 10);
 		nickField.setLocation(100, 10);
-		checkButton[1].setLocation(320, 10);
+		checkButton[1].setLocation(310, 10);
 		nickCheckLabel.setLocation(100, 35);
 
 		nickPanel.add(signUpLabel[2]);
@@ -136,7 +140,7 @@ public class SignUp extends JPanel {
 		// ----------비밀번호 확인 패널에 라벨,필드,버튼,확인 라벨 추가-----------
 		signUpLabel[4].setLocation(10, 10);
 		pwCheckField.setLocation(100, 10);
-		checkButton[2].setLocation(320, 10);
+		checkButton[2].setLocation(310, 10);
 		pwCheckLabel.setLocation(100, 35);
 		
 
@@ -151,6 +155,7 @@ public class SignUp extends JPanel {
 		
 		submitPanel.add(checkButton[3]);
 		submitPanel.add(checkButton[4]);
+		
 		// ------------------------패널 추가----------------------------------
 
 		add(namePanel);
@@ -159,6 +164,48 @@ public class SignUp extends JPanel {
 		add(pwPanel);
 		add(pwCheckPanel);
 		add(submitPanel);
+		
+		// ---------------------- 리스너 추가 ----------------------------------
+		checkButton[0].addActionListener(this);
+		checkButton[1].addActionListener(this);
+		checkButton[2].addActionListener(this);
+		checkButton[3].addActionListener(this);
+		checkButton[4].addActionListener(this);
+		
+		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == checkButton[0]) {
+			
+		}
+		if(e.getSource() == checkButton[1]) {
+			
+		}
+		
+		// 비밀번호 확인 버튼
+		if(e.getSource() == checkButton[2]) {
+			if(pwField.getText().equals("") && pwCheckField.getText().equals(""))
+				pwCheckLabel.setText(pwCheckLabelString[0]);
+			else if(pwField.getText().equals(pwCheckField.getText()))
+				pwCheckLabel.setText(pwCheckLabelString[1]);
+			else
+				pwCheckLabel.setText(pwCheckLabelString[2]);
+				
+				
+		}
+		
+		// 가입하기 버튼
+		if(e.getSource() == checkButton[3]) {
+			
+		}
+		
+		// 뒤로가기 버튼
+		if(e.getSource() == checkButton[4]) {
+			this.setVisible(false);
+		}
+		
 	}
 
 
