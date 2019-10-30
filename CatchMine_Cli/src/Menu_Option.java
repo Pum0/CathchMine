@@ -16,6 +16,8 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 
 	private String musics[] = { "배경음 1", "배경음 2", "배경음 3", "배경음 4" };
 
+	Design de = new Design();
+	
 	public Menu_Option() {
 		setSize(400, 600);
 		setLayout(null);
@@ -26,6 +28,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
 		music.setSelectedIndex(0); // 맨 처음 선택된게 0번 인덱스
+		music.setBackground(Color.LIGHT_GRAY);
 		// music.addActionListener(this);
 		add(music);
 		music.setBounds(130, 100, 200, 20);
@@ -59,6 +62,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 			}
 		});
 
+		add(de.setBackground());
 	}
 
 }

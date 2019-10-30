@@ -5,8 +5,10 @@ public class Menu_Multi extends JPanel {
 	JTextArea chatArea;
 	JTextField chatField;
 	JButton[] multiButton;
-	String[] multiButtonString = { "방 생성하기", "방 입장하기", "나가기" };
+	String[] multiButtonString = { "방 생성하기", "방 입장하기", "뒤로가기" };
 	JPanel standbyPanel, buttonPanel, chatAreaPanel, chatPanel;
+
+	Design de = new Design();
 
 	public Menu_Multi() {
 		setSize(400, 600);
@@ -26,9 +28,9 @@ public class Menu_Multi extends JPanel {
 
 		chatAreaPanel = new JPanel();
 		chatAreaPanel.setLayout(null);
-		chatAreaPanel.setSize(400,225);
+		chatAreaPanel.setSize(400, 225);
 		chatAreaPanel.setLocation(0, 300);
-		
+
 		chatPanel = new JPanel();
 		chatPanel.setLayout(null);
 		chatPanel.setSize(400, 40);
@@ -36,62 +38,63 @@ public class Menu_Multi extends JPanel {
 
 		// -------------------------리스트 생성-----------------------------
 		standbyRoom = new JList();
-		standbyRoom.setSize(385, 245);
+		standbyRoom.setSize(375, 245);
 
 		UserList = new JList();
-		UserList.setSize(125, 220);
+		UserList.setSize(115, 220);
 
 		// --------------------------버튼 생성------------------------------
 		multiButton = new JButton[3];
 		for (int i = 0; i < multiButton.length; i++) {
-			multiButton[i] = new JButton(multiButtonString[i]);
+			multiButton[i] = new JButton(multiButtonString[i], de.setButton());
+			multiButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
+			multiButton[i].setFont(de.font);
+			if (i < 2) {
+				multiButton[i].setSize(190, 45);
+			} else {
+				multiButton[i].setSize(115, 30);
+			}
 		}
-		for(int i=0;i<2;i++) {
-			multiButton[i].setSize(190,45);
-		}
-		multiButton[2].setSize(125,30);
-		
-		
+
 		// ----------------------텍스트아리아 생성--------------------------
 		chatArea = new JTextArea();
 		chatArea.setSize(255, 220);
 		chatArea.setEditable(false);
-		
+
 		// -----------------------텍스트 필드 생성--------------------------
 		chatField = new JTextField(20);
-		chatField.setSize(255,30);
-		
+		chatField.setSize(255, 30);
+
 		// --------------------스탠바이패널 리스트 추가---------------------
 		standbyRoom.setLocation(5, 5);
 		standbyPanel.add(standbyRoom);
-		
+
 		// -------------------------버튼패널 버튼추가 ----------------------
-		multiButton[0].setLocation(5,5);
+		multiButton[0].setLocation(5, 5);
 		multiButton[1].setLocation(200, 5);
-		
+
 		buttonPanel.add(multiButton[0]);
 		buttonPanel.add(multiButton[1]);
-		
-		//--------------챗아리아패널 리스트, 텍스트 아리아 추가-------------
+
+		// --------------챗아리아패널 리스트, 텍스트 아리아 추가-------------
 		chatArea.setLocation(5, 5);
-		UserList.setLocation(265,5);
+		UserList.setLocation(265, 5);
 		chatAreaPanel.add(chatArea);
-		chatAreaPanel.add(UserList);		
-		
-		//---------------------챗패널 필드,버튼 추가-----------------------
+		chatAreaPanel.add(UserList);
+
+		// ---------------------챗패널 필드,버튼 추가-----------------------
 		chatField.setLocation(5, 5);
 		multiButton[2].setLocation(265, 5);
 		chatPanel.add(chatField);
 		chatPanel.add(multiButton[2]);
-		
-		//---------------패널 추가-----------------------------------------
-		
+
+		// ---------------패널 추가-----------------------------------------
+
 		add(standbyPanel);
 		add(buttonPanel);
 		add(chatAreaPanel);
 		add(chatPanel);
-		
-		this.repaint();
-		
+
+		add(de.setBackground());
 	}
 }

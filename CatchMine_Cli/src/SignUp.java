@@ -15,9 +15,11 @@ public class SignUp extends JFrame implements ActionListener {
 	JLabel idCheckLabel, nickCheckLabel, pwCheckLabel;
 	String[] idChekLabelString = { "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
 	String[] nickCheckLabelString = { "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
-	String[] pwCheckLabelString = {"비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
+	String[] pwCheckLabelString = { "비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
 	JButton[] checkButton;
-	String[] buttonString = { "확인", "확인","확인", "가입하기","뒤로가기" };
+	String[] buttonString = { "확인", "확인", "확인", "가입하기", "뒤로가기" };
+	
+	Design de = new Design();
 
 	public SignUp() {
 
@@ -77,29 +79,37 @@ public class SignUp extends JFrame implements ActionListener {
 
 		// ------------------------텍스트 필드생성--------------------------
 		nameField = new JTextField(10);
+		nameField.setFont(de.font);
 		nameField.setSize(200, 25);
 		idField = new JTextField(10);
+		idField.setFont(de.font);
 		idField.setSize(200, 25);
 		nickField = new JTextField(10);
+		nickField.setFont(de.font);
 		nickField.setSize(200, 25);
 
 		// ------------------------비밀번호 필드 생성 -----------------------
 		pwField = new JPasswordField(10);
+		pwField.setFont(de.font);
 		pwField.setSize(200, 25);
 		pwCheckField = new JPasswordField(10);
+		pwCheckField.setFont(de.font);
 		pwCheckField.setSize(200, 25);
 
 		// ------------------------버튼 생성 --------------------------------
 		checkButton = new JButton[5];
 		for (int i = 0; i < checkButton.length; i++) {
-			checkButton[i] = new JButton(buttonString[i]);
-
+			checkButton[i] = new JButton(buttonString[i], de.setButton());
+			checkButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
+			
+			if(i < 3) {
+				checkButton[i].setSize(60, 25);
+				checkButton[i].setFont(de.sfont);
+			} else {
+				checkButton[i].setSize(120, 40); 
+				checkButton[i].setFont(de.font);
+			}
 		}
-		checkButton[0].setSize(60, 25);
-		checkButton[1].setSize(60, 25);
-		checkButton[2].setSize(60, 25);
-		checkButton[3].setSize(120, 40);
-		checkButton[4].setSize(120, 40);
 
 		// -----------------------이름 패널에 라벨,필드 추가-----------------
 		signUpLabel[0].setLocation(20, 10);
@@ -142,7 +152,6 @@ public class SignUp extends JFrame implements ActionListener {
 		pwCheckField.setLocation(100, 10);
 		checkButton[2].setLocation(310, 10);
 		pwCheckLabel.setLocation(100, 35);
-		
 
 		pwCheckPanel.add(signUpLabel[4]);
 		pwCheckPanel.add(pwCheckField);
@@ -151,11 +160,11 @@ public class SignUp extends JFrame implements ActionListener {
 
 		// ------------------제출버튼 패널에 버튼 추가-----------------------
 		checkButton[3].setLocation(70, 10);
-		checkButton[4].setLocation(200,10);
-		
+		checkButton[4].setLocation(200, 10);
+
 		submitPanel.add(checkButton[3]);
 		submitPanel.add(checkButton[4]);
-		
+
 		// ------------------------패널 추가----------------------------------
 
 		add(namePanel);
@@ -164,49 +173,56 @@ public class SignUp extends JFrame implements ActionListener {
 		add(pwPanel);
 		add(pwCheckPanel);
 		add(submitPanel);
-		
+
 		// ---------------------- 리스너 추가 ----------------------------------
 		checkButton[0].addActionListener(this);
 		checkButton[1].addActionListener(this);
 		checkButton[2].addActionListener(this);
 		checkButton[3].addActionListener(this);
 		checkButton[4].addActionListener(this);
-		
+
 		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == checkButton[0]) {
-			
+		if (e.getSource() == checkButton[0]) {
+
 		}
-		if(e.getSource() == checkButton[1]) {
-			
+		if (e.getSource() == checkButton[1]) {
+
 		}
-		
+
 		// 비밀번호 확인 버튼
-		if(e.getSource() == checkButton[2]) {
-			if(pwField.getText().equals("") && pwCheckField.getText().equals(""))
+		if (e.getSource() == checkButton[2]) {
+			if (pwField.getText().equals("") && pwCheckField.getText().equals(""))
 				pwCheckLabel.setText(pwCheckLabelString[0]);
-			else if(pwField.getText().equals(pwCheckField.getText()))
+			else if (pwField.getText().equals(pwCheckField.getText()))
 				pwCheckLabel.setText(pwCheckLabelString[1]);
 			else
 				pwCheckLabel.setText(pwCheckLabelString[2]);
-				
-				
+
 		}
-		
+
 		// 가입하기 버튼
-		if(e.getSource() == checkButton[3]) {
-			
+		if (e.getSource() == checkButton[3]) {
+			reset();
 		}
-		
+
 		// 뒤로가기 버튼
-		if(e.getSource() == checkButton[4]) {
+		if (e.getSource() == checkButton[4]) {
 			this.setVisible(false);
+			reset();
 		}
-		
 	}
 
+	// 가입하기나 뒤로하기 입력시 초기화
+	public void reset() {
+		nameField.setText("");
+		idField.setText("");
+		nickField.setText("");
+		pwField.setText("");
+		pwCheckField.setText("");
+	}
 
 }

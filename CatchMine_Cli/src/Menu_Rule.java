@@ -1,9 +1,13 @@
+import javax.swing.JPanel;
 
-public class Menu_Rule {
+public class Menu_Rule extends JPanel{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	Design de = new Design();
+	
+	public Menu_Rule() {
+		setSize(400, 600);
+		setLayout(null);
+		
+		add(de.setBackground());
 	}
-
 }
