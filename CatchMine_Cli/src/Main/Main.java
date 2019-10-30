@@ -38,6 +38,10 @@ public class Main extends JFrame implements ActionListener {
 
 		// 메뉴 추가 부분
 		add(mainLogin);
+		
+		// 메인 배경음악 재생
+		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic.mp3", true);
+		backgroundMusic.start();
 
 		signUp.setVisible(false);
 
