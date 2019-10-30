@@ -1,7 +1,6 @@
 package Main;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,7 +13,7 @@ public class MainLogin extends JPanel {
 //	JButton loginButton, exitButton, signUpButton;
 	
 	JButton loginButton[];
-	private String button[] = { "1", "SingUp", "나가기" };
+	private String button[] = {"", "회원가입", "나가기" };
 	
 	JLabel idLabel = new JLabel("ID : ");
 	JLabel pwLabel = new JLabel("PW : ");
@@ -58,8 +57,7 @@ public class MainLogin extends JPanel {
 		pwText.setLocation(40, 30);
 		
 		loginButton = new JButton[3];
-		loginButton[0] = new JButton(button[0], de.setButton());
-		loginButton[0].setIcon(de.setButton());
+		loginButton[0] = new JButton(de.setButton());
 		loginButton[0].setSize(40, 45);
 		loginButton[0].setLocation(150, 5);
 		
@@ -80,7 +78,7 @@ public class MainLogin extends JPanel {
 		// loginButton[0]은 사이즈랑 설정 달라서 따로 뺐음
 		for(int i = 1 ; i < loginButton.length ; i++) {
 			loginButton[i] = new JButton(button[i], de.setButton());
-			loginButton[i].setHorizontalAlignment(SwingConstants.CENTER);
+			loginButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			loginButton[i].setFont(de.font);
 			loginButton[i].setSize(90, 30);
 			loginBottom.add(loginButton[i]);

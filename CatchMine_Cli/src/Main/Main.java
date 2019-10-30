@@ -39,7 +39,7 @@ public class Main extends JFrame implements ActionListener {
 		// 메뉴 추가 부분
 		add(mainLogin);
 		signUp.setVisible(false);
-		
+
 		// 메인 배경음악 재생
 		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic2.mp3", true);
 		backgroundMusic.start();
@@ -56,27 +56,27 @@ public class Main extends JFrame implements ActionListener {
 		optionMenu.setVisible(false);
 
 		// 로그인 패널
-		for (int i = 0 ; i < mainLogin.loginButton.length ; i++) {
+		for (int i = 0; i < mainLogin.loginButton.length; i++) {
 			mainLogin.loginButton[i].addActionListener(this);
 		}
 
 		// 회원가입 패널
-		for (int i = 0 ; i < signUp.checkButton.length ; i++) {
+		for (int i = 0; i < signUp.checkButton.length; i++) {
 			signUp.checkButton[i].addActionListener(this);
 		}
 
 		// 메뉴 패널
-		for (int i = 0 ; i < mainMenu.mainBtn.length ; i++) {
+		for (int i = 0; i < mainMenu.mainBtn.length; i++) {
 			mainMenu.mainBtn[i].addActionListener(this);
 		}
 
 		// 싱글 패널
-		for (int i = 0 ; i < singleMenu.modeButton.length ; i++) {
+		for (int i = 0; i < singleMenu.modeButton.length; i++) {
 			singleMenu.modeButton[i].addActionListener(this);
 		}
 
 		// 멀티 패널
-		for (int i = 0 ; i < multiMenu.multiButton.length ; i++) {
+		for (int i = 0; i < multiMenu.multiButton.length; i++) {
 			multiMenu.multiButton[i].addActionListener(this);
 		}
 
@@ -87,19 +87,13 @@ public class Main extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// 로그인 액션 리스너 -------------------------------
-		if (e.getSource() == mainLogin.loginButton || LoginCheck()) {
+		if (e.getSource() == mainLogin.loginButton[0] || LoginCheck()) {
 			mainLogin.setVisible(false);
 			mainMenu.setVisible(true);
 		}
-
 		// 회원 가입 창
 		if (e.getSource() == mainLogin.loginButton[1]) {
-			try {
-				conn = DriverManager.getConnection(url, id, pass);
-				System.out.println("연결 성공");
-			} catch (SQLException ee) {
-				System.out.println("Insert Connection Error : " + ee);
-			}
+			ConnectSQL();
 			signUp.setVisible(true);
 		}
 
@@ -145,6 +139,7 @@ public class Main extends JFrame implements ActionListener {
 		}
 		// 뒤로가기 버튼
 		if (e.getSource() == signUp.checkButton[4]) {
+			disConnectSQL();
 			signUp.setVisible(false);
 			signUp.reset();
 		}
@@ -222,33 +217,37 @@ public class Main extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			System.out.println("insert Error : " + e);
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException sqle) {
-
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-					System.out.println("연결 종료");
-				} catch (SQLException sqle) {
-
-				}
-			}
+			disConnectSQL();
 		}
+	}
+
+	public void ConnectSQL() {
+		try {
+			conn = DriverManager.getConnection(url, id, pass);
+			System.out.println("연결 성공");
+		} catch (SQLException ee) {
+			System.out.println("Insert Connection Error : " + ee);
+		}
+	}
+	
+	public void disConnectSQL() {
+		if (pstmt != null)
+			try {
+				pstmt.close();
+			} catch (SQLException sqle) {
+			} // PreparedStatement 객체 해제
+		
+		if (conn != null)
+			try {
+				conn.close();
+				System.out.println("연결 종료");
+			} catch (SQLException sqle) {
+			} // Connection 해제
+
 	}
 
 	public static void main(String[] args) {
 		new Main();
 
-//		try {
-//			conn = DriverManager.getConnection(url, id, pass);
-//			System.out.println("연결 성공");
-//
-//		} catch (SQLException ee) {
-//			System.err.println("SQL Error = " + ee.toString());
-//		}
 	}
 }
