@@ -2,6 +2,9 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,7 +13,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-public class Main extends JFrame implements ActionListener {
+public class Main extends JFrame implements ActionListener, KeyListener {
 	MainLogin mainLogin = new MainLogin();
 	Menu_Main mainMenu = new Menu_Main();
 	Menu_Single singleMenu = new Menu_Single();
@@ -57,11 +60,18 @@ public class Main extends JFrame implements ActionListener {
 		for (int i = 0; i < mainLogin.loginButton.length; i++) {
 			mainLogin.loginButton[i].addActionListener(this);
 		}
+		mainLogin.idText.addKeyListener(this);
+		mainLogin.pwText.addKeyListener(this);
 
 		// 회원가입 패널
 		for (int i = 0; i < signUp.checkButton.length; i++) {
 			signUp.checkButton[i].addActionListener(this);
 		}
+		signUp.nameField.addKeyListener(this);
+		signUp.idField.addKeyListener(this);
+		signUp.pwField.addKeyListener(this);
+		signUp.pwCheckField.addKeyListener(this);
+		signUp.nickField.addKeyListener(this);
 
 		// 메뉴 패널
 		for (int i = 0; i < mainMenu.mainBtn.length; i++) {
@@ -207,7 +217,8 @@ public class Main extends JFrame implements ActionListener {
 		// ------------------------------------------------
 	}
 
-	// SQL --------------------------------------------------------------------------------------
+	// SQL
+	// --------------------------------------------------------------------------------------
 	public boolean LoginCheck() {
 		if (!mainLogin.idText.getText().isEmpty() && !mainLogin.idText.getText().isEmpty())
 			try {
@@ -293,6 +304,54 @@ public class Main extends JFrame implements ActionListener {
 			} // Connection 해제
 	}
 // -------------------------------------------------------------------
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+//		System.out.println("keyType : "+ e.getKeyChar());
+//		System.out.println(e.getKeyCode());
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getSource() == mainLogin.idText && e.getKeyCode()==10)
+			mainLogin.pwText.grabFocus();
+		
+		if(e.getSource() == mainLogin.pwText && e.getKeyCode()==10)
+			mainLogin.loginButton[0].doClick();
+		
+		// 회원가입 프레임 부분 -------------------------------------------
+		// 이름 필드
+		if(e.getSource() == signUp.nameField && e.getKeyCode()==10)
+			signUp.idField.grabFocus();
+		// ID 필드
+		if(e.getSource() == signUp.idField && e.getKeyCode()==10) {
+			signUp.checkButton[0].doClick();
+			if(signUp.idCheckLabel.getText().equals(signUp.idChekLabelString[1]))
+				signUp.nickField.grabFocus();
+		}
+		// 닉네임 필드
+		if(e.getSource() == signUp.nickField && e.getKeyCode()==10) {
+			signUp.checkButton[1].doClick();
+			if(signUp.nickCheckLabel.getText().equals(signUp.nickCheckLabelString[1]))
+				signUp.pwField.grabFocus();
+		}
+		// PW 필드
+		if(e.getSource() == signUp.pwField && e.getKeyCode()==10)
+			signUp.pwCheckField.grabFocus();
+		// PW 확인 필드
+		if(e.getSource() == signUp.pwCheckField && e.getKeyCode() == 10)
+			signUp.checkButton[2].doClick();
+		System.out.println("keypressed : " + e.getKeyChar());
+		System.out.println(e.getKeyCode());
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+//		System.out.println("keyReleased : "+ e.getKeyChar());
+//		System.out.println(e.getKeyCode());
+
+	}
 
 	public static void main(String[] args) {
 		new Main();
