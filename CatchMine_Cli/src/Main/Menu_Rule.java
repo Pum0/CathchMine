@@ -14,6 +14,19 @@ public class Menu_Rule extends JPanel {
 		setSize(400, 600);
 		setLayout(null);
 
+//		icon = new ImageIcon("src/Main/rule_Image/4.png");
+//		img = icon.getImage();
+//
+//		jp = new JPanel() {
+//			public void drawGamePanel() {
+//				img = Toolkit.getDefaultToolkit().createImage("src/Main/rule_Image/4.png");
+//				jp.drawImage(img,0,0,null);
+//			}
+//		};
+//
+//		jp.setBounds(0, 0, 100, 100);
+//		add(jp);
+
 		add(de.setBackground());
 	}
 }
