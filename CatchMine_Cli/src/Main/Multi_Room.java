@@ -44,26 +44,26 @@ public class Multi_Room extends JPanel {
       // 유저 목록 라벨
       userLabel = new JLabel("사용자");
       userLabel.setSize(80, 30);
-      userLabel.setLocation(295, 50);
+      userLabel.setLocation(290, 50);
       userLabel.setFont(de.roomLabelFont);
       userLabel.setForeground(Color.white);
       add(userLabel);
 
       // 채팅창
       chatArea = new JTextArea();
-      chatArea.setSize(250, 420);
+      chatArea.setSize(245, 420);
       chatArea.setLocation(10, 90);
       add(chatArea);
       
       // 입장한 유저 목록
       userList = new JList();
       userList.setSize(115, 380);
-      userList.setLocation(270, 90);
+      userList.setLocation(265, 90);
       add(userList);
 
       // 채팅 입력창
       chatField = new JTextField(20);
-      chatField.setSize(250, 30);
+      chatField.setSize(245, 30);
       chatField.setLocation(10, 520);
       add(chatField);
 
@@ -76,8 +76,8 @@ public class Multi_Room extends JPanel {
          multiRoomButton[i].setSize(115, 30);
          add(multiRoomButton[i]);
       }
-      multiRoomButton[0].setLocation(270, 480);
-      multiRoomButton[1].setLocation(270, 520);
+      multiRoomButton[0].setLocation(265, 480);
+      multiRoomButton[1].setLocation(265, 520);
 
       add(de.setBackground());
    }

@@ -70,11 +70,13 @@ public class Menu_Multi extends JPanel {
 		userTable.getTableHeader().setReorderingAllowed(false); // 헤드 이동(드래그)불가
 		userTable.setDragEnabled(false); // 선택 드래그 불가
 		userTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		// 싱글 선택 모드
 		userTable.setShowGrid(false);
 		userTable.getColumnModel().getColumn(0).setPreferredWidth(180);
 		userTable.setRowHeight(20);
 		userSPane.getViewport().setBackground(Color.white);
+		
 		// 테이블 내용 가운데 정렬하기
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);

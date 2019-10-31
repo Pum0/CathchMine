@@ -3,41 +3,40 @@ package Main;
 import javax.swing.*;
 
 public class Create_Room extends JFrame {
-   JLabel roomNum;
-   JTextField roomField;
-   JButton okButton;
-   
-   Design de = new Design();
-   
-   public Create_Room() {
-      setTitle("방 생성");
-      setSize(400, 250);
-      setResizable(false);
-      setLayout(null);
-      setLocationRelativeTo(null);
-      
-      //생성
-      roomNum = new JLabel("방 제목을 입력하세요!");
-      roomField = new JTextField(20);
-      okButton = new JButton("생성");
-      
-      roomNum.setSize(300, 30);
-      roomNum.setFont(de.roomLabelFont);   //폰트지정
-      
-      roomField.setSize(300, 30);
-      okButton.setSize(80, 50);
-      okButton.setFont(de.roomLabelFont);
-      
-      //위치지정
-      roomNum.setLocation(100, 30);
-      roomField.setLocation(50, 100);
-      okButton.setLocation(160, 150);
-      
-      add(roomNum);
-      add(roomField);
-      add(okButton);
-      
-      setVisible(true);
-   }
+	JLabel roomNum;
+	JTextField roomField;
+	JButton okButton;
 
+	Design de = new Design();
+
+	public Create_Room() {
+		setTitle("방 생성");
+		setSize(350, 200);
+		setResizable(false);
+		setLayout(null);
+		setLocationRelativeTo(null);
+
+		// 생성
+		roomNum = new JLabel("방 제목을 입력하세요!");
+		roomField = new JTextField(20);
+		okButton = new JButton("생성");
+
+		roomNum.setSize(300, 30);
+		roomNum.setFont(de.roomLabelFont); // 폰트지정
+
+		roomField.setSize(200, 30);
+		okButton.setSize(80, 30);
+		okButton.setFont(de.roomLabelFont);
+
+		// 위치지정
+		roomNum.setLocation(65, 20);
+		roomField.setLocation(65, 60);
+		okButton.setLocation(120, 100);
+
+		add(roomNum);
+		add(roomField);
+		add(okButton);
+
+		setVisible(false);
+	}
 }

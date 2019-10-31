@@ -21,6 +21,8 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 	Menu_Rule ruleMenu = new Menu_Rule();
 	Menu_Option optionMenu = new Menu_Option();
 	SignUp signUp = new SignUp();
+	Create_Room createRoom = new Create_Room();
+	Multi_Room multiRoom = new Multi_Room();
 
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
@@ -55,6 +57,8 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 		ruleMenu.setVisible(false);
 		add(optionMenu);
 		optionMenu.setVisible(false);
+		add(multiRoom);
+		multiRoom.setVisible(false);
 
 		// 로그인 패널
 		for (int i = 0; i < mainLogin.loginButton.length; i++) {
@@ -90,6 +94,14 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 
 		// 게임 룰 패널
 		ruleMenu.backButton.addActionListener(this);
+
+		// 게임 생성 프레임
+		createRoom.roomField.addKeyListener(this);
+		createRoom.okButton.addActionListener(this);
+
+		// 멀티 방 패널
+		for (int i = 0; i < multiRoom.multiRoomButton.length; i++)
+			multiRoom.multiRoomButton[i].addActionListener(this);
 
 		setVisible(true);
 	}
@@ -209,10 +221,30 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 		// ------------------------------------------------
 
 		// 멀티 액션 리스너 --------------------------------
+		// 방 생성하기 버튼
+		if (e.getSource() == multiMenu.multiButton[0])
+			createRoom.setVisible(true);
+
 		// Back
 		if (e.getSource() == multiMenu.multiButton[2]) {
 			multiMenu.setVisible(false);
 			mainMenu.setVisible(true);
+		}
+		// ------------------------------------------------
+
+		// 방 생성 리스너 ----------------------------------
+		if (e.getSource() == createRoom.okButton) {
+			createRoom.setVisible(false);
+			multiMenu.setVisible(false);
+			multiRoom.setVisible(true);
+			createRoom.roomField.setText("");
+		}
+		// ------------------------------------------------
+
+		// 멀티 방 리스너 ----------------------------------
+		if (e.getSource() == multiRoom.multiRoomButton[1]) {
+			multiRoom.setVisible(false);
+			multiMenu.setVisible(true);
 		}
 		// ------------------------------------------------
 
