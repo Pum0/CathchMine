@@ -63,6 +63,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -245,7 +246,19 @@ public class mainTest extends StateBasedGame {
 
 			// 싱글 액션 리스너 --------------------------------
 			// EASY
+			if (e.getSource() == singleMenu.modeButton[0]) {
+				
+				try {
+					AppGameContainer appgc;
+					appgc = new AppGameContainer(new mainTest("Catch-Mine"));
+					appgc.setDisplayMode(Screen_Width, Screen_Height, false);
+					appgc.setTargetFrameRate(240);
+					appgc.start();
 
+				} catch (SlickException ex) {
+					ex.printStackTrace();
+				}
+			}
 			// NORMAL
 
 			// HARD
