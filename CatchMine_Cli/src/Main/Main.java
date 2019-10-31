@@ -88,6 +88,9 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 			multiMenu.multiButton[i].addActionListener(this);
 		}
 
+		// 게임 룰 패널
+		ruleMenu.backButton.addActionListener(this);
+
 		setVisible(true);
 	}
 
@@ -213,6 +216,14 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 		}
 		// ------------------------------------------------
 
+		// 게임 방법 리스너 --------------------------------
+		if (e.getSource() == ruleMenu.backButton) {
+			ruleMenu.setVisible(false);
+			mainMenu.setVisible(true);
+
+		}
+		// ------------------------------------------------
+
 		// 옵션 액션 리스너 --------------------------------
 		// ------------------------------------------------
 	}
@@ -313,33 +324,33 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getSource() == mainLogin.idText && e.getKeyCode()==10)
+		if (e.getSource() == mainLogin.idText && e.getKeyCode() == 10)
 			mainLogin.pwText.grabFocus();
-		
-		if(e.getSource() == mainLogin.pwText && e.getKeyCode()==10)
+
+		if (e.getSource() == mainLogin.pwText && e.getKeyCode() == 10)
 			mainLogin.loginButton[0].doClick();
-		
+
 		// 회원가입 프레임 부분 -------------------------------------------
 		// 이름 필드
-		if(e.getSource() == signUp.nameField && e.getKeyCode()==10)
+		if (e.getSource() == signUp.nameField && e.getKeyCode() == 10)
 			signUp.idField.grabFocus();
 		// ID 필드
-		if(e.getSource() == signUp.idField && e.getKeyCode()==10) {
+		if (e.getSource() == signUp.idField && e.getKeyCode() == 10) {
 			signUp.checkButton[0].doClick();
-			if(signUp.idCheckLabel.getText().equals(signUp.idChekLabelString[1]))
+			if (signUp.idCheckLabel.getText().equals(signUp.idChekLabelString[1]))
 				signUp.nickField.grabFocus();
 		}
 		// 닉네임 필드
-		if(e.getSource() == signUp.nickField && e.getKeyCode()==10) {
+		if (e.getSource() == signUp.nickField && e.getKeyCode() == 10) {
 			signUp.checkButton[1].doClick();
-			if(signUp.nickCheckLabel.getText().equals(signUp.nickCheckLabelString[1]))
+			if (signUp.nickCheckLabel.getText().equals(signUp.nickCheckLabelString[1]))
 				signUp.pwField.grabFocus();
 		}
 		// PW 필드
-		if(e.getSource() == signUp.pwField && e.getKeyCode()==10)
+		if (e.getSource() == signUp.pwField && e.getKeyCode() == 10)
 			signUp.pwCheckField.grabFocus();
 		// PW 확인 필드
-		if(e.getSource() == signUp.pwCheckField && e.getKeyCode() == 10)
+		if (e.getSource() == signUp.pwCheckField && e.getKeyCode() == 10)
 			signUp.checkButton[2].doClick();
 		System.out.println("keypressed : " + e.getKeyChar());
 		System.out.println(e.getKeyCode());

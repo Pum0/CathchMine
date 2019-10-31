@@ -93,9 +93,9 @@ public class Menu_Multi extends JPanel {
 
 		// 사이즈 설정
 		roomLabel.setSize(80, 30);
-		standbyRoom.setSize(375, 165);
-		multiButton[0].setSize(185, 45);
-		multiButton[1].setSize(185, 45);
+		standbyRoom.setSize(370, 165);
+		multiButton[0].setSize(180, 45);
+		multiButton[1].setSize(180, 45);
 		chatLabel.setSize(80, 30);
 		userLabel.setSize(80, 30);
 		chatArea.setSize(250, 210);
@@ -112,9 +112,9 @@ public class Menu_Multi extends JPanel {
 		chatLabel.setLocation(105, 275);
 		userLabel.setLocation(295, 275);
 		chatArea.setLocation(10, 310);
-		userSPane.setLocation(270, 310);
-		chatField.setLocation(10, 530);
-		multiButton[2].setLocation(270, 530);
+		userSPane.setLocation(265, 310);
+		chatField.setLocation(10, 525);
+		multiButton[2].setLocation(265, 525);
 
 		chatArea.setEditable(false); // 채팅 에리아 에디트 금지
 
