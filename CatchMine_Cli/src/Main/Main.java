@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-public class Main extends JFrame implements ActionListener, KeyListener {
+public class Main extends JFrame implements ActionListener, KeyListener, MouseListener {
 	MainLogin mainLogin = new MainLogin();
 	Menu_Main mainMenu = new Menu_Main();
 	Menu_Single singleMenu = new Menu_Single();
@@ -85,6 +87,8 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 		// 싱글 패널
 		for (int i = 0; i < singleMenu.modeButton.length; i++) {
 			singleMenu.modeButton[i].addActionListener(this);
+			if (i < 3)
+				singleMenu.modeButton[i].addMouseListener(this);
 		}
 
 		// 멀티 패널
@@ -191,6 +195,7 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 		}
 		// Multi button
 		if (e.getSource() == mainMenu.mainBtn[1]) {
+			ConnectSQL();
 			mainMenu.setVisible(false);
 			multiMenu.setVisible(true);
 		}
@@ -227,6 +232,7 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 
 		// Back
 		if (e.getSource() == multiMenu.multiButton[2]) {
+			disConnectSQL();
 			multiMenu.setVisible(false);
 			mainMenu.setVisible(true);
 		}
@@ -399,5 +405,36 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 	public static void main(String[] args) {
 		new Main();
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		for (int i = 0; i < singleMenu.modeButton.length-1; i++)
+			if (e.getSource() == singleMenu.modeButton[i]) {
+				singleMenu.modeButton[i].setText(singleMenu.modeEn[i]);
+			}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		for (int i = 0; i < singleMenu.modeButton.length-1; i++)
+			if (e.getSource() == singleMenu.modeButton[i]) {
+				singleMenu.modeButton[i].setText(singleMenu.mode[i]);
+			}
 	}
 }

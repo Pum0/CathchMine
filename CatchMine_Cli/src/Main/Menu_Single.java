@@ -5,7 +5,8 @@ import javax.swing.SwingConstants;
 
 public class Menu_Single extends JPanel {
 	JButton modeButton[];
-	private String[] mode = { "쉬움", "보통", "어려움", "뒤로가기" };
+	public String[] mode = { "쉬움", "보통", "어려움", "뒤로가기" };
+	public String[] modeEn = { "폭탄 30개", "폭탄 50개", "폭탄 70개", "뒤로가기" };
 
 	Design de = new Design();
 	
