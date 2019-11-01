@@ -1,6 +1,5 @@
 package Main;
 
-
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -12,13 +11,21 @@ import javax.swing.SwingConstants;
 
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
-	JLabel backMoveimg;
-	ImageIcon icon;
-	Image img;
+	JLabel backMoveLabel, backMoveKeyLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel;
+	ImageIcon backMoveIcon, backMoveKeyIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon;
+	Image backMoveImg, backMoveKey;
 	JButton backButton;
 	Design de = new Design();
 
 	public Menu_Rule() {
+
+		// img = icon.getImage();
+		// backMoveimg = new JLabel() {
+		// public void paint(Graphics g) {
+		// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		// }
+		// };
+
 		setSize(400, 600);
 		setLayout(null);
 
@@ -30,21 +37,34 @@ public class Menu_Rule extends JPanel {
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setFont(de.font);
 		backButton.setBounds(140, 460, 100, 40);
+
+		backMoveIcon = new ImageIcon("image/gif/Back_Move.gif");
+		backMoveLabel = new JLabel(backMoveIcon);
+		backMoveLabel.setBounds(40, 0, 40, 40);
 		
-		icon = new ImageIcon("image/gif/1P_Back_Move.gif");
-		backMoveimg = new JLabel(icon);
-//		img = icon.getImage();
-//		backMoveimg = new JLabel() {
-//			public void paint(Graphics g) {
-//				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-//			}
-//		};
-		backMoveimg.setBounds(0, 0, 40, 40);
+		leftMoveIcon = new ImageIcon("image/gif/Left_Move.gif");
+		leftMoveLabel = new JLabel(leftMoveIcon);
+		leftMoveLabel.setBounds(0, 45, 40, 40);
 		
+		frontMoveIcon = new ImageIcon("image/gif/Front_Move.gif");
+		frontMoveLabel = new JLabel(frontMoveIcon);
+		frontMoveLabel.setBounds(40, 45, 40, 40);
 		
+		rightMoveIcon = new ImageIcon("image/gif/Right_Move.gif");
+		rightMoveLabel = new JLabel(rightMoveIcon);
+		rightMoveLabel.setBounds(80, 45, 40, 40);
+
+		backMoveKeyIcon = new ImageIcon("image/W_Key.png");
+		backMoveKeyLabel = new JLabel(backMoveKeyIcon);
+		backMoveKeyLabel.setBounds(200, 0, 40, 40);
+
 		add(backButton);
 		add(mainPanel);
-		mainPanel.add(backMoveimg);
+		mainPanel.add(backMoveLabel);
+		mainPanel.add(leftMoveLabel);
+		mainPanel.add(frontMoveLabel);
+		mainPanel.add(rightMoveLabel);
+		mainPanel.add(backMoveKeyLabel);
 		add(de.setBackground());
 	}
 }
