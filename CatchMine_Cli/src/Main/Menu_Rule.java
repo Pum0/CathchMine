@@ -11,8 +11,8 @@ import javax.swing.SwingConstants;
 
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
-	JLabel backMoveLabel, backMoveKeyLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel;
-	ImageIcon backMoveIcon, backMoveKeyIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon;
+	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, KeyLabel;
+	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, KeyIcon;
 	Image backMoveImg, backMoveKey;
 	JButton backButton;
 	Design de = new Design();
@@ -41,22 +41,22 @@ public class Menu_Rule extends JPanel {
 		backMoveIcon = new ImageIcon("image/gif/Back_Move.gif");
 		backMoveLabel = new JLabel(backMoveIcon);
 		backMoveLabel.setBounds(40, 0, 40, 40);
-		
+
 		leftMoveIcon = new ImageIcon("image/gif/Left_Move.gif");
 		leftMoveLabel = new JLabel(leftMoveIcon);
 		leftMoveLabel.setBounds(0, 45, 40, 40);
-		
+
 		frontMoveIcon = new ImageIcon("image/gif/Front_Move.gif");
 		frontMoveLabel = new JLabel(frontMoveIcon);
 		frontMoveLabel.setBounds(40, 45, 40, 40);
-		
+
 		rightMoveIcon = new ImageIcon("image/gif/Right_Move.gif");
 		rightMoveLabel = new JLabel(rightMoveIcon);
 		rightMoveLabel.setBounds(80, 45, 40, 40);
 
-		backMoveKeyIcon = new ImageIcon("image/W_Key.png");
-		backMoveKeyLabel = new JLabel(backMoveKeyIcon);
-		backMoveKeyLabel.setBounds(200, 0, 40, 40);
+		KeyIcon = new ImageIcon("image/moveKey.png");
+		KeyLabel = new JLabel(KeyIcon);
+		KeyLabel.setBounds(180, 0, 120, 120);
 
 		add(backButton);
 		add(mainPanel);
@@ -64,7 +64,7 @@ public class Menu_Rule extends JPanel {
 		mainPanel.add(leftMoveLabel);
 		mainPanel.add(frontMoveLabel);
 		mainPanel.add(rightMoveLabel);
-		mainPanel.add(backMoveKeyLabel);
+		mainPanel.add(KeyLabel);
 		add(de.setBackground());
 	}
 }
