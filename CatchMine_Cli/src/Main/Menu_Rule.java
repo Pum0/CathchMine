@@ -46,23 +46,23 @@ public class Menu_Rule extends JPanel {
 
 		backMoveIcon = new ImageIcon("image/gif/Back_Move.gif");
 		backMoveLabel = new JLabel(backMoveIcon);
-		backMoveLabel.setBounds(50, 10, 40, 40);
+		backMoveLabel.setBounds(60, 20, 40, 40);
 
 		leftMoveIcon = new ImageIcon("image/gif/Left_Move.gif");
 		leftMoveLabel = new JLabel(leftMoveIcon);
-		leftMoveLabel.setBounds(10, 55, 40, 40);
+		leftMoveLabel.setBounds(20, 65, 40, 40);
 
 		frontMoveIcon = new ImageIcon("image/gif/Front_Move.gif");
 		frontMoveLabel = new JLabel(frontMoveIcon);
-		frontMoveLabel.setBounds(50, 55, 40, 40);
+		frontMoveLabel.setBounds(60, 65, 40, 40);
 
 		rightMoveIcon = new ImageIcon("image/gif/Right_Move.gif");
 		rightMoveLabel = new JLabel(rightMoveIcon);
-		rightMoveLabel.setBounds(90, 55, 40, 40);
+		rightMoveLabel.setBounds(100, 65, 40, 40);
 
 		KeyIcon = new ImageIcon("image/moveKey.png");
 		KeyLabel = new JLabel(KeyIcon);
-		KeyLabel.setBounds(170, 10, 120, 120);
+		KeyLabel.setBounds(160, 20, 120, 120);
 
 		add(backButton);
 		add(mainPanel);

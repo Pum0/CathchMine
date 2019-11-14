@@ -118,15 +118,15 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 		// 로그인 액션 리스너 -------------------------------
 		if (e.getSource() == mainLogin.loginButton[0]) {
-//			ConnectSQL();
-//			if (LoginCheck()) {
+			ConnectSQL();
+			if (LoginCheck()) {
 				mainLogin.setVisible(false);
 				mainMenu.setVisible(true);
-//				disConnectSQL();
-//			} else {
-//				mainLogin.pwText.setText("");
-//				disConnectSQL();
-//			}
+				disConnectSQL();
+			} else {
+				mainLogin.pwText.setText("");
+				disConnectSQL();
+			}
 		}
 		// 회원 가입 창
 		if (e.getSource() == mainLogin.loginButton[1]) {
