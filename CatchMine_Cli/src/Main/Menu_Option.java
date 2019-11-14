@@ -30,28 +30,26 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
 		music.setSelectedIndex(0); // 맨 처음 선택된게 0번 인덱스
-		music.setBackground(Color.LIGHT_GRAY);
-		// music.addActionListener(this);
+//		music.setBackground(Color.LIGHT_GRAY);
 		add(music);
 		music.setBounds(130, 100, 200, 20);
 
 		musicVolume = new JSlider(0, 100); // 슬라이더
 		musicVolume.setMajorTickSpacing(50); // 큰 눈금 간격
-		// musicVolume.setMinorTickSpacing(1); // 작은 눈금 간격
 		musicVolume.setPaintTicks(true); // 눈금 표시
 		musicVolume.setPaintLabels(true); // 값을 레이블로 표시
 		add(musicVolume);
-		musicVolume.setBounds(45, 120, 300, 50);
+		musicVolume.setBounds(45, 140, 300, 50);
 
 		volumeValue = new JLabel("50"); // 볼륨값 표시
 		volumeValue.setForeground(Color.white);
-		volumeValue.setBounds(350, 80, 100, 100);
+		volumeValue.setBounds(350, 100, 100, 100);
 		add(volumeValue);
 		
 		box = new JPanel() {	//패널에다가 페인트 추가해서 사각형 생성
 			@Override
 			public void paint(Graphics g) {
-				g.drawRoundRect(0, 0, 30, 15, 5, 5);
+				g.drawRoundRect(0, 20, 20, 15, 5, 5);
 			}
 		};
 		box.setBounds(348, 121, 100, 100);
