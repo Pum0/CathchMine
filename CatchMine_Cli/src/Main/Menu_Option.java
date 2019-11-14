@@ -3,10 +3,12 @@ package Main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -15,6 +17,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 	JLabel selectMusic, volumeValue;
 	JSlider musicVolume; // 슬라이더
 	JPanel box;
+	JButton backButton;
 
 	private String musics[] = { "배경음 1", "배경음 2", "배경음 3", "배경음 4" };
 
@@ -61,6 +64,11 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		box.setBounds(348, 121, 100, 100);
 		box.setForeground(Color.white);
 		add(box);
+		
+		backButton = new JButton("뒤로가기", de.setButton());
+		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		backButton.setBounds(120, 430, 150, 40);
+		add(backButton);
 
 		musicVolume.addChangeListener(new ChangeListener() { // 슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋
 			@Override

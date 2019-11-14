@@ -42,7 +42,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		// 메뉴 추가 부분
+		// 메뉴 추가 부분S
 		add(mainLogin);
 
 		// 메인 배경음악 재생
@@ -98,6 +98,9 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 		// 게임 룰 패널
 		ruleMenu.backButton.addActionListener(this);
+		
+		// 게임 옵션 패널
+		optionMenu.backButton.addActionListener(this);
 
 		// 게임 생성 프레임
 		createRoom.roomField.addKeyListener(this);
@@ -263,6 +266,10 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// ------------------------------------------------
 
 		// 옵션 액션 리스너 --------------------------------
+		if(e.getSource()==optionMenu.backButton) {
+			optionMenu.setVisible(false);
+			mainMenu.setVisible(true);
+		}
 		// ------------------------------------------------
 	}
 
