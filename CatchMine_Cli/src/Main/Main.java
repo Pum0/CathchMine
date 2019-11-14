@@ -361,6 +361,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 	}
 // -------------------------------------------------------------------
 
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 //		System.out.println("keyType : "+ e.getKeyChar());
@@ -409,11 +410,6 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	}
 
-	public static void main(String[] args) {
-		new Main();
-
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -443,5 +439,9 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 			if (e.getSource() == singleMenu.modeButton[i]) {
 				singleMenu.modeButton[i].setText(singleMenu.mode[i]);
 			}
+	}
+
+	public static void main(String[] args) {
+		new Main();
 	}
 }
