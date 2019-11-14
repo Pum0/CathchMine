@@ -1,4 +1,5 @@
 package Main;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -65,13 +66,12 @@ public class singleGame extends JFrame implements KeyListener {
 		this.add(lab);
 
 		addKeyListener(this);
-
+		
 		setTitle("게임");
 		setSize(FRAMEXSIZE, FRAMEYSIZE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
-
 	}
 
 	@Override
@@ -82,16 +82,13 @@ public class singleGame extends JFrame implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
 		if (e.getKeyCode() == KeyEvent.VK_A)
 			System.out.println(e.getKeyChar());
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		System.out.println(e.getKeyCode());
 	}
 
 	// 블럭 리스트 채워넣기
@@ -145,7 +142,6 @@ public class singleGame extends JFrame implements KeyListener {
 
 			gamePanel.add(bl.get(i));
 		}
-
 	}
 
 	// 플레이 타임을 00:00 형식으로 출력
