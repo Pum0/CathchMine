@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
@@ -35,6 +37,7 @@ public class Menu_Rule extends JPanel {
 		mainPanel = new JPanel();
 		mainPanel.setBounds(40, 40, 300, 400);
 		mainPanel.setLayout(null);
+		mainPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 5));
 		
 		backButton = new JButton("뒤로가기", de.setButton());
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
