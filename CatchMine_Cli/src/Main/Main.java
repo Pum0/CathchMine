@@ -90,8 +90,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 싱글 패널
 		for (int i = 0; i < singleMenu.modeButton.length; i++) {
 			singleMenu.modeButton[i].addActionListener(this);
-			if (i < 3)
-				singleMenu.modeButton[i].addMouseListener(this);
+			singleMenu.modeButton[i].addMouseListener(this);
 		}
 
 		// 멀티 패널
@@ -382,9 +381,11 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		if (e.getSource() == mainLogin.idText && e.getKeyCode() == 10)
 			mainLogin.pwText.grabFocus();
 
-		if (e.getSource() == mainLogin.pwText && e.getKeyCode() == 10)
+		if (e.getSource() == mainLogin.pwText && e.getKeyCode() == 10) {
+			PlayMusic buttonPressedMusic = new PlayMusic("buttonPressedMusic.mp3", false);
+			buttonPressedMusic.start();
 			mainLogin.loginButton[0].doClick();
-
+		}
 		// 회원가입 프레임 부분 -------------------------------------------
 		// 이름 필드
 		if (e.getSource() == signUp.nameField && e.getKeyCode() == 10)
