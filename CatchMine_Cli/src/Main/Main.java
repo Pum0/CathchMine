@@ -46,7 +46,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		add(mainLogin);
 
 		// 메인 배경음악 재생
-		PlayMusic backgroundMusic = new PlayMusic("backgroundMusic.mp3", true);
+		PlayMusic backgroundMusic = new PlayMusic("BackgroundMusic(Blurry).mp3", true);
 		backgroundMusic.start();
 
 		add(mainMenu);
@@ -65,6 +65,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 로그인 패널
 		for (int i = 0; i < mainLogin.loginButton.length; i++) {
 			mainLogin.loginButton[i].addActionListener(this);
+			mainLogin.loginButton[i].addMouseListener(this);
 		}
 		mainLogin.idText.addKeyListener(this);
 		mainLogin.pwText.addKeyListener(this);
@@ -72,6 +73,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 회원가입 패널
 		for (int i = 0; i < signUp.checkButton.length; i++) {
 			signUp.checkButton[i].addActionListener(this);
+			signUp.checkButton[i].addMouseListener(this);
 		}
 		signUp.nameField.addKeyListener(this);
 		signUp.idField.addKeyListener(this);
@@ -82,6 +84,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 메뉴 패널
 		for (int i = 0; i < mainMenu.mainBtn.length; i++) {
 			mainMenu.mainBtn[i].addActionListener(this);
+			mainMenu.mainBtn[i].addMouseListener(this);
 		}
 
 		// 싱글 패널
@@ -94,22 +97,28 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 멀티 패널
 		for (int i = 0; i < multiMenu.multiButton.length; i++) {
 			multiMenu.multiButton[i].addActionListener(this);
+			multiMenu.multiButton[i].addMouseListener(this);
 		}
 
 		// 게임 룰 패널
 		ruleMenu.backButton.addActionListener(this);
+		ruleMenu.backButton.addMouseListener(this);
 		
 		// 게임 옵션 패널
 		optionMenu.backButton.addActionListener(this);
+		optionMenu.backButton.addMouseListener(this);
 
 		// 게임 생성 프레임
 		createRoom.roomField.addKeyListener(this);
 		createRoom.okButton.addActionListener(this);
+		createRoom.okButton.addMouseListener(this);
 
 		// 멀티 방 패널
-		for (int i = 0; i < multiRoom.multiRoomButton.length; i++)
+		for (int i = 0; i < multiRoom.multiRoomButton.length; i++) {
 			multiRoom.multiRoomButton[i].addActionListener(this);
-
+			multiRoom.multiRoomButton[i].addMouseListener(this);
+		}
+		
 		setVisible(true);
 	}
 
@@ -418,6 +427,8 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		PlayMusic buttonPressedMusic = new PlayMusic("buttonPressedMusic.mp3", false);
+		buttonPressedMusic.start();
 	}
 
 	@Override
