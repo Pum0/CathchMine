@@ -38,7 +38,8 @@ public class singleGame extends JFrame implements KeyListener {
 	ImageIcon backImage = new ImageIcon("image/back.png");
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/imsiTeduri.png");
-	ImageIcon blockImage = new ImageIcon("image/imsiBlock.png");
+	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
+	ImageIcon sendImage = new ImageIcon("image/huk.png");
 	// ================= 블럭 이미지 ================ //
 
 	// ================= 내부 옵션 이미지 ================ //
@@ -46,7 +47,14 @@ public class singleGame extends JFrame implements KeyListener {
 	ImageIcon menuImage = new ImageIcon("image/imsiMenu.png");
 	// ================= 이미지 ================ //
 
-	JPanel p;
+	// Player 객체
+	player p = new player();
+
+	// 블럭
+	block[][] bl = new block[35][18];
+
+	int playerX = 40;
+	int playerY = 40;
 
 	public singleGame() {
 		setLayout(null);
@@ -65,47 +73,107 @@ public class singleGame extends JFrame implements KeyListener {
 		this.add(menuPanel);
 		this.add(lab);
 
+//		gamePanel.addKeyListener(this);
 		addKeyListener(this);
-		
+
 		setTitle("게임");
 		setSize(FRAMEXSIZE, FRAMEYSIZE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyChar());
+
+		if (e.getKeyCode() == KeyEvent.VK_K)
+			System.out.println(bl[(p.getLocationY() + 20) / 39][(p.getLocationX() + 20) / 39].getImageName());
+
+		// W키 입력시
+		if (e.getKeyCode() == KeyEvent.VK_W) {
+			p.LocationSet(playerX, playerY -= 5);
+			p.outOfrange();
+
+			p.revalidate();
+			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+			System.out.println(p.getX() + " " + p.getY());
+		}
+		// A키 입력시
+		if (e.getKeyCode() == KeyEvent.VK_A) {
+			p.LocationSet(playerX -= 5, playerY);
+
+			p.outOfrange();
+
+			p.revalidate();
+			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+
+		}
+		// S키 입력시
+		if (e.getKeyCode() == KeyEvent.VK_S) {
+			p.LocationSet(playerX, playerY += 5);
+
+			p.outOfrange();
+
+			p.revalidate();
+			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+
+		}
+		// D키 입력시
+		if (e.getKeyCode() == KeyEvent.VK_D) {
+
+			p.LocationSet(playerX += 5, playerY);
+			p.outOfrange();
+
+			p.revalidate();
+			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+			System.out.println("UP");
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+			System.out.println("DOWN");
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			System.out.println("LEFT");
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			System.out.println("RIGHT");
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_A)
-			System.out.println(e.getKeyChar());
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println(e.getKeyCode());
+		// TODO Auto-generated method stub
+
 	}
 
 	// 블럭 리스트 채워넣기
-	public void initBlock(ArrayList<block> list) {
+	public void initBlock(block[][] bl) {
 		int x = 0;
 		int y = 0;
 
-		for (int i = 0; i < 35; i++) {
-			for (int j = 0; j < 18; j++) {
+		for (int i = 0; i < bl.length; i++) {
+			for (int j = 0; j < bl[i].length; j++) {
 
 				if ((i == 0 || j == 0) || (i == 34 || j == 17)) {
-					list.add(new block(teduriImage, y, x));
+					bl[i][j] = new block(teduriImage, y, x);
 
 				}
 
 				else
-					list.add(new block(blockImage, y, x));
+					bl[i][j] = new block(blockImage, y, x);
 
 				x += 40;
 
@@ -114,10 +182,13 @@ public class singleGame extends JFrame implements KeyListener {
 			y += 40;
 
 		}
-	}
 
-	int playerX = 40;
-	int playerY = 40;
+		bl[1][1] = new block(sendImage, 40, 40);
+		bl[1][2] = new block(sendImage, 40, 80);
+		bl[2][1] = new block(sendImage, 80, 40);
+		bl[2][2] = new block(sendImage, 80, 80);
+
+	}
 
 	// 게임 창 초기화
 	public void initGamePanel() {
@@ -126,22 +197,15 @@ public class singleGame extends JFrame implements KeyListener {
 		gamePanel.setBackground(new Color(10, 235, 100));
 		gamePanel.setLocation(20, 140);
 
-		p = new player();
-
 		p.setLocation(playerY, playerX);
 
 		gamePanel.add(p);
 
-		ArrayList<block> bl = new ArrayList<block>();
-
 		initBlock(bl);
 
-		for (int i = 0; i < bl.size(); i++) {
-			System.out.println("x좌표 : " + bl.get(i).getX() + " ~ " + (bl.get(i).getX() + 40) + " y좌표 : "
-					+ bl.get(i).getY() + " ~ " + (bl.get(i).getY() + 40));
-
-			gamePanel.add(bl.get(i));
-		}
+		for (int i = 0; i < bl.length; i++)
+			for (int j = 0; j < bl[i].length; j++)
+				gamePanel.add(bl[i][j]);
 	}
 
 	// 플레이 타임을 00:00 형식으로 출력
@@ -194,7 +258,7 @@ public class singleGame extends JFrame implements KeyListener {
 		timeLabel.setLocation(1000, 40);
 
 		timerPanel.setSize(180, 50);
-		timerPanel.setBackground(new Color(0, 0, 0, 0));
+		timerPanel.setOpaque(false);
 
 		new timerThread().start();
 
@@ -207,6 +271,8 @@ public class singleGame extends JFrame implements KeyListener {
 		optionButton.setIcon(optionImage);
 		optionButton.setSize(60, 60);
 		optionButton.setLocation(1300, 10);
+
+		optionButton.setFocusable(false);
 
 		menuPanel.setSize(MENUXSIZE, MENUYSIZE);
 		menuPanel.setLocation(20, 20);
