@@ -43,7 +43,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
-
+		
 		// 로그인창 추가 부분
 		add(mainLogin);
 
