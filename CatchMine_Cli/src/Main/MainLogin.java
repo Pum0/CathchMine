@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 public class MainLogin extends JPanel {
 	JPanel loginPanel, loginBottom;
@@ -50,8 +49,8 @@ public class MainLogin extends JPanel {
 		pwLabel.setFont(de.setFont(14));
 		pwText.setFont(de.setFont(14));
 
-		idText.setBorder(new LineBorder(Color.GRAY, 2));
-		pwText.setBorder(new LineBorder(Color.GRAY, 2));
+		idText.setBorder(de.setTextBorder());
+		pwText.setBorder(de.setTextBorder());
 
 		idLabel.setBounds(50, 25, 40, 20);
 		idText.setBounds(85, 25, 100, 20);

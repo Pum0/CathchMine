@@ -39,7 +39,6 @@ public class SignUp extends JFrame  {
 		namePanel.setLayout(null);
 		namePanel.setSize(400, 60);
 		namePanel.setLocation(0, 20);
-
 		idPanel = new JPanel(); // ID 패널
 		idPanel.setLayout(null);
 		idPanel.setSize(400, 60);
@@ -65,10 +64,18 @@ public class SignUp extends JFrame  {
 		submitPanel.setSize(400, 60);
 		submitPanel.setLocation(0, 330);
 
+		namePanel.setOpaque(false);
+		idPanel.setOpaque(false);
+		nickPanel.setOpaque(false);
+		pwPanel.setOpaque(false);
+		pwCheckPanel.setOpaque(false);
+		submitPanel.setOpaque(false);
+		
 		// -----------------------라벨 생성--------------------------
 		signUpLabel = new JLabel[5];
 		for (int i = 0; i < signUpLabel.length; i++) {
 			signUpLabel[i] = new JLabel(signUpString[i]);
+			signUpLabel[i].setFont(de.setFont(14));
 			signUpLabel[i].setSize(100, 25);
 		}
 
@@ -86,20 +93,25 @@ public class SignUp extends JFrame  {
 		nameField = new JTextField(10);
 		nameField.setFont(de.setFont(14));
 		nameField.setSize(200, 25);
+		nameField.setBorder(de.setTextBorder());
 		idField = new JTextField(10);
 		idField.setFont(de.setFont(14));
 		idField.setSize(200, 25);
+		idField.setBorder(de.setTextBorder());
 		nickField = new JTextField(10);
 		nickField.setFont(de.setFont(14));
 		nickField.setSize(200, 25);
+		nickField.setBorder(de.setTextBorder());
 
 		// ------------------------비밀번호 필드 생성 -----------------------
 		pwField = new JPasswordField(10);
 		pwField.setFont(de.setFont(14));
 		pwField.setSize(200, 25);
+		pwField.setBorder(de.setTextBorder());
 		pwCheckField = new JPasswordField(10);
 		pwCheckField.setFont(de.setFont(14));
 		pwCheckField.setSize(200, 25);
+		pwCheckField.setBorder(de.setTextBorder());
 
 		// ------------------------버튼 생성 --------------------------------
 		checkButton = new JButton[5];
@@ -179,6 +191,7 @@ public class SignUp extends JFrame  {
 		add(pwPanel);
 		add(pwCheckPanel);
 		add(submitPanel);
+		add(de.setSignUpBackground());
 
 		setVisible(false);
 	}
