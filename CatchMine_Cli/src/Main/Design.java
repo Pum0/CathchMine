@@ -8,10 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 public class Design {
-   Font font = new Font("한컴 윤체 L", Font.BOLD, 14);
-   Font sfont = new Font("한컴 윤체 L", Font.BOLD, 12);
-   Font roomLabelFont = new Font("한컴 윤체 L", Font.BOLD, 20);
-   
    
    // 버튼 이미지 지정
    public ImageIcon setButton() {

@@ -94,38 +94,45 @@ public class Menu_Multi extends JPanel {
 		for (int j = 0; j < tcm.getColumnCount(); j++)
 			tcm.getColumn(j).setCellRenderer(dtcr);
 
-//		addUserInfo("123", "2");
+		addUserInfo("1234323413424", "122");
+		addUserInfo("12343341342", "2");
+		addUserInfo("123", "3");
+		addUserInfo("123", "4");
+		addUserInfo("123", "5");
+		addUserInfo("123", "6");
+		addUserInfo("123", "7");
+		addUserInfo("123", "8");
+		addUserInfo("123", "9");
+		addUserInfo("123", "10");
+
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
+		userTm.addRow(userData);
 		userTm.addRow(userData);
 		userTable.setEnabled(false);
+		
 		// -----------------------유저 테이블 설정 끝----------
 
 		chatField = new JTextField(20);
 		chatField.setBorder(new LineBorder(Color.DARK_GRAY, 3));
 
 		// 사이즈 설정
-		roomLabel.setSize(80, 30);
-		standbyRoom.setSize(370, 165);
-		multiButton[0].setSize(180, 45);
-		multiButton[1].setSize(180, 45);
-		chatLabel.setSize(80, 30);
-		userLabel.setSize(80, 30);
-		chatSPane.setSize(250, 210);
-		userTable.setSize(115, 210);
-		userSPane.setSize(115, 210);
-		chatField.setSize(250, 30);
-		multiButton[2].setSize(115, 30);
-
-		// 위치설정
-		roomLabel.setLocation(165, 10);
-		standbyRoom.setLocation(10, 50);
-		multiButton[0].setLocation(10, 225);
-		multiButton[1].setLocation(200, 225);
-		chatLabel.setLocation(105, 275);
-		userLabel.setLocation(295, 275);
-		chatSPane.setLocation(10, 310);
-		userSPane.setLocation(265, 310);
-		chatField.setLocation(10, 525);
-		multiButton[2].setLocation(265, 525);
+		roomLabel.setBounds(165, 10, 80, 30);
+		standbyRoom.setBounds(10, 50, 370, 165);
+		multiButton[0].setBounds(10, 225, 180, 45);
+		multiButton[1].setBounds(200, 225, 180, 45);
+		chatLabel.setBounds(105, 275, 80, 30);
+		userLabel.setBounds(295, 275, 80, 30);
+		chatSPane.setBounds(10, 310, 250, 210);
+		userSPane.setBounds(265, 310, 115, 210);
+		chatField.setBounds(10, 525, 250, 30);
+		multiButton[2].setBounds(265, 525, 115, 30);
 
 		chatArea.setEditable(false); // 채팅 에리아 에디트 금지
 

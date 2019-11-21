@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -13,7 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements ActionListener, KeyListener, MouseListener {
 	MainLogin mainLogin = new MainLogin();
@@ -453,10 +457,18 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		PlayMusic buttonEnteredMusic = new PlayMusic("buttonEnteredMusic.mp3", false);
+		buttonEnteredMusic.start();
+		
 		for (int i = 0; i < singleMenu.modeButton.length - 1; i++)
 			if (e.getSource() == singleMenu.modeButton[i]) {
 				singleMenu.modeButton[i].setText(singleMenu.modeEn[i]);
 			}
+
+		if (e.getSource() == mainLogin.loginButton[0]) {
+			mainLogin.loginButton[0].setIcon(new ImageIcon("image/button/loginButton[0]2.png"));
+			repaint();
+		}
 	}
 
 	@Override
@@ -465,6 +477,11 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 			if (e.getSource() == singleMenu.modeButton[i]) {
 				singleMenu.modeButton[i].setText(singleMenu.mode[i]);
 			}
+
+		if (e.getSource() == mainLogin.loginButton[0]) {
+			mainLogin.loginButton[0].setIcon(new ImageIcon("image/button/loginButton[0].png"));
+			repaint();
+		}
 	}
 
 	public static void main(String[] args) {
