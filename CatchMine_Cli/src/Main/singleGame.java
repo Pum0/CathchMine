@@ -38,7 +38,7 @@ public class singleGame extends JFrame implements KeyListener {
 	ImageIcon backImage = new ImageIcon("image/back.png");
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/imsiTeduri.png");
-	ImageIcon blockImage = new ImageIcon("image/imsiBlock.png");
+	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
 	ImageIcon sendImage = new ImageIcon("image/huk.png");
 	// ================= 블럭 이미지 ================ //
 
