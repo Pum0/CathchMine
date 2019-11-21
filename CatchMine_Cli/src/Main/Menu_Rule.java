@@ -37,11 +37,11 @@ public class Menu_Rule extends JPanel {
 		mainPanel = new JPanel();
 		mainPanel.setBounds(40, 40, 300, 400);
 		mainPanel.setLayout(null);
-		mainPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 5));
+		mainPanel.setBorder(de.setBorder());
 		
 		backButton = new JButton("뒤로가기", de.setButton());
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		backButton.setFont(de.font);
+		backButton.setFont(de.setFont(14));
 		backButton.setBounds(140, 460, 100, 40);
 
 		backMoveIcon = new ImageIcon("image/gif/Back_Move.gif");
@@ -71,6 +71,7 @@ public class Menu_Rule extends JPanel {
 		mainPanel.add(frontMoveLabel);
 		mainPanel.add(rightMoveLabel);
 		mainPanel.add(KeyLabel);
+		
 		add(de.setBackground());
 	}
 }

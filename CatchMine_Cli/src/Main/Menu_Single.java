@@ -18,7 +18,7 @@ public class Menu_Single extends JPanel {
 		for (int i = 0; i < modeButton.length; i++) {
 			modeButton[i] = new JButton(mode[i], de.setButton());
 			modeButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
-			modeButton[i].setFont(de.font);
+			modeButton[i].setFont(de.setFont(14));
 			modeButton[i].setSize(200, 50);
 			add(modeButton[i]);
 		}

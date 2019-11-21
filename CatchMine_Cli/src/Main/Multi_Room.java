@@ -29,7 +29,7 @@ public class Multi_Room extends JPanel {
       roomNumber = new JLabel("N번 방");
       roomNumber.setSize(80, 30);
       roomNumber.setLocation(165, 10);
-      roomNumber.setFont(de.roomLabelFont);
+      roomNumber.setFont(de.setFont(20));
       roomNumber.setForeground(Color.white);
       add(roomNumber);
 
@@ -37,7 +37,7 @@ public class Multi_Room extends JPanel {
       chatLabel = new JLabel("채팅방");
       chatLabel.setSize(80, 30);
       chatLabel.setLocation(100, 50);
-      chatLabel.setFont(de.roomLabelFont);
+      chatLabel.setFont(de.setFont(20));
       chatLabel.setForeground(Color.white);
       add(chatLabel);
 
@@ -45,7 +45,7 @@ public class Multi_Room extends JPanel {
       userLabel = new JLabel("사용자");
       userLabel.setSize(80, 30);
       userLabel.setLocation(290, 50);
-      userLabel.setFont(de.roomLabelFont);
+      userLabel.setFont(de.setFont(20));
       userLabel.setForeground(Color.white);
       add(userLabel);
 
@@ -72,7 +72,7 @@ public class Multi_Room extends JPanel {
       for (int i = 0; i < multiRoomButton.length; i++) {
          multiRoomButton[i] = new JButton(multiButtonStr[i], de.setButton());
          multiRoomButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
-         multiRoomButton[i].setFont(de.font);
+         multiRoomButton[i].setFont(de.setFont(14));
          multiRoomButton[i].setSize(115, 30);
          add(multiRoomButton[i]);
       }

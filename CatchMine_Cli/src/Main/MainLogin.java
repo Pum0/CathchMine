@@ -16,7 +16,7 @@ public class MainLogin extends JPanel {
 //	JButton loginButton, exitButton, signUpButton;
 
 	JButton loginButton[];
-	private String button[] = { "", "회원가입", "나가기" };
+	private String button[] = { "", "회원가입", "종료" };
 
 	JLabel logoLabel;
 	JLabel idLabel = new JLabel("ID : ");
@@ -40,12 +40,12 @@ public class MainLogin extends JPanel {
 		loginPanel.setLayout(null);
 		loginPanel.setBounds(100, 350, 200, 100);
 		loginPanel.setBackground(panelColor);
-		loginPanel.setBorder(new LineBorder(Color.DARK_GRAY, 2));
+		loginPanel.setBorder(de.setBorder());
 		
-		idLabel.setFont(de.font);
-		idText.setFont(de.font);
-		pwLabel.setFont(de.font);
-		pwText.setFont(de.font);
+		idLabel.setFont(de.setFont(14));
+		idText.setFont(de.setFont(14));
+		pwLabel.setFont(de.setFont(14));
+		pwText.setFont(de.setFont(14));
 
 		idLabel.setBounds(5, 5, 40, 20);
 		idText.setBounds(40, 5, 100, 20);

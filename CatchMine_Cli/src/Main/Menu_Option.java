@@ -32,18 +32,19 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		mainPanel = new JPanel();
 		mainPanel.setBounds(40, 40, 300, 400);
 		mainPanel.setLayout(null);
-		mainPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 5));
+		mainPanel.setBorder(de.setBorder());
 		add(mainPanel);
 		
 		selectMusic = new JLabel("음악 선택"); // 음악선택 레이블
 		selectMusic.setForeground(Color.BLACK); // 폰트색 화이트
-		selectMusic.setFont(de.font);
+		selectMusic.setFont(de.setFont(14));
 		mainPanel.add(selectMusic); // 추가
 		selectMusic.setBounds(30, 20, 100, 20); // setBounds() 크기 위치 설정
 
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
+		music.setBorder(new LineBorder(Color.DARK_GRAY, 1));
 		music.setSelectedIndex(0); // 맨 처음 선택된게 0번 인덱스
-		music.setFont(de.font);
+		music.setFont(de.setFont(14));
 		mainPanel.add(music);
 		music.setBounds(110, 20, 150, 20);
 
@@ -53,14 +54,14 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		musicVolume.setPaintLabels(true); // 값을 레이블로 표시
 		musicVolume.setForeground(Color.BLACK);
 		musicVolume.setOpaque(false);
-		musicVolume.setFont(de.font);
+		musicVolume.setFont(de.setFont(14));
 		mainPanel.add(musicVolume);
 		musicVolume.setBounds(25, 80, 250, 50);
 
 		volumeValue = new JLabel("50"); // 볼륨값 표시
 		volumeValue.setForeground(Color.BLACK);
 		volumeValue.setBounds(135, 10, 100, 100);
-		volumeValue.setFont(de.font);
+		volumeValue.setFont(de.setFont(14));
 		mainPanel.add(volumeValue);
 
 		box = new JPanel() { // 패널에다가 페인트 추가해서 사각형 생성

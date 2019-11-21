@@ -19,7 +19,7 @@ public class Menu_Main extends JPanel {
 		for (int i = 0; i < mainBtn.length; i++) {
 			mainBtn[i] = new JButton(menu[i], de.setButton());
 			mainBtn[i].setHorizontalTextPosition(SwingConstants.CENTER);
-			mainBtn[i].setFont(de.font);
+			mainBtn[i].setFont(de.setFont(14));
 			mainBtn[i].setSize(200, 50);
 			add(mainBtn[i]);
 		}

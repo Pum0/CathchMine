@@ -22,11 +22,11 @@ public class Create_Room extends JFrame {
 		okButton = new JButton("생성");
 
 		roomNum.setSize(300, 30);
-		roomNum.setFont(de.roomLabelFont); // 폰트지정
+		roomNum.setFont(de.setFont(20)); // 폰트지정
 
 		roomField.setSize(200, 30);
 		okButton.setSize(80, 30);
-		okButton.setFont(de.roomLabelFont);
+		okButton.setFont(de.setFont(20));
 
 		// 위치지정
 		roomNum.setLocation(65, 20);
