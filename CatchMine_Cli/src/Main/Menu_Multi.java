@@ -48,7 +48,11 @@ public class Menu_Multi extends JPanel {
 		standbyRoom = new JList();
 		multiButton = new JButton[3];
 		for (int i = 0; i < multiButton.length; i++) {
-			multiButton[i] = new JButton(multiButtonString[i], de.setButton());
+			if(i < 2)
+				multiButton[i] = new JButton(multiButtonString[i], new ImageIcon("image/button/180x45.png"));
+			else
+				multiButton[i] = new JButton(multiButtonString[i], new ImageIcon("image/button/115x30.png"));
+			multiButton[i].setBorderPainted(false);
 			multiButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			multiButton[i].setFont(de.setFont(14));
 		}

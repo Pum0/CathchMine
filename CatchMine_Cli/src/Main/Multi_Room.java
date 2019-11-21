@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -70,10 +71,11 @@ public class Multi_Room extends JPanel {
       // ¹öÆ°
       multiRoomButton = new JButton[2];
       for (int i = 0; i < multiRoomButton.length; i++) {
-         multiRoomButton[i] = new JButton(multiButtonStr[i], de.setButton());
+         multiRoomButton[i] = new JButton(multiButtonStr[i], new ImageIcon("image/button/115x30.png"));
          multiRoomButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
          multiRoomButton[i].setFont(de.setFont(14));
          multiRoomButton[i].setSize(115, 30);
+         multiRoomButton[i].setBorderPainted(false);
          add(multiRoomButton[i]);
       }
       multiRoomButton[0].setLocation(265, 480);

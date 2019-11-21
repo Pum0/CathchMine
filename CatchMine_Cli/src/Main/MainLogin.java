@@ -16,7 +16,7 @@ public class MainLogin extends JPanel {
 //	JButton loginButton, exitButton, signUpButton;
 
 	JButton loginButton[];
-	private String button[] = { "", "회원가입", "종료" };
+	String button[] = { "", "회원가입", "종료" };
 
 	JLabel logoLabel, panelLabel;
 	JLabel idLabel = new JLabel("ID   : ");
@@ -59,10 +59,11 @@ public class MainLogin extends JPanel {
 		pwText.setBounds(85, 55, 100, 20);
 
 		loginButton = new JButton[3];
-		loginButton[0] = new JButton(new ImageIcon("image/button/loginButton[0].png"));
+		loginButton[0] = new JButton(new ImageIcon("image/button/40x50.png"));
 		loginButton[0].setBorderPainted(false);
 		loginButton[0].setBounds(195, 25, 45, 50);
-
+		
+		
 		loginPanel.add(idLabel);
 		loginPanel.add(pwLabel);
 		loginPanel.add(idText);
@@ -70,10 +71,11 @@ public class MainLogin extends JPanel {
 		loginPanel.add(loginButton[0]);
 
 		for (int i = 1; i < loginButton.length; i++) {
-			loginButton[i] = new JButton(button[i], de.setButton());
+			loginButton[i] = new JButton(button[i], new ImageIcon("image/button/90x30.png"));
 			loginButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			loginButton[i].setFont(de.setFont(14));
 			loginButton[i].setSize(90, 30);
+			loginButton[i].setBorderPainted(false);
 			loginPanel.add(loginButton[i]);
 		}
 		loginButton[1].setLocation(50, 90);

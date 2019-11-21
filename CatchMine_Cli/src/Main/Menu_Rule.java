@@ -39,9 +39,10 @@ public class Menu_Rule extends JPanel {
 		mainPanel.setLayout(null);
 		mainPanel.setBorder(de.setBorder());
 		
-		backButton = new JButton("뒤로가기", de.setButton());
+		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setFont(de.setFont(14));
+		backButton.setBorderPainted(false);
 		backButton.setBounds(140, 460, 100, 40);
 
 		backMoveIcon = new ImageIcon("image/gif/Back_Move.gif");

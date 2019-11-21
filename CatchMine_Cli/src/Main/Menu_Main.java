@@ -1,12 +1,8 @@
 package Main;
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 public class Menu_Main extends JPanel {
 	JButton[] mainBtn;
@@ -20,10 +16,11 @@ public class Menu_Main extends JPanel {
 		
 		mainBtn = new JButton[4];
 		for (int i = 0; i < mainBtn.length; i++) {
-			mainBtn[i] = new JButton(menu[i], de.setButton());
+			mainBtn[i] = new JButton(menu[i], new ImageIcon("image/button/200x50.png"));
 			mainBtn[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			mainBtn[i].setFont(de.setFont(14));
 			mainBtn[i].setSize(200, 50);
+			mainBtn[i].setBorderPainted(false);
 			add(mainBtn[i]);
 		}
 

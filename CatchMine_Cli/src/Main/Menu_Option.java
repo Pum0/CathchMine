@@ -3,6 +3,7 @@ package Main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -74,9 +75,10 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		box.setForeground(Color.BLACK);
 		mainPanel.add(box);
 		
-		backButton = new JButton("뒤로가기", de.setButton());
+		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setBounds(140, 460, 100, 40);
+		backButton.setBorderPainted(false);
 		add(backButton);
 
 		musicVolume.addChangeListener(new ChangeListener() { // 슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋

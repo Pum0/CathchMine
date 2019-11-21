@@ -1,4 +1,5 @@
 package Main;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -16,10 +17,11 @@ public class Menu_Single extends JPanel {
 
 		modeButton = new JButton[4];
 		for (int i = 0; i < modeButton.length; i++) {
-			modeButton[i] = new JButton(mode[i], de.setButton());
+			modeButton[i] = new JButton(mode[i], new ImageIcon("image/button/200x50.png"));
 			modeButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
 			modeButton[i].setFont(de.setFont(14));
 			modeButton[i].setSize(200, 50);
+			modeButton[i].setBorderPainted(false);
 			add(modeButton[i]);
 		}
 

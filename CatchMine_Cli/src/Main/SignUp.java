@@ -1,4 +1,5 @@
 package Main;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -103,16 +104,17 @@ public class SignUp extends JFrame  {
 		// ------------------------버튼 생성 --------------------------------
 		checkButton = new JButton[5];
 		for (int i = 0; i < checkButton.length; i++) {
-			checkButton[i] = new JButton(buttonString[i], de.setButton());
-			checkButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
-			
 			if(i < 3) {
+				checkButton[i] = new JButton(buttonString[i], new ImageIcon("image/button/60x25.png"));
 				checkButton[i].setSize(60, 25);
 				checkButton[i].setFont(de.setFont(12));
 			} else {
+				checkButton[i] = new JButton(buttonString[i], new ImageIcon("image/button/120x40.png"));
 				checkButton[i].setSize(120, 40); 
 				checkButton[i].setFont(de.setFont(12));
 			}
+			checkButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
+			checkButton[i].setBorderPainted(false);
 		}
 
 		// -----------------------이름 패널에 라벨,필드 추가-----------------
