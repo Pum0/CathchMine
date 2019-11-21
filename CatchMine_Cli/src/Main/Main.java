@@ -26,6 +26,8 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 	Create_Room createRoom = new Create_Room();
 	Multi_Room multiRoom = new Multi_Room();
 
+	static String NickName = null;
+
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
 	// SQL 연결 부분
@@ -42,7 +44,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		// 메뉴 추가 부분S
+		// 로그인창 추가 부분
 		add(mainLogin);
 
 		// 메인 배경음악 재생
@@ -98,11 +100,12 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 			multiMenu.multiButton[i].addActionListener(this);
 			multiMenu.multiButton[i].addMouseListener(this);
 		}
+		multiMenu.chatField.addKeyListener(this);
 
 		// 게임 룰 패널
 		ruleMenu.backButton.addActionListener(this);
 		ruleMenu.backButton.addMouseListener(this);
-		
+
 		// 게임 옵션 패널
 		optionMenu.backButton.addActionListener(this);
 		optionMenu.backButton.addMouseListener(this);
@@ -117,7 +120,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 			multiRoom.multiRoomButton[i].addActionListener(this);
 			multiRoom.multiRoomButton[i].addMouseListener(this);
 		}
-		
+
 		setVisible(true);
 	}
 
@@ -208,6 +211,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		if (e.getSource() == mainMenu.mainBtn[1]) {
 			ConnectSQL();
 			mainMenu.setVisible(false);
+			multiMenu.chatArea.setText("");
 			multiMenu.setVisible(true);
 		}
 		// Role Button
@@ -262,6 +266,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		if (e.getSource() == multiRoom.multiRoomButton[1]) {
 			multiRoom.setVisible(false);
 			multiMenu.setVisible(true);
+
 		}
 		// ------------------------------------------------
 
@@ -274,12 +279,13 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// ------------------------------------------------
 
 		// 옵션 액션 리스너 --------------------------------
-		if(e.getSource()==optionMenu.backButton) {
+		if (e.getSource() == optionMenu.backButton) {
 			optionMenu.setVisible(false);
 			mainMenu.setVisible(true);
 		}
-		// ------------------------------------------------
 	}
+
+	// ------------------------------------------------
 
 	// SQL
 	// --------------------------------------------------------------------------------------
@@ -293,8 +299,10 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 				while (rs.next()) {
 					if (mainLogin.idText.getText().equals(rs.getString(1)))
-						if (mainLogin.pwText.getText().equals(rs.getString(2)))
+						if (mainLogin.pwText.getText().equals(rs.getString(2))) {
+							NickName = rs.getString(4);
 							return true;
+						}
 				}
 
 			} catch (SQLException ssql) {
@@ -369,11 +377,9 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 	}
 // -------------------------------------------------------------------
 
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
-//		System.out.println("keyType : "+ e.getKeyChar());
-//		System.out.println(e.getKeyCode());
+
 	}
 
 	@Override
@@ -411,6 +417,14 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		System.out.println("keypressed : " + e.getKeyChar());
 		System.out.println(e.getKeyCode());
 
+		// 멀티 채팅
+		if (e.getSource() == multiMenu.chatField && e.getKeyCode() == 10) {
+			if (!multiMenu.chatField.getText().equals("")) {
+				multiMenu.chatArea.append(NickName + " : " + multiMenu.chatField.getText() + "\n");
+				multiMenu.chatArea.setCaretPosition(multiMenu.chatArea.getDocument().getLength());
+				multiMenu.chatField.setText("");
+			}
+		}
 	}
 
 	@Override
@@ -439,7 +453,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		for (int i = 0; i < singleMenu.modeButton.length-1; i++)
+		for (int i = 0; i < singleMenu.modeButton.length - 1; i++)
 			if (e.getSource() == singleMenu.modeButton[i]) {
 				singleMenu.modeButton[i].setText(singleMenu.modeEn[i]);
 			}
@@ -447,7 +461,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		for (int i = 0; i < singleMenu.modeButton.length-1; i++)
+		for (int i = 0; i < singleMenu.modeButton.length - 1; i++)
 			if (e.getSource() == singleMenu.modeButton[i]) {
 				singleMenu.modeButton[i].setText(singleMenu.mode[i]);
 			}

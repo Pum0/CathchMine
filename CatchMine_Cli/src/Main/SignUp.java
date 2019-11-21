@@ -83,21 +83,21 @@ public class SignUp extends JFrame  {
 
 		// ------------------------텍스트 필드생성--------------------------
 		nameField = new JTextField(10);
-		nameField.setFont(de.font);
+		nameField.setFont(de.setFont(14));
 		nameField.setSize(200, 25);
 		idField = new JTextField(10);
-		idField.setFont(de.font);
+		idField.setFont(de.setFont(14));
 		idField.setSize(200, 25);
 		nickField = new JTextField(10);
-		nickField.setFont(de.font);
+		nickField.setFont(de.setFont(14));
 		nickField.setSize(200, 25);
 
 		// ------------------------비밀번호 필드 생성 -----------------------
 		pwField = new JPasswordField(10);
-		pwField.setFont(de.font);
+		pwField.setFont(de.setFont(14));
 		pwField.setSize(200, 25);
 		pwCheckField = new JPasswordField(10);
-		pwCheckField.setFont(de.font);
+		pwCheckField.setFont(de.setFont(14));
 		pwCheckField.setSize(200, 25);
 
 		// ------------------------버튼 생성 --------------------------------
@@ -108,10 +108,10 @@ public class SignUp extends JFrame  {
 			
 			if(i < 3) {
 				checkButton[i].setSize(60, 25);
-				checkButton[i].setFont(de.sfont);
+				checkButton[i].setFont(de.setFont(12));
 			} else {
 				checkButton[i].setSize(120, 40); 
-				checkButton[i].setFont(de.font);
+				checkButton[i].setFont(de.setFont(12));
 			}
 		}
 

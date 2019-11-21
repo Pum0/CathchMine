@@ -44,7 +44,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		music = new JComboBox<String>(musics); // 배경음 선택 콤보박스
 		music.setBorder(new LineBorder(Color.DARK_GRAY, 1));
 		music.setSelectedIndex(0); // 맨 처음 선택된게 0번 인덱스
-		music.setFont(de.setFont(14));
+		music.setFont(de.setFont(10));
 		mainPanel.add(music);
 		music.setBounds(110, 20, 150, 20);
 

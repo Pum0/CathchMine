@@ -14,8 +14,8 @@ public class Menu_Multi extends JPanel {
 	JList standbyRoom;
 	JTextArea chatArea;
 	JTable userTable;
-	JScrollPane userSPane;
 	DefaultTableModel userTm;
+	JScrollPane userSPane, chatSPane;
 	Vector userColumn = new Vector(); // 유저 콜륨값
 	Vector userData = new Vector(); // 유저 데이터값
 
@@ -28,6 +28,7 @@ public class Menu_Multi extends JPanel {
 	public void addUserInfo(String userNick, String userID) {
 		userData.addElement(userNick);
 		userData.addElement(userID);
+		
 	} // 유저 목록 생성 메소드
 
 	public void removeUserInfo(String userNick, String userID) {
@@ -55,7 +56,8 @@ public class Menu_Multi extends JPanel {
 		chatLabel.setFont(de.setFont(20));
 		chatLabel.setForeground(Color.white);
 
-		chatArea = new JTextArea();
+		chatArea = new JTextArea(10, 10);
+		chatSPane = new JScrollPane(chatArea);
 
 		userLabel = new JLabel("사용자"); // 폰트지정
 		userLabel.setFont(de.setFont(20));
@@ -80,7 +82,7 @@ public class Menu_Multi extends JPanel {
 		
 		// 테두리 설정
 		standbyRoom.setBorder(de.setBorder());
-		chatArea.setBorder(de.setBorder());
+		chatSPane.setBorder(de.setBorder());
 		userSPane.setBorder(de.setBorder());
 
 		// 테이블 내용 가운데 정렬하기
@@ -92,7 +94,7 @@ public class Menu_Multi extends JPanel {
 		for (int j = 0; j < tcm.getColumnCount(); j++)
 			tcm.getColumn(j).setCellRenderer(dtcr);
 
-		addUserInfo("123", "2");
+//		addUserInfo("123", "2");
 		userTm.addRow(userData);
 		userTable.setEnabled(false);
 		// -----------------------유저 테이블 설정 끝----------
@@ -107,7 +109,7 @@ public class Menu_Multi extends JPanel {
 		multiButton[1].setSize(180, 45);
 		chatLabel.setSize(80, 30);
 		userLabel.setSize(80, 30);
-		chatArea.setSize(250, 210);
+		chatSPane.setSize(250, 210);
 		userTable.setSize(115, 210);
 		userSPane.setSize(115, 210);
 		chatField.setSize(250, 30);
@@ -120,7 +122,7 @@ public class Menu_Multi extends JPanel {
 		multiButton[1].setLocation(200, 225);
 		chatLabel.setLocation(105, 275);
 		userLabel.setLocation(295, 275);
-		chatArea.setLocation(10, 310);
+		chatSPane.setLocation(10, 310);
 		userSPane.setLocation(265, 310);
 		chatField.setLocation(10, 525);
 		multiButton[2].setLocation(265, 525);
@@ -134,7 +136,7 @@ public class Menu_Multi extends JPanel {
 		add(multiButton[1]);
 		add(chatLabel);
 		add(userLabel);
-		add(chatArea);
+		add(chatSPane);
 		add(userSPane);
 		add(chatField);
 		add(multiButton[2]);
