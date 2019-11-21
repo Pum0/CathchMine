@@ -21,7 +21,7 @@ public class Design {
    public Component setBackground() {
       JLabel back = new JLabel();
       
-      back.setIcon(new ImageIcon("image/backsample.jpg"));
+      back.setIcon(new ImageIcon("image/backgroundImage.png"));
       back.setSize(400, 600);
       back.setLocation(0, 0);
       return back;
