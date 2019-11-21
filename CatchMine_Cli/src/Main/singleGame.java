@@ -39,7 +39,7 @@ public class singleGame extends JFrame implements KeyListener {
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/imsiTeduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-	ImageIcon sendImage = new ImageIcon("image/huk.png");
+	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 
 	// ================= 내부 옵션 이미지 ================ //
@@ -52,6 +52,8 @@ public class singleGame extends JFrame implements KeyListener {
 
 	// 블럭
 	block[][] bl = new block[35][18];
+
+	static int state = 1;
 
 	int playerX = 40;
 	int playerY = 40;
@@ -76,7 +78,7 @@ public class singleGame extends JFrame implements KeyListener {
 //		gamePanel.addKeyListener(this);
 		addKeyListener(this);
 
-		setTitle("게임");
+		setTitle("Catch-Mine Game");
 		setSize(FRAMEXSIZE, FRAMEYSIZE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -92,6 +94,9 @@ public class singleGame extends JFrame implements KeyListener {
 
 		// W키 입력시
 		if (e.getKeyCode() == KeyEvent.VK_W) {
+			state = 1; // 위
+			p.painting(state);
+
 			p.LocationSet(playerX, playerY -= 5);
 			p.outOfrange();
 
@@ -103,6 +108,8 @@ public class singleGame extends JFrame implements KeyListener {
 		}
 		// A키 입력시
 		if (e.getKeyCode() == KeyEvent.VK_A) {
+			state = 2;
+			p.painting(state);
 			p.LocationSet(playerX -= 5, playerY);
 
 			p.outOfrange();
@@ -115,6 +122,8 @@ public class singleGame extends JFrame implements KeyListener {
 		}
 		// S키 입력시
 		if (e.getKeyCode() == KeyEvent.VK_S) {
+			state = 3;
+			p.painting(state);
 			p.LocationSet(playerX, playerY += 5);
 
 			p.outOfrange();
@@ -127,7 +136,8 @@ public class singleGame extends JFrame implements KeyListener {
 		}
 		// D키 입력시
 		if (e.getKeyCode() == KeyEvent.VK_D) {
-
+			state = 4;
+			p.painting(state);
 			p.LocationSet(playerX += 5, playerY);
 			p.outOfrange();
 
@@ -183,10 +193,10 @@ public class singleGame extends JFrame implements KeyListener {
 
 		}
 
-		bl[1][1] = new block(sendImage, 40, 40);
-		bl[1][2] = new block(sendImage, 40, 80);
-		bl[2][1] = new block(sendImage, 80, 40);
-		bl[2][2] = new block(sendImage, 80, 80);
+		bl[1][1] = new block(tileImage, 40, 40);
+		bl[1][2] = new block(tileImage, 40, 80);
+		bl[2][1] = new block(tileImage, 80, 40);
+		bl[2][2] = new block(tileImage, 80, 80);
 
 	}
 
@@ -283,9 +293,13 @@ public class singleGame extends JFrame implements KeyListener {
 		menuPanel.add(menuLabel);
 	}
 
+	public int getState() {
+		return state;
+	}
+
 	public static void main(String[] args) {
 
-		new singleGame();
+		singleGame sGame = new singleGame();
 
 	}
 

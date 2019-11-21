@@ -1,11 +1,16 @@
 package Main;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
+
+	block b;
+	Graphics g;
+	int charState;
 
 	private int locationX;
 	private int locationY;
@@ -45,9 +50,31 @@ public class player extends JPanel {
 
 	}
 
+	public void painting(int state) {
+		charState = state;
+	}
+
+	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");
+	static ImageIcon FrontImage = new ImageIcon("image/gif/Front_Move.gif");
+	static ImageIcon LeftImage = new ImageIcon("image/gif/Left_Move.gif");
+	static ImageIcon RightImage = new ImageIcon("image/gif/Right_Move.gif");
+	Image img;
+	ImageIcon gifImg;
 	public void paintComponent(Graphics g) {
-		g.setColor(new Color(180, 55, 200));
-		g.fillOval(0, 0, 40, 40);
+		gifImg = FrontImage;
+
+		if (charState == 1)
+			gifImg = BackImage;
+		if (charState == 2)
+			gifImg = LeftImage;
+		if (charState == 3)
+			gifImg = FrontImage;
+		if (charState == 4)
+			gifImg = RightImage;
+
+		img = gifImg.getImage();
+		g.drawImage(img, 0, 0, 40, 40, null);
+		
 
 	}
 

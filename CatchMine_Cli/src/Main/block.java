@@ -18,7 +18,7 @@ public class block extends JPanel {
 	}
 
 	public boolean isBlock(int i, int j) {
-		if (this.blockHP[i][j] > 0)
+		if (blockHP[i][j] > 0)
 			return true;
 
 		return false;
@@ -48,6 +48,15 @@ public class block extends JPanel {
 
 		String imageName = str.substring(6, str.length() - 4);
 		return imageName;
+	}
+	
+	
+	public int[][] getBlockHP() {
+		return blockHP;
+	}
+
+	public void setBlockHP(int[][] blockHP) {
+		this.blockHP = blockHP;
 	}
 
 	public int getX() {
