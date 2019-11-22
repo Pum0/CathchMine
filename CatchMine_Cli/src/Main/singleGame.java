@@ -75,7 +75,6 @@ public class singleGame extends JFrame implements KeyListener {
 		this.add(menuPanel);
 		this.add(lab);
 
-//		gamePanel.addKeyListener(this);
 		addKeyListener(this);
 
 		setTitle("Catch-Mine Game");
@@ -147,14 +146,19 @@ public class singleGame extends JFrame implements KeyListener {
 			System.out.println(p.getLocationX() + " " + p.getLocationY());
 		}
 
+		// 위 방향키
 		if (e.getKeyCode() == KeyEvent.VK_UP)
-			System.out.println("UP");
+			hitBlock(KeyEvent.VK_UP);
+		// 아래 방향키
 		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			System.out.println("DOWN");
+			hitBlock(KeyEvent.VK_DOWN);
+
+		// 왼쪽 방향키
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			System.out.println("LEFT");
+			hitBlock(KeyEvent.VK_LEFT);
+		// 오른쪽 방향키
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			System.out.println("RIGHT");
+			hitBlock(KeyEvent.VK_RIGHT);
 
 	}
 
@@ -178,12 +182,12 @@ public class singleGame extends JFrame implements KeyListener {
 			for (int j = 0; j < bl[i].length; j++) {
 
 				if ((i == 0 || j == 0) || (i == 34 || j == 17)) {
-					bl[i][j] = new block(teduriImage, y, x);
+					bl[i][j] = new block(teduriImage, 1000, y, x);
 
 				}
 
 				else
-					bl[i][j] = new block(blockImage, y, x);
+					bl[i][j] = new block(blockImage, 3, y, x);
 
 				x += 40;
 
@@ -193,10 +197,10 @@ public class singleGame extends JFrame implements KeyListener {
 
 		}
 
-		bl[1][1] = new block(tileImage, 40, 40);
-		bl[1][2] = new block(tileImage, 40, 80);
-		bl[2][1] = new block(tileImage, 80, 40);
-		bl[2][2] = new block(tileImage, 80, 80);
+		bl[1][1] = new block(tileImage, 0, 40, 40);
+		bl[1][2] = new block(tileImage, 0, 40, 80);
+		bl[2][1] = new block(tileImage, 0, 80, 40);
+		bl[2][2] = new block(tileImage, 0, 80, 80);
 
 	}
 
@@ -293,8 +297,31 @@ public class singleGame extends JFrame implements KeyListener {
 		menuPanel.add(menuLabel);
 	}
 
+	// 이동키 입력에 따른 캐릭터의 상태 반환
 	public int getState() {
 		return state;
+	}
+
+	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
+	public void hitBlock(int keyType) {
+		if (keyType == KeyEvent.VK_UP) {
+			bl[p.getY() / 40 - 1][p.getX() / 40].setHp(bl[p.getY() / 40 - 1][p.getX() / 40].getHp() - 1);
+			System.out.println("위 블럭 HP : " + bl[p.getY() / 40 - 1][p.getX() / 40].getHp());
+			System.out.println(bl[p.getY() / 40 - 1][p.getX() / 40].isBlock());
+			
+		}
+		if (keyType == KeyEvent.VK_DOWN) {
+			bl[p.getY() / 40 + 1][p.getX() / 40].setHp(bl[p.getY() / 40 + 1][p.getX() / 40].getHp() - 1);
+			System.out.println("아래 블럭 HP : " +bl[p.getY() / 40 + 1][p.getX() / 40].getHp());
+		}
+		if (keyType == KeyEvent.VK_LEFT) {
+			bl[p.getY() / 40 ][p.getX() / 40 - 1].setHp(bl[p.getY() / 40 ][p.getX() / 40 - 1].getHp() - 1);
+			System.out.println("좌 블럭 HP : " + bl[p.getY() / 40][p.getX() / 40 - 1].getHp());
+		}
+		if (keyType == KeyEvent.VK_RIGHT) {
+			bl[p.getY() / 40][p.getX() / 40 + 1].setHp(bl[p.getY() / 40][p.getX() / 40 + 1].getHp() - 1);
+			System.out.println("우 블럭 HP : " + bl[p.getY() / 40][p.getX() / 40 + 1].getHp());
+		}
 	}
 
 	public static void main(String[] args) {

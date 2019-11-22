@@ -33,19 +33,19 @@ public class player extends JPanel {
 
 		if (getLocationX() < 40) {
 			LocationSet(40, getLocationY());
-			repaint();
+//			repaint();
 		}
 		if (getLocationX() + getWidth() > singleGame.GAMEXSIZE - 40) {
 			LocationSet(singleGame.GAMEXSIZE - 80, getLocationY());
-			repaint();
+//			repaint();
 		}
 		if (getLocationY() < 40) {
 			LocationSet(getLocationX(), 40);
-			repaint();
+//			repaint();
 		}
 		if (getLocationY() + getHeight() > singleGame.GAMEYSIZE - 40) {
 			LocationSet(getLocationX(), singleGame.GAMEYSIZE - 80);
-			repaint();
+//			repaint();
 		}
 
 	}

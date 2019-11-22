@@ -8,26 +8,20 @@ import javax.swing.JPanel;
 
 public class block extends JPanel {
 
-	private int blockHP[][];
-
+	private int hp; // 블럭 당 Hp
 	private int x; // x 축 좌표
 	private int y; // y 축 좌표
-	ImageIcon image;
+	ImageIcon image; // 블럭의 이미지
 
 	public block() {
 	}
 
-	public boolean isBlock(int i, int j) {
-		if (blockHP[i][j] > 0)
-			return true;
 
-		return false;
-	}
-
-	public block(ImageIcon image, int x, int y) {
+	public block(ImageIcon image,int hp ,int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.image = image;
+		this.hp = hp;
 
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
@@ -50,14 +44,24 @@ public class block extends JPanel {
 		return imageName;
 	}
 	
+	// 블럭 존재 여부 판단
+	public boolean isBlock() {
+		if(this.getHp() > 0)
+			return true;
+		
+		return false;
+	}
 	
-	public int[][] getBlockHP() {
-		return blockHP;
+
+	public int getHp() {
+		return hp;
 	}
 
-	public void setBlockHP(int[][] blockHP) {
-		this.blockHP = blockHP;
+
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
+
 
 	public int getX() {
 		return x;
