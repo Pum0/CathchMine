@@ -36,7 +36,10 @@ public class block extends JPanel {
 		this.add(label);
 
 	}
-
+	
+	
+	// 특정 좌표에 들어간 이미지의 소스정보를 출력해주는 메소드           
+	// 특정 블럭으로 못지나가게 하려고 만들었기 때문에 필요 없어 지면 삭제 예정
 	public String getImageName() {
 		String str = image.getDescription();
 
