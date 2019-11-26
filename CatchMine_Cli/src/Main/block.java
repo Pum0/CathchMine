@@ -12,6 +12,7 @@ public class block extends JPanel {
 	private int x; // x 축 좌표
 	private int y; // y 축 좌표
 	ImageIcon image; // 블럭의 이미지
+	JLabel label;
 
 	public block() {
 	}
@@ -28,7 +29,7 @@ public class block extends JPanel {
 
 		super.setLocation(x, y);
 
-		JLabel label = new JLabel();
+		label = new JLabel();
 
 		label.setIcon(image);
 		label.setLocation(0, 0);
@@ -81,5 +82,16 @@ public class block extends JPanel {
 	public void setY(int y) {
 		this.y = y;
 	}
+
+
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
+
+		label.setIcon(image);
+//		this.repaint();
+	}
+	
+	
 
 }

@@ -49,7 +49,10 @@ public class player extends JPanel {
 		}
 
 	}
-
+	
+	
+	
+	
 	public void painting(int state) {
 		charState = state;
 	}
