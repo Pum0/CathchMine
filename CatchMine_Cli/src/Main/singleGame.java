@@ -37,8 +37,10 @@ public class singleGame extends JFrame implements KeyListener {
 	// ================= 이미지 ================ //
 	ImageIcon backImage = new ImageIcon("image/back.png");
 	// ================= 블럭 이미지 ================ //
-	ImageIcon teduriImage = new ImageIcon("image/GameObject/block3.png");
+	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
+	ImageIcon blockImage2 = new ImageIcon("image/GameObject/block2.png");
+	ImageIcon blockImage3 = new ImageIcon("image/GameObject/block3.png");
 	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 
@@ -88,65 +90,15 @@ public class singleGame extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
+		int xPoint = p.getLocationX() / 40;
+		int yPoint = p.getLocationY() / 40;
+
 		if (e.getKeyCode() == KeyEvent.VK_K)
 			System.out.println(bl[(p.getLocationY() + 20) / 39][(p.getLocationX() + 20) / 39].getImageName());
 
-		// W키 입력시
-		if (e.getKeyCode() == KeyEvent.VK_W) {
-			state = 1; // 위
-			p.painting(state);
+		move(e.getKeyCode());
 
-			p.LocationSet(playerX, playerY -= 5);
-			p.outOfrange();
-
-			p.revalidate();
-//			p.repaint();
-
-			System.out.println(p.getLocationX() + " " + p.getLocationY());
-			System.out.println(p.getX() + " " + p.getY());
-		}
-		// A키 입력시
-		if (e.getKeyCode() == KeyEvent.VK_A) {
-			state = 2;
-			p.painting(state);
-			p.LocationSet(playerX -= 5, playerY);
-
-			p.outOfrange();
-
-			p.revalidate();
-//			p.repaint();
-
-			System.out.println(p.getLocationX() + " " + p.getLocationY());
-
-		}
-		// S키 입력시
-		if (e.getKeyCode() == KeyEvent.VK_S) {
-			state = 3;
-			p.painting(state);
-			p.LocationSet(playerX, playerY += 5);
-
-			p.outOfrange();
-
-			p.revalidate();
-//			p.repaint();
-
-			System.out.println(p.getLocationX() + " " + p.getLocationY());
-
-		}
-		// D키 입력시
-		if (e.getKeyCode() == KeyEvent.VK_D) {
-			state = 4;
-			p.painting(state);
-			p.LocationSet(playerX += 5, playerY);
-			p.outOfrange();
-
-			p.revalidate();
-//			p.repaint();
-
-			System.out.println(p.getLocationX() + " " + p.getLocationY());
-		}
-
-			hitBlock(e.getKeyCode());
+		hitBlock(e.getKeyCode());
 	}
 
 	@Override
@@ -293,35 +245,119 @@ public class singleGame extends JFrame implements KeyListener {
 	public void hitBlock(int keyType) {
 		int xPoint = p.getLocationX() / 40;
 		int yPoint = p.getLocationY() / 40;
-		
-		
-		if (keyType == KeyEvent.VK_UP) {
-			bl[xPoint -1][yPoint].setHp(bl[xPoint- 1][yPoint].getHp() - 1);
-			System.out.println("위 블럭 HP : " + bl[xPoint - 1][yPoint].getHp());
-			System.out.println(bl[xPoint- 1][yPoint].isBlock());
 
-			bl[yPoint-1][xPoint].setImage(tileImage);
+		if (keyType == KeyEvent.VK_UP) {
+			bl[yPoint - 1][xPoint].setHp(bl[yPoint - 1][xPoint].getHp() - 1);
+			System.out.println("위 블럭 HP : " + bl[yPoint - 1][xPoint].getHp());
+			System.out.println(bl[yPoint - 1][xPoint].isBlock());
 			
+			if (bl[yPoint - 1][xPoint].getHp() == 2)
+				bl[yPoint - 1][xPoint].setImage(blockImage2);
+			else if (bl[yPoint - 1][xPoint].getHp() == 1)
+				bl[yPoint - 1][xPoint].setImage(blockImage3);
+			else if (bl[yPoint - 1][xPoint].getHp() <= 0)
+				bl[yPoint - 1][xPoint].setImage(tileImage);
+
 		}
 		if (keyType == KeyEvent.VK_DOWN) {
-			bl[xPoint][p.getX() / 40].setHp(bl[xPoint + 1][p.getX() / 40].getHp() - 1);
-			System.out.println("아래 블럭 HP : " +bl[xPoint + 1][p.getX() / 40].getHp());
+			bl[yPoint + 1][xPoint].setHp(bl[yPoint + 1][xPoint].getHp() - 1);
+			System.out.println("아래 블럭 HP : " + bl[yPoint + 1][xPoint].getHp());
+
+			if (bl[yPoint + 1][xPoint].getHp() == 2)
+				bl[yPoint + 1][xPoint].setImage(blockImage2);
+			else if (bl[yPoint + 1][xPoint].getHp() == 1)
+				bl[yPoint + 1][xPoint].setImage(blockImage3);
+			else if (bl[yPoint + 1][xPoint].getHp() <= 0)
+				bl[yPoint + 1][xPoint].setImage(tileImage);
+
 		}
 		if (keyType == KeyEvent.VK_LEFT) {
-			bl[xPoint][p.getX() / 40 - 1].setHp(bl[xPoint][p.getX() / 40 - 1].getHp() - 1);
-			System.out.println("좌 블럭 HP : " + bl[xPoint][p.getX() / 40 - 1].getHp());
+			bl[yPoint][xPoint - 1].setHp(bl[yPoint][xPoint - 1].getHp() - 1);
+			System.out.println("좌 블럭 HP : " + bl[yPoint][xPoint - 1].getHp());
+			
+			if (bl[yPoint][xPoint - 1].getHp() == 2)
+				bl[yPoint][xPoint - 1].setImage(blockImage2);
+			else if (bl[yPoint][xPoint - 1].getHp() == 1)
+				bl[yPoint][xPoint - 1].setImage(blockImage3);
+			else if (bl[yPoint][xPoint - 1].getHp() <= 0)
+				bl[yPoint][xPoint - 1].setImage(tileImage);
+
 		}
 		if (keyType == KeyEvent.VK_RIGHT) {
-			bl[xPoint][p.getX() / 40 + 1].setHp(bl[xPoint][p.getX() / 40 + 1].getHp() - 1);
-			System.out.println("우 블럭 HP : " + bl[xPoint][p.getX() / 40 + 1].getHp());
+			bl[yPoint][xPoint + 1].setHp(bl[yPoint][xPoint + 1].getHp() - 1);
+			System.out.println("우 블럭 HP : " + bl[yPoint][xPoint + 1].getHp());
+
+			if (bl[yPoint][xPoint + 1].getHp() == 2)
+				bl[yPoint][xPoint + 1].setImage(blockImage2);
+			else if (bl[yPoint][xPoint + 1].getHp() == 1)
+				bl[yPoint][xPoint + 1].setImage(blockImage3);
+			else if (bl[yPoint][xPoint + 1].getHp() <= 0)
+				bl[yPoint][xPoint + 1].setImage(tileImage);
+
+		}
+	}
+
+	public void move(int keyType) {
+		// W키 입력시
+		if (keyType == KeyEvent.VK_W) {
+			state = 1; // 위
+			p.painting(state);
+
+			p.LocationSet(playerX, playerY -= 5);
+			p.outOfrange();
+
+			p.revalidate();
+//			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+			System.out.println(p.getX() + " " + p.getY());
+		}
+		// A키 입력시
+		if (keyType == KeyEvent.VK_A) {
+			state = 2;
+			p.painting(state);
+			p.LocationSet(playerX -= 5, playerY);
+
+			p.outOfrange();
+
+			p.revalidate();
+//			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+
+		}
+		// S키 입력시
+		if (keyType == KeyEvent.VK_S) {
+			state = 3;
+			p.painting(state);
+			p.LocationSet(playerX, playerY += 5);
+
+			p.outOfrange();
+
+			p.revalidate();
+//			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
+
+		}
+		// D키 입력시
+		if (keyType == KeyEvent.VK_D) {
+			state = 4;
+			p.painting(state);
+			p.LocationSet(playerX += 5, playerY);
+			p.outOfrange();
+
+			p.revalidate();
+//			p.repaint();
+
+			System.out.println(p.getLocationX() + " " + p.getLocationY());
 		}
 	}
 
 	public static void main(String[] args) {
 
 		singleGame sGame = new singleGame();
-		
-		
+
 	}
 
 }
