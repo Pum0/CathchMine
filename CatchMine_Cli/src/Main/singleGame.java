@@ -243,8 +243,8 @@ public class singleGame extends JFrame implements KeyListener {
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
 	public void hitBlock(int keyType) {
-		int xPoint = p.getLocationX() / 40;
-		int yPoint = p.getLocationY() / 40;
+		int xPoint = (p.getLocationX() + 20) / 40 ;
+		int yPoint = (p.getLocationY() + 20) / 40 ;
 
 		if (keyType == KeyEvent.VK_UP) {
 			bl[yPoint - 1][xPoint].setHp(bl[yPoint - 1][xPoint].getHp() - 1);
