@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 
 public class block extends JPanel {
 
+	
+	
+	
+	
 	private int hp; // 블럭 당 Hp
 	private int x; // x 축 좌표
 	private int y; // y 축 좌표
