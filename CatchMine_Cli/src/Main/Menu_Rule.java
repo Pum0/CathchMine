@@ -16,9 +16,11 @@ import javax.swing.border.LineBorder;
 
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
-	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, KeyLabel;
-	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, KeyIcon;
-	Image backMoveImg, backMoveKey;
+	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, keyLabel,
+			backAttackLabel, leftAttackLabel, rightAttackLabel, frontAttackLabel, keyLabel2 ;
+	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, keyIcon,
+			backAttackIcon, leftAttackIcon, rightAttackIcon, frontAttackIcon, keyIcon2;
+	
 	JButton backButton;
 	Design de = new Design();
 
@@ -61,9 +63,31 @@ public class Menu_Rule extends JPanel {
 		rightMoveLabel = new JLabel(rightMoveIcon);
 		rightMoveLabel.setBounds(100, 65, 40, 40);
 
-		KeyIcon = new ImageIcon("image/moveKey.png");
-		KeyLabel = new JLabel(KeyIcon);
-		KeyLabel.setBounds(160, 20, 120, 120);
+		keyIcon = new ImageIcon("image/moveKey.png");
+		keyLabel = new JLabel(keyIcon);
+		keyLabel.setBounds(160, 20, 120, 120);
+		
+		
+		
+		backAttackIcon = new ImageIcon("image/gif/Back_AttackMotion.gif");
+		backAttackLabel = new JLabel(backAttackIcon);
+		backAttackLabel.setBounds(60, 120, 40, 40);
+
+		leftAttackIcon = new ImageIcon("image/gif/Left_AttackMotion.gif");
+		leftAttackLabel = new JLabel(leftAttackIcon);
+		leftAttackLabel.setBounds(20, 165, 40, 40);
+
+		frontAttackIcon = new ImageIcon("image/gif/Front_AttackMotion.gif");
+		frontAttackLabel = new JLabel(frontAttackIcon);
+		frontAttackLabel.setBounds(60, 165, 40, 40);
+
+		rightAttackIcon = new ImageIcon("image/gif/Right_AttackMotion.gif");
+		rightAttackLabel = new JLabel(rightAttackIcon);
+		rightAttackLabel.setBounds(100, 165, 40, 40);
+		
+		keyIcon2 = new ImageIcon("image/attackKey.png");
+		keyLabel2 = new JLabel(keyIcon2);
+		keyLabel2.setBounds(160, 120, 120, 120);
 
 		add(backButton);
 		add(mainPanel);
@@ -71,7 +95,13 @@ public class Menu_Rule extends JPanel {
 		mainPanel.add(leftMoveLabel);
 		mainPanel.add(frontMoveLabel);
 		mainPanel.add(rightMoveLabel);
-		mainPanel.add(KeyLabel);
+		mainPanel.add(keyLabel);
+		
+		mainPanel.add(backAttackLabel);
+		mainPanel.add(leftAttackLabel);
+		mainPanel.add(frontAttackLabel);
+		mainPanel.add(rightAttackLabel);
+		mainPanel.add(keyLabel2);
 		
 		add(de.setBackground());
 	}
