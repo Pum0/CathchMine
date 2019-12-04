@@ -87,6 +87,8 @@ public class singleGame extends JFrame implements KeyListener {
 
 	}
 
+	private long prevTime = 0; // 딜레이
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 
@@ -98,7 +100,11 @@ public class singleGame extends JFrame implements KeyListener {
 
 		move(e.getKeyCode());
 
-		hitBlock(e.getKeyCode());
+		long curTime = System.currentTimeMillis() - prevTime; // 쿨타임 계산
+		if (curTime > 450) { // 쿨타임 0.45초
+			hitBlock(e.getKeyCode());
+			prevTime = System.currentTimeMillis();
+		}
 	}
 
 	@Override
@@ -243,14 +249,17 @@ public class singleGame extends JFrame implements KeyListener {
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
 	public void hitBlock(int keyType) {
-		int xPoint = (p.getLocationX() + 20) / 40 ;
-		int yPoint = (p.getLocationY() + 20) / 40 ;
+		int xPoint = (p.getLocationX() + 20) / 40;
+		int yPoint = (p.getLocationY() + 20) / 40;
 
 		if (keyType == KeyEvent.VK_UP) {
+			state = 5;
+			p.painting(state);
+
 			bl[yPoint - 1][xPoint].setHp(bl[yPoint - 1][xPoint].getHp() - 1);
 			System.out.println("위 블럭 HP : " + bl[yPoint - 1][xPoint].getHp());
 			System.out.println(bl[yPoint - 1][xPoint].isBlock());
-			
+
 			if (bl[yPoint - 1][xPoint].getHp() == 2)
 				bl[yPoint - 1][xPoint].setImage(blockImage2);
 			else if (bl[yPoint - 1][xPoint].getHp() == 1)
@@ -260,6 +269,9 @@ public class singleGame extends JFrame implements KeyListener {
 
 		}
 		if (keyType == KeyEvent.VK_DOWN) {
+			state = 7;
+			p.painting(state);
+
 			bl[yPoint + 1][xPoint].setHp(bl[yPoint + 1][xPoint].getHp() - 1);
 			System.out.println("아래 블럭 HP : " + bl[yPoint + 1][xPoint].getHp());
 
@@ -269,21 +281,29 @@ public class singleGame extends JFrame implements KeyListener {
 				bl[yPoint + 1][xPoint].setImage(blockImage3);
 			else if (bl[yPoint + 1][xPoint].getHp() <= 0)
 				bl[yPoint + 1][xPoint].setImage(tileImage);
-
+			p.revalidate();
+			p.repaint();
 		}
 		if (keyType == KeyEvent.VK_LEFT) {
+			state = 6;
+			p.painting(state);
+
 			bl[yPoint][xPoint - 1].setHp(bl[yPoint][xPoint - 1].getHp() - 1);
 			System.out.println("좌 블럭 HP : " + bl[yPoint][xPoint - 1].getHp());
-			
+
 			if (bl[yPoint][xPoint - 1].getHp() == 2)
 				bl[yPoint][xPoint - 1].setImage(blockImage2);
 			else if (bl[yPoint][xPoint - 1].getHp() == 1)
 				bl[yPoint][xPoint - 1].setImage(blockImage3);
 			else if (bl[yPoint][xPoint - 1].getHp() <= 0)
 				bl[yPoint][xPoint - 1].setImage(tileImage);
-
+			p.revalidate();
+			p.repaint();
 		}
 		if (keyType == KeyEvent.VK_RIGHT) {
+			state = 8;
+			p.painting(state);
+
 			bl[yPoint][xPoint + 1].setHp(bl[yPoint][xPoint + 1].getHp() - 1);
 			System.out.println("우 블럭 HP : " + bl[yPoint][xPoint + 1].getHp());
 
@@ -293,7 +313,8 @@ public class singleGame extends JFrame implements KeyListener {
 				bl[yPoint][xPoint + 1].setImage(blockImage3);
 			else if (bl[yPoint][xPoint + 1].getHp() <= 0)
 				bl[yPoint][xPoint + 1].setImage(tileImage);
-
+			p.revalidate();
+			p.repaint();
 		}
 	}
 
