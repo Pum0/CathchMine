@@ -98,27 +98,7 @@ public class Menu_Multi extends JPanel {
 		for (int j = 0; j < tcm.getColumnCount(); j++)
 			tcm.getColumn(j).setCellRenderer(dtcr);
 
-		addUserInfo("1234323413424", "122");
-		addUserInfo("12343341342", "2");
-		addUserInfo("123", "3");
-		addUserInfo("123", "4");
-		addUserInfo("123", "5");
-		addUserInfo("123", "6");
-		addUserInfo("123", "7");
-		addUserInfo("123", "8");
-		addUserInfo("123", "9");
-		addUserInfo("123", "10");
 
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
-		userTm.addRow(userData);
 		userTable.setEnabled(false);
 		
 		// -----------------------유저 테이블 설정 끝----------
