@@ -26,6 +26,8 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 	Create_Room createRoom = new Create_Room();
 	Multi_Room multiRoom = new Multi_Room();
 
+	PlayMusic backgroundMusic;
+
 	static String NickName = null;
 
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
@@ -48,7 +50,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		add(mainLogin);
 
 		// 메인 배경음악 재생
-		PlayMusic backgroundMusic = new PlayMusic("BackgroundMusic(Blurry).mp3", true);
+		backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
 		backgroundMusic.start();
 
 		add(mainMenu);
@@ -109,6 +111,7 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		// 게임 옵션 패널
 		optionMenu.backButton.addActionListener(this);
 		optionMenu.backButton.addMouseListener(this);
+		optionMenu.music.addActionListener(this);
 
 		// 게임 생성 프레임
 		createRoom.roomField.addKeyListener(this);
@@ -283,6 +286,29 @@ public class Main extends JFrame implements ActionListener, KeyListener, MouseLi
 		if (e.getSource() == optionMenu.backButton) {
 			optionMenu.setVisible(false);
 			mainMenu.setVisible(true);
+		}
+
+		if (e.getSource() == optionMenu.music) {
+			if (optionMenu.music.getSelectedIndex() == 0) {
+				backgroundMusic.close();
+				backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
+				backgroundMusic.start();
+			}
+			if (optionMenu.music.getSelectedIndex() == 1) {
+				backgroundMusic.close();
+				backgroundMusic = new PlayMusic("backgroundMusic2.mp3", true);
+				backgroundMusic.start();
+			}
+			if (optionMenu.music.getSelectedIndex() == 2) {
+				backgroundMusic.close();
+				backgroundMusic = new PlayMusic("backgroundMusic3.mp3", true);
+				backgroundMusic.start();
+			}
+			if (optionMenu.music.getSelectedIndex() == 3) {
+				backgroundMusic.close();
+				backgroundMusic = new PlayMusic("backgroundMusic4.mp3", true);
+				backgroundMusic.start();
+			}
 		}
 	}
 
