@@ -98,13 +98,13 @@ public class singleGame extends JFrame implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_K)
 			System.out.println(bl[(p.getLocationY() + 20) / 39][(p.getLocationX() + 20) / 39].getImageName());
 
-		move(e.getKeyCode());
-
 		long curTime = System.currentTimeMillis() - prevTime; // ÄðÅ¸ÀÓ °è»ê
-		if (curTime > 450) { // ÄðÅ¸ÀÓ 0.45ÃÊ
+		if (curTime > 50) { // ÄðÅ¸ÀÓ 0.45ÃÊ
+			move(e.getKeyCode());
 			hitBlock(e.getKeyCode());
 			prevTime = System.currentTimeMillis();
 		}
+
 	}
 
 	@Override
@@ -141,11 +141,6 @@ public class singleGame extends JFrame implements KeyListener {
 			y += 40;
 
 		}
-
-		bl[1][1] = new block(tileImage, 0, 40, 40);
-		bl[1][2] = new block(tileImage, 0, 40, 80);
-		bl[2][1] = new block(tileImage, 0, 80, 40);
-		bl[2][2] = new block(tileImage, 0, 80, 80);
 
 	}
 
@@ -266,7 +261,7 @@ public class singleGame extends JFrame implements KeyListener {
 				bl[yPoint - 1][xPoint].setImage(blockImage3);
 			else if (bl[yPoint - 1][xPoint].getHp() <= 0)
 				bl[yPoint - 1][xPoint].setImage(tileImage);
-
+			invalidate();
 		}
 		if (keyType == KeyEvent.VK_DOWN) {
 			state = 7;
@@ -324,7 +319,7 @@ public class singleGame extends JFrame implements KeyListener {
 			state = 1; // À§
 			p.painting(state);
 
-			p.LocationSet(playerX, playerY -= 5);
+			p.LocationSet(playerX, playerY -= 40);
 			p.outOfrange();
 
 			p.revalidate();
@@ -337,7 +332,7 @@ public class singleGame extends JFrame implements KeyListener {
 		if (keyType == KeyEvent.VK_A) {
 			state = 2;
 			p.painting(state);
-			p.LocationSet(playerX -= 5, playerY);
+			p.LocationSet(playerX -= 40, playerY);
 
 			p.outOfrange();
 
@@ -351,7 +346,7 @@ public class singleGame extends JFrame implements KeyListener {
 		if (keyType == KeyEvent.VK_S) {
 			state = 3;
 			p.painting(state);
-			p.LocationSet(playerX, playerY += 5);
+			p.LocationSet(playerX, playerY += 40);
 
 			p.outOfrange();
 
@@ -365,7 +360,7 @@ public class singleGame extends JFrame implements KeyListener {
 		if (keyType == KeyEvent.VK_D) {
 			state = 4;
 			p.painting(state);
-			p.LocationSet(playerX += 5, playerY);
+			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
 			p.revalidate();
