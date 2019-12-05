@@ -1,14 +1,22 @@
 package Game;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class block extends JPanel {
+//	// ================= 블럭 이미지 ================ //
+//	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
+//	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
+//	ImageIcon blockImage2 = new ImageIcon("image/GameObject/block2.png");
+//	ImageIcon blockImage3 = new ImageIcon("image/GameObject/block3.png");
+//	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
+//	// ================= 블럭 이미지 ================ //
 
-	private int hp; // 블럭 당 Hp
+	private boolean blockState; // 블럭이 선택 되었는지 판단 여부
 	private int x; // x 축 좌표
 	private int y; // y 축 좌표
 	ImageIcon image; // 블럭의 이미지
@@ -17,11 +25,11 @@ public class block extends JPanel {
 	public block() {
 	}
 
-	public block(ImageIcon image, int hp, int x, int y) {
+	public block(ImageIcon image, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.image = image;
-		this.hp = hp;
+		this.blockState = true;
 
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
@@ -37,29 +45,14 @@ public class block extends JPanel {
 
 	}
 
-	// 특정 좌표에 들어간 이미지의 소스정보를 출력해주는 메소드
-	// 특정 블럭으로 못지나가게 하려고 만들었기 때문에 필요 없어 지면 삭제 예정
-	public String getImageName() {
-		String str = image.getDescription();
-
-		String imageName = str.substring(6, str.length() - 4);
-		return imageName;
+	public boolean isBlockState() {
+		return blockState;
 	}
 
 	// 블럭 존재 여부 판단
 	public boolean isBlock() {
-		if (this.getHp() > 0)
-			return true;
+		return isBlockState();
 
-		return false;
-	}
-
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
 	}
 
 	public int getX() {

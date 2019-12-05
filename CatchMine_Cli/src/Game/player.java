@@ -7,52 +7,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
+	private int charState;
 
-	block b;
-	Graphics g;
-	int charState;
-
-	private int locationX;
-	private int locationY;
-
-	public player() {
-		this.setSize(40, 40);
-
-	}
-
-	public void LocationSet(int x, int y) {
-		setLocationX(x);
-		setLocationY(y);
-
-		this.setLocation(x, y);
-
-	}
-
-	// 게임창 바깥으로 못나가게하는 부분
-	public void outOfrange() {
-
-		if (getLocationX() < 40) { // 캐릭터의 현재 x 좌표가 벽을 지나려고 하면 벽한칸 크기 만큼 좌표조정
-			LocationSet(40, getLocationY());
-			repaint();
-		}
-		if (getLocationX() + getWidth() > singleGame.GAMEXSIZE - 40) {
-			LocationSet(singleGame.GAMEXSIZE - 80, getLocationY());
-			repaint();
-		}
-		if (getLocationY() < 40) {
-			LocationSet(getLocationX(), 40);
-			repaint();
-		}
-		if (getLocationY() + getHeight() > singleGame.GAMEYSIZE - 40) {
-			LocationSet(getLocationX(), singleGame.GAMEYSIZE - 80);
-			repaint();
-		}
-
-	}
-
-	public void painting(int state) {
-		charState = state;
-	}
+	private int x;
+	private int y;
 
 	// ======================= 캐릭터 이미지 ============================ //
 	// 블럭 공격 모션 더 추가 될 예정
@@ -68,8 +26,13 @@ public class player extends JPanel {
 
 	// ======================= 캐릭터 이미지 ============================ //
 
-	Image img;
-	ImageIcon gifImg;
+	public player() {
+		this.x = 40;
+		this.y = 40;
+		this.setSize(40, 40);
+		this.charState = 3;
+
+	}
 
 	public void paintComponent(Graphics g) {
 		gifImg = FrontImage;
@@ -96,20 +59,57 @@ public class player extends JPanel {
 
 	}
 
-	public int getLocationX() {
-		return locationX;
+	public void LocationSet(int x, int y) {
+		setX(x);
+		setY(y);
+
+		this.setLocation(x, y);
+
 	}
 
-	public void setLocationX(int locationX) {
-		this.locationX = locationX;
+	// 게임창 바깥으로 못나가게하는 부분
+	public void outOfrange() {
+
+		if (getX() < 40) { // 캐릭터의 현재 x 좌표가 벽을 지나려고 하면 벽한칸 크기 만큼 좌표조정
+			LocationSet(40, getY());
+			repaint();
+		}
+		if (getX() + getWidth() > singleGame.GAMEXSIZE - 40) {
+			LocationSet(singleGame.GAMEXSIZE - 80, getY());
+			repaint();
+		}
+		if (getY() < 40) {
+			LocationSet(getX(), 40);
+			repaint();
+		}
+		if (getY() + getHeight() > singleGame.GAMEYSIZE - 40) {
+			LocationSet(getX(), singleGame.GAMEYSIZE - 80);
+			repaint();
+		}
+
 	}
 
-	public int getLocationY() {
-		return locationY;
+	public void painting(int state) {
+		charState = state;
 	}
 
-	public void setLocationY(int locationY) {
-		this.locationY = locationY;
+	Image img;
+	ImageIcon gifImg;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int locationX) {
+		this.x = locationX;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int locationY) {
+		this.y = locationY;
 	}
 
 }
