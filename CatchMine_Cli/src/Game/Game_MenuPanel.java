@@ -9,8 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game_MenuPanel extends JPanel {
+	// 메뉴에 있어야 할 목록 가진 아이템, 사용가능한 깃발 갯수, 멀티면 유저 목록
 	final static int MENUXSIZE = 1400;
-	final static int MENUYSIZE = 120;
+	final static int MENUYSIZE = 100;
 
 	// ================= 내부 옵션 이미지 ================ //
 
@@ -31,7 +32,7 @@ public class Game_MenuPanel extends JPanel {
 		timerPanel = new JPanel();
 
 		timeLabel = new JLabel(timer(time));
-		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 30));
+		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 20));
 		timeLabel.setLocation(1000, 40);
 
 		timerPanel.setSize(180, 50);

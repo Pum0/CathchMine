@@ -3,22 +3,18 @@ package Game;
 import javax.swing.JFrame;
 
 public class Game extends JFrame {
-	singleGame single;
-	Game_MenuPanel menu;
+	GamePanel game_Panel;
 
 	public Game() {
-		
-		single = new singleGame(); // 싱글 게임 클래스
-
-		single.setBounds(20, 160, single.GAMEXSIZE, single.GAMEYSIZE);
-		menu = new Game_MenuPanel();
-		add(single);
-		add(menu);
-		menu.setBounds(20, 20, menu.MENUXSIZE, menu.MENUYSIZE);
+		game_Panel = new GamePanel();
 
 		setTitle("Catch-Mine Game");
-		setSize(single.FRAMEXSIZE, single.FRAMEYSIZE);
-		
+		setSize(singleGame.FRAMEXSIZE, singleGame.FRAMEYSIZE);
+
+		add(game_Panel);
+
+		setBounds(0, 0, singleGame.FRAMEXSIZE, singleGame.FRAMEYSIZE);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);

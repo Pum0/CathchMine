@@ -24,8 +24,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-	ImageIcon blockImage2 = new ImageIcon("image/GameObject/block2.png");
-	ImageIcon blockImage3 = new ImageIcon("image/GameObject/block3.png");
+
 	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 
