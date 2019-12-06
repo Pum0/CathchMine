@@ -7,10 +7,10 @@ public class Game extends JFrame {
 	Game_MenuPanel menu;
 
 	public Game() {
-
+		
 		single = new singleGame(); // 싱글 게임 클래스
 
-		single.setBounds(20, 160, single.FRAMEXSIZE, single.FRAMEYSIZE);
+		single.setBounds(20, 160, single.GAMEXSIZE, single.GAMEYSIZE);
 		menu = new Game_MenuPanel();
 		add(single);
 		add(menu);
@@ -18,6 +18,7 @@ public class Game extends JFrame {
 
 		setTitle("Catch-Mine Game");
 		setSize(single.FRAMEXSIZE, single.FRAMEYSIZE);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);

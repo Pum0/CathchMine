@@ -14,8 +14,6 @@ public class Game_MenuPanel extends JPanel {
 
 	// ================= 내부 옵션 이미지 ================ //
 
-	ImageIcon menuImage = new ImageIcon("image/imsiMenu.png");
-
 	// 게임 위쪽 메뉴 UI 패널
 	private JPanel timerPanel; // 타이머 패널
 	private JLabel timeLabel; // 시간이 출력되는 레이블
@@ -26,7 +24,9 @@ public class Game_MenuPanel extends JPanel {
 	// 게임 메뉴 초기화
 	// 메뉴 패널 초기구성
 	public Game_MenuPanel() {
-		setBackground(Color.BLUE);
+		setLayout(null);
+		setSize(MENUXSIZE, MENUYSIZE);
+		this.setBackground(Color.BLUE);
 
 		timerPanel = new JPanel();
 
@@ -42,11 +42,7 @@ public class Game_MenuPanel extends JPanel {
 		new timerThread().start();
 
 		timerPanel.setLocation(1000, 15);
-
-		setLayout(null);
-
-		setSize(MENUXSIZE, MENUYSIZE);
-		setLocation(20, 20);
+//		setLocation(20, 20);
 
 		add(timerPanel);
 
@@ -65,7 +61,9 @@ public class Game_MenuPanel extends JPanel {
 
 		@Override
 		public void run() {
-			for (int i = 0;; i++) {
+			int count = 0;
+			while (true) {
+				count++;
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -73,7 +71,7 @@ public class Game_MenuPanel extends JPanel {
 					System.out.println(e.toString());
 				}
 				timeLabel.setText("");
-				timeLabel.setText(timer(i));
+				timeLabel.setText(timer(count));
 
 			}
 		}

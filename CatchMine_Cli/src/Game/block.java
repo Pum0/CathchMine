@@ -22,6 +22,8 @@ public class block extends JPanel {
 	ImageIcon image; // 블럭의 이미지
 	JLabel label;
 
+	private int mineCount;
+
 	public block() {
 	}
 

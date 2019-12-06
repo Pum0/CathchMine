@@ -21,7 +21,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	singleGame sG = this; // 싱글게임패널 자신
 
 	// ================= 이미지 ================ //
-	ImageIcon backImage = new ImageIcon("image/back.png");
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
@@ -71,9 +70,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int yPoint = p.getY() / 40;
 
 		long curTime = System.currentTimeMillis() - prevTime; // 쿨타임 계산
-		if (curTime > 100) { // 쿨타임 0.1초
+		if (curTime > 35) { // 쿨타임 0.1초
 			move(e.getKeyCode());
-			hitBlock(e.getKeyCode());
+
+			if (e.getKeyCode() == KeyEvent.VK_Q) {
+				state = 5;
+				p.setState(state);
+				hitBlock();
+			}
+
 			prevTime = System.currentTimeMillis();
 		}
 
@@ -121,10 +126,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	}
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
-	public void hitBlock(int keyType) {
+	public void hitBlock() {
 		int xPoint = (p.getX() + 20) / 40;
 		int yPoint = (p.getY() + 20) / 40;
 
+		bl[yPoint][xPoint].setImage(tileImage);
+		p.revalidate();
+		p.repaint();
 	}
 
 	public void move(int keyType) {
@@ -132,7 +140,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// W키 입력시
 		if (keyType == KeyEvent.VK_W) {
 			state = 1; // 위
-			p.painting(state);
+			p.setState(state);
 
 			p.LocationSet(playerX, playerY -= 40);
 			p.outOfrange();
@@ -146,7 +154,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// A키 입력시
 		if (keyType == KeyEvent.VK_A) {
 			state = 2;
-			p.painting(state);
+			p.setState(state);
 			p.LocationSet(playerX -= 40, playerY);
 
 			p.outOfrange();
@@ -160,7 +168,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// S키 입력시
 		if (keyType == KeyEvent.VK_S) {
 			state = 3;
-			p.painting(state);
+			p.setState(state);
 			p.LocationSet(playerX, playerY += 40);
 
 			p.outOfrange();
@@ -174,7 +182,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// D키 입력시
 		if (keyType == KeyEvent.VK_D) {
 			state = 4;
-			p.painting(state);
+			p.setState(state);
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
@@ -183,12 +191,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 			System.out.println(p.getX() + " " + p.getY());
 		}
-
-	}
-
-	public static void main(String[] args) {
-
-		singleGame sGame = new singleGame();
 
 	}
 

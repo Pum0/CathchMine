@@ -13,18 +13,12 @@ public class player extends JPanel {
 	private int y;
 
 	// ======================= 캐릭터 이미지 ============================ //
-	// 블럭 공격 모션 더 추가 될 예정
 	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");
 	static ImageIcon FrontImage = new ImageIcon("image/gif/Front_Move.gif");
 	static ImageIcon LeftImage = new ImageIcon("image/gif/Left_Move.gif");
 	static ImageIcon RightImage = new ImageIcon("image/gif/Right_Move.gif");
-	//
-	static ImageIcon BackAttack = new ImageIcon("image/gif/Back_AttackMotion.gif");
-	static ImageIcon FrontAttack = new ImageIcon("image/gif/Front_AttackMotion.gif");
-	static ImageIcon LeftAttack = new ImageIcon("image/gif/Left_AttackMotion.gif");
-	static ImageIcon RightAttack = new ImageIcon("image/gif/Right_AttackMotion.gif");
 
-	// ======================= 캐릭터 이미지 ============================ //
+	static ImageIcon FrontAttack = new ImageIcon("image/gif/Front_AttackMotion.gif");
 
 	public player() {
 		this.x = 40;
@@ -46,13 +40,7 @@ public class player extends JPanel {
 		if (charState == 4)
 			gifImg = RightImage;
 		if (charState == 5)
-			gifImg = BackAttack;
-		if (charState == 6)
-			gifImg = LeftAttack;
-		if (charState == 7)
 			gifImg = FrontAttack;
-		if (charState == 8)
-			gifImg = RightAttack;
 
 		img = gifImg.getImage();
 		g.drawImage(img, 0, 0, 40, 40, null);
@@ -88,10 +76,14 @@ public class player extends JPanel {
 		}
 
 	}
-
-	public void painting(int state) {
+	
+	public void setState(int state){
 		charState = state;
+		
 	}
+//	public void painting(int state) {
+//		charState = state;
+//	}
 
 	Image img;
 	ImageIcon gifImg;
