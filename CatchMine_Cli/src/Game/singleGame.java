@@ -19,13 +19,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	player p = new player();
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
-	block[][] block = new block[18][35]; // 실제 배치될 블럭의 배열
-
-	// ================= 블럭 이미지 ================ //
-	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
-	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
-	// ================= 블럭 이미지 ================ //
+	block[][] block = new block[18][35]; // 실제 블럭이 만들어질 배열
 
 	static int state;
 
@@ -38,15 +32,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		setBackground(Color.RED);
 
 		this.add(p);
-//		bl.setBlock(block);
 		bl.initBlock(this, block);
-//		bl.disposeBlock(this, block);
 
 		p.setBounds(playerX, playerY, 40, 40);
-
-//		for (int i = 0; i < block.length; i++)
-//			for (int j = 0; j < block[i].length; j++)
-//				add(block[i][j]);
 
 		this.setFocusable(true);
 
@@ -69,8 +57,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_Q && block[yPoint][xPoint].getBlockState() != true) {
-//			state = 10;
-//			p.setState(state);
+
+			state = 10;
+			p.setState(state);
 			hitBlock();
 
 		}
@@ -95,16 +84,16 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
-		state = 10;
-		p.setState(state);
+		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + block[yPoint][xPoint].getBlockState());
+		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + ">");
 
 		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
 		block[yPoint][xPoint].setBlockState(true);
 
-//		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + bl[yPoint][xPoint].getBlockState());
 	}
 
+	// 이동후 정지할때 나오는 모션들을 나오게 하는 메소드
 	public void stop(int keyType) {
 		// 방향키 위쪽 입력시
 		if (keyType == KeyEvent.VK_UP) {

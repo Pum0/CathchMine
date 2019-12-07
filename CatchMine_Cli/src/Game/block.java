@@ -13,6 +13,7 @@ public class block extends JLayeredPane {
 	private int x; // x 축 좌표
 	private int y; // y 축 좌표
 	ImageIcon image; // 블럭의 이미지
+	
 	JLabel blockLabel;
 	JLabel tileLabel;
 	// ================= 블럭 이미지 ================ //
