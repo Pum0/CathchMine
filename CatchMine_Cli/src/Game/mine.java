@@ -29,26 +29,24 @@ public class mine extends JPanel {
 		add(mineLabel);
 	}
 
-	public int getMineCount(int x, int y) { // Áö·ÚÀÇ °¹¼ö¸¦ ¹İÈ¯
+	public int getMineCount(boolean[][] mp, int x, int y) { // Áö·ÚÀÇ °¹¼ö¸¦ ¹İÈ¯
 		int count = 0;
 		int width = x;
 		int height = y;
 
 		for (int i = width - 1; i <= width + 1; i++) {
 			for (int j = height - 1; j <= height + 1; j++) {
-				if (isMine(i, j)) // Áö·Ú°¡ ÀÖÀ» ½Ã Áö·ÚÀÇ °¹¼ö¸¦ Áõ°¡½ÃÅ´
+				if (isMine(mp, i, j)) // Áö·Ú°¡ ÀÖÀ» ½Ã Áö·ÚÀÇ °¹¼ö¸¦ Áõ°¡½ÃÅ´
 					count++;
 			}
-
-			count = 0;
 		}
 
 		return count;
 	}
 
-	public boolean isMine(int x, int y) { // ÇöÀç ÁÂÇ¥¿¡ Áö·Ú°¡ ÀÖ´ÂÁö ÆÇ´Ü, ÀÖÀ¸¸é Á×¾î¾ß µÇ´Ï±ñ¸¸µë
+	public boolean isMine(boolean[][] minePosi, int x, int y) { // ÇöÀç ÁÂÇ¥¿¡ Áö·Ú°¡ ÀÖ´ÂÁö ÆÇ´Ü, ÀÖÀ¸¸é Á×¾î¾ß µÇ´Ï±ñ¸¸µë
 
-		return minePosition[x][y];
+		return minePosi[x][y];
 	}
 
 }

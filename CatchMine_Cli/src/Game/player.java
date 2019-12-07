@@ -13,6 +13,7 @@ public class player extends JPanel {
 	game_item item;
 	private int x;
 	private int y;
+	private boolean isAlive;
 	Queue<String> itemPocket; // 먼저 얻은 아이템을 사용하기 위해서 Queue 자료구조 활용
 
 	// ======================= 캐릭터 이미지 ============================ //
@@ -37,32 +38,14 @@ public class player extends JPanel {
 		this.x = 40;
 		this.y = 40;
 		this.setSize(40, 40);
-		this.charState = 3;
+		this.charState = 3; // 처음 캐릭터가 생성되면 정면을 바라보고있음
+		this.isAlive = true; // 기본적으로 생성되면 살아있다
 
 		this.setOpaque(false);
 		this.add(playerlabel);
 
 		this.itemPocket = new LinkedList<>();
 	}
-
-//	public void paintComponent(Graphics g) {
-//		gifImg = FrontImage;
-//
-//		if (charState == 1)
-//			gifImg = BackImage;
-//		if (charState == 2)
-//			gifImg = LeftImage;
-//		if (charState == 3)
-//			gifImg = FrontImage;
-//		if (charState == 4)
-//			gifImg = RightImage;
-//		if (charState == 5)
-//			gifImg = Check;
-//
-//		img = gifImg.getImage();
-//		g.drawImage(img, 0, 0, 40, 40, null);
-//
-//	}
 
 	public void LocationSet(int x, int y) {
 		setX(x);

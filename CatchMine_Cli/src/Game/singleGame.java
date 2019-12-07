@@ -25,27 +25,29 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
 	block[][] block = new block[18][35]; // 실제 블럭이 만들어질 배열
 	// 지뢰
-	mine mine = new mine();
-	boolean[][] minePosition = new boolean[18][35];
-	int mineCount = 100;
+	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
+	boolean[][] minePosition = new boolean[18][35]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
+	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	public singleGame() {
 		setLayout(null);
-		setBackground(Color.RED);
 
 		this.add(p);
-		bl.initBlock(this, block);
 		p.setBounds(playerX, playerY, 40, 40);
-
+		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
+		bl.initBlock(this, block);
+		// player의 초기 위치를 잡아줌
+		// 지뢰의 위치를 선정해주는 메소드
 		generateMine(minePosition);
 
 		this.setFocusable(true);
-
 		this.addKeyListener(this);
+	}
+
+	public void disposeMine(JPanel pan) {
 
 	}
-	
-	
+
 	// 지뢰가 있는 위치를 2차원배열에 정해준 지뢰의 갯수만큼 랜덤하게 담는다.
 	public void generateMine(boolean[][] bool) {
 		int count = 0;
@@ -89,6 +91,10 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			for (int i = 0; i < minePosition.length; i++)
 				System.out.println(Arrays.toString(minePosition[i]));
 		}
+
+		if (e.getKeyCode() == KeyEvent.VK_B) {
+			System.out.println("주변 블럭에 있는 지뢰 갯수는 : "+ mine.getMineCount(minePosition, yPoint, xPoint));
+		}
 	}
 
 	@Override
@@ -111,6 +117,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + block[yPoint][xPoint].getBlockState());
 		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + ">");
+		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
 		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
