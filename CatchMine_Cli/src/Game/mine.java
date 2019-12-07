@@ -15,14 +15,12 @@ public class mine extends JPanel {
 	// Áö·Ú ÀÌ¹ÌÁö
 	ImageIcon mineImage = new ImageIcon("image/GameObject/Mine.png");
 	JLabel mineLabel;
-
+	
 	public mine() {
-	}
-
-	public mine(int x, int y) {
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
-		this.setLocation(x, y);
+		this.setOpaque(false);
+
 		mineLabel = new JLabel();
 		mineLabel.setIcon(mineImage);
 
@@ -36,6 +34,7 @@ public class mine extends JPanel {
 
 		for (int i = width - 1; i <= width + 1; i++) {
 			for (int j = height - 1; j <= height + 1; j++) {
+
 				if (isMine(mp, i, j)) // Áö·Ú°¡ ÀÖÀ» ½Ã Áö·ÚÀÇ °¹¼ö¸¦ Áõ°¡½ÃÅ´
 					count++;
 			}

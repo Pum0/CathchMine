@@ -54,13 +54,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰가 있는 위치를 2차원배열에 정해준 지뢰의 갯수만큼 랜덤하게 담는다.
 	public void generateMine(boolean[][] bool) {
 		int count = 0;
-
+		int imsi = 0;
 		while (count < mineCount) {
+			imsi++;
 			int x = (int) (Math.random() * bool.length);
 			int y = (int) (Math.random() * bool[x].length);
 
+			System.out.println(imsi);
 			// 블럭에 지뢰가 없고, 테두리가 아니면 지뢰를 추가하고 지뢰의 갯수를 늘림
-			if (bool[x][y] == false && (x != 0 || y != 0) && (x != bool.length || y != bool[x].length)) {
+			if (bool[x][y] == false && (x != 0 && y != 0) && (x != bool.length - 1 && y != bool[x].length - 1)) {
 				bool[x][y] = true;
 				count++;
 			}
@@ -138,6 +140,11 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 //		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
+		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고 아니면 지뢰를 넣는다
+		if (mine.isMine(minePosition, yPoint, xPoint) == false)
+			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2));
+		else
+			block[yPoint][xPoint].add(new mine(), new Integer(2));
 
 		block[yPoint][xPoint].setBlockState(true);
 
@@ -216,13 +223,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 그저 지뢰의 갯수를 나타낼 이미지를 가지고 있는 패널
 	class MineNum extends JPanel {
 		ImageIcon N1 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N2 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N3 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N4 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N5 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N6 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N7 = new ImageIcon("image/GameObject/blockNumber/N1.png");
-		ImageIcon N8 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N2 = new ImageIcon("image/GameObject/blockNumber/N2.png");
+		ImageIcon N3 = new ImageIcon("image/GameObject/blockNumber/N3.png");
+		ImageIcon N4 = new ImageIcon("image/GameObject/blockNumber/N4.png");
+		ImageIcon N5 = new ImageIcon("image/GameObject/blockNumber/N5.png");
+		ImageIcon N6 = new ImageIcon("image/GameObject/blockNumber/N6.png");
+		ImageIcon N7 = new ImageIcon("image/GameObject/blockNumber/N7.png");
+		ImageIcon N8 = new ImageIcon("image/GameObject/blockNumber/N8.png");
 
 		ImageIcon[] numberIcon = { null, N1, N2, N3, N4, N5, N6, N7, N8 };
 
