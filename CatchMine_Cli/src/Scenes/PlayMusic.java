@@ -1,4 +1,4 @@
-package Main;
+package Scenes;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 
 import javazoom.jl.player.Player;
 
-class PlayMusic extends Thread {
+public class PlayMusic extends Thread {
 	private Player player;
 	private boolean isLoop;
 	private File file;

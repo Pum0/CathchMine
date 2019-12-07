@@ -1,14 +1,22 @@
-package Main;
+package Scenes;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
 public class Menu_Single extends JPanel {
-	JButton modeButton[];
+	public JButton modeButton[];
 	public String[] mode = { "½¬¿ò", "º¸Åë", "¾î·Á¿ò", "µÚ·Î°¡±â" };
 	public String[] modeEn = { "ÆøÅº 30°³", "ÆøÅº 50°³", "ÆøÅº 70°³", "µÚ·Î°¡±â" };
 
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 	
 	public Menu_Single() {
@@ -29,6 +37,12 @@ public class Menu_Single extends JPanel {
 		modeButton[1].setLocation(90, 200);
 		modeButton[2].setLocation(90, 300);
 		modeButton[3].setLocation(90, 400);
+		
+		// ½Ì±Û ÆÐ³Î
+				for (int i = 0; i < modeButton.length; i++) {
+					modeButton[i].addActionListener(al);
+					modeButton[i].addMouseListener(ml);
+				}
 		
 		add(de.setBackground());
 	}

@@ -1,11 +1,13 @@
-package Main;
+package Scenes;
 
 import javax.swing.*;
 
+import Main.Design;
+
 public class Create_Room extends JFrame {
 	JLabel roomNum;
-	JTextField roomField;
-	JButton okButton;
+	public JTextField roomField;
+	public JButton okButton;
 
 	Design de = new Design();
 

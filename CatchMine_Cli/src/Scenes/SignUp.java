@@ -1,4 +1,5 @@
-package Main;
+package Scenes;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,22 +9,34 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class SignUp extends JFrame  {
-	JTextField nameField, idField, nickField;
-	JPasswordField pwField;
-	JPasswordField pwCheckField;
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
+public class SignUp extends JFrame {
+	public JTextField nameField;
+	public JTextField idField;
+	public JTextField nickField;
+	public JPasswordField pwField;
+	public JPasswordField pwCheckField = new JPasswordField(10);
 	JPanel namePanel, idPanel, nickPanel, pwPanel, pwCheckPanel, submitPanel;
 
 	JLabel[] signUpLabel;
 	String[] signUpString = { "사용자 이름", "ID", "닉네임", "비밀번호", "비밀번호 확인" };
 
-	JLabel idCheckLabel, nickCheckLabel, pwCheckLabel;
-	String[] idChekLabelString = {"ID를 입력해주세요", "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
-	String[] nickCheckLabelString = {"닉네임을 입력해주세요", "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
-	String[] pwCheckLabelString = { "비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
-	JButton[] checkButton;
+	public JLabel idCheckLabel = new JLabel();
+	public JLabel nickCheckLabel = new JLabel();
+	public JLabel pwCheckLabel = new JLabel();
+	public String[] idChekLabelString = { "ID를 입력해주세요", "사용 가능한 ID입니다.", "사용 불가능한 ID입니다." };
+	public String[] nickCheckLabelString = { "닉네임을 입력해주세요", "사용가능한 닉네임입니다.", "사용 불가능한 닉네임입니다." };
+	public String[] pwCheckLabelString = { "비밀번호를 입력해주세요.", "비밀번호가 일치합니다.", "비밀번호가 일치하지 않습니다." };
+	public JButton[] checkButton = new JButton[5];
 	String[] buttonString = { "확인", "확인", "확인", "가입하기", "뒤로가기" };
-	
+
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public SignUp() {
@@ -70,7 +83,7 @@ public class SignUp extends JFrame  {
 		pwPanel.setOpaque(false);
 		pwCheckPanel.setOpaque(false);
 		submitPanel.setOpaque(false);
-		
+
 		// -----------------------라벨 생성--------------------------
 		signUpLabel = new JLabel[5];
 		for (int i = 0; i < signUpLabel.length; i++) {
@@ -80,13 +93,10 @@ public class SignUp extends JFrame  {
 		}
 
 		// -----------------------확인 라벨 생성----------------------
-		idCheckLabel = new JLabel();
 		idCheckLabel.setSize(200, 25);
 
-		nickCheckLabel = new JLabel();
 		nickCheckLabel.setSize(200, 25);
 
-		pwCheckLabel = new JLabel();
 		pwCheckLabel.setSize(200, 25);
 
 		// ------------------------텍스트 필드생성--------------------------
@@ -108,21 +118,19 @@ public class SignUp extends JFrame  {
 		pwField.setFont(de.setFont(14));
 		pwField.setSize(200, 25);
 		pwField.setBorder(de.setTextBorder());
-		pwCheckField = new JPasswordField(10);
 		pwCheckField.setFont(de.setFont(14));
 		pwCheckField.setSize(200, 25);
 		pwCheckField.setBorder(de.setTextBorder());
 
 		// ------------------------버튼 생성 --------------------------------
-		checkButton = new JButton[5];
 		for (int i = 0; i < checkButton.length; i++) {
-			if(i < 3) {
+			if (i < 3) {
 				checkButton[i] = new JButton(buttonString[i], new ImageIcon("image/button/60x25.png"));
 				checkButton[i].setSize(60, 25);
 				checkButton[i].setFont(de.setFont(12));
 			} else {
 				checkButton[i] = new JButton(buttonString[i], new ImageIcon("image/button/120x40.png"));
-				checkButton[i].setSize(120, 40); 
+				checkButton[i].setSize(120, 40);
 				checkButton[i].setFont(de.setFont(12));
 			}
 			checkButton[i].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -192,6 +200,17 @@ public class SignUp extends JFrame  {
 		add(pwCheckPanel);
 		add(submitPanel);
 		add(de.setSignUpBackground());
+
+		// 회원가입 패널
+		for (int i = 0; i < checkButton.length; i++) {
+			checkButton[i].addActionListener(al);
+			checkButton[i].addMouseListener(ml);
+		}
+		nameField.addKeyListener(kl);
+		idField.addKeyListener(kl);
+		pwField.addKeyListener(kl);
+		pwCheckField.addKeyListener(kl);
+		nickField.addKeyListener(kl);
 
 		setVisible(false);
 	}

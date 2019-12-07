@@ -1,4 +1,4 @@
-package Main;
+package Scenes;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,6 +14,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
 	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, keyLabel,
@@ -21,17 +26,14 @@ public class Menu_Rule extends JPanel {
 	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, keyIcon,
 			backAttackIcon, leftAttackIcon, rightAttackIcon, frontAttackIcon, keyIcon2;
 	
-	JButton backButton;
+	public JButton backButton;
+	
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public Menu_Rule() {
-
-		// img = icon.getImage();
-		// backMoveimg = new JLabel() {
-		// public void paint(Graphics g) {
-		// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-		// }
-		// };
 
 		setSize(400, 600);
 		setLayout(null);
@@ -102,6 +104,10 @@ public class Menu_Rule extends JPanel {
 		mainPanel.add(frontAttackLabel);
 		mainPanel.add(rightAttackLabel);
 		mainPanel.add(keyLabel2);
+		
+		// ∞‘¿” ∑Í ∆–≥Œ
+				backButton.addActionListener(al);
+				backButton.addMouseListener(ml);
 		
 		add(de.setBackground());
 	}

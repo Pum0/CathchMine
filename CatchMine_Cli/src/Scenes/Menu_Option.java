@@ -1,4 +1,4 @@
-package Main;
+package Scenes;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,16 +16,24 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
 public class Menu_Option extends JPanel /* implements ActionListener */ {
-	JComboBox<String> music;
+	public JComboBox<String> music;
 	JLabel selectMusic, volumeValue;
 	JSlider musicVolume; // 슬라이더
 	JPanel mainPanel;
 	JPanel box;
-	JButton backButton;
+	public JButton backButton;
 
 	private String musics[] = { "배경음 1", "배경음 2", "배경음 3", "배경음 4" };
 
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public Menu_Option() {
@@ -90,6 +98,11 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 			}
 		});
 
+		// 게임 옵션 패널
+				backButton.addActionListener(al);
+				backButton.addMouseListener(ml);
+				music.addActionListener(al);
+		
 		add(de.setBackground());
 	}
 

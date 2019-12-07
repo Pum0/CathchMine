@@ -1,4 +1,4 @@
-package Main;
+package Scenes;
 
 import java.awt.Color;
 
@@ -10,21 +10,30 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class MainLogin extends JPanel {
-	JPanel loginPanel, loginBottom;
-//	JButton loginButton, exitButton, signUpButton;
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
 
-	JButton loginButton[];
+public class MainLogin extends JPanel {
+	
+
+	JPanel loginPanel, loginBottom;
+
+	public JButton loginButton[] = new JButton[3];;
 	String button[] = { "", "회원가입", "종료" };
 
 	JLabel logoLabel, panelLabel;
 	JLabel idLabel = new JLabel("ID   : ");
 	JLabel pwLabel = new JLabel("PW : ");
-	JTextField idText = new JTextField(10);
-	JPasswordField pwText = new JPasswordField(10);
+	public JTextField idText = new JTextField(10);
+	public JPasswordField pwText = new JPasswordField(10);
 
 	Color panelColor = Color.LIGHT_GRAY;
 
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public MainLogin() {
@@ -57,7 +66,6 @@ public class MainLogin extends JPanel {
 		pwLabel.setBounds(50, 55, 40, 20);
 		pwText.setBounds(85, 55, 100, 20);
 
-		loginButton = new JButton[3];
 		loginButton[0] = new JButton(new ImageIcon("image/button/40x50.png"));
 		loginButton[0].setBorderPainted(false);
 		loginButton[0].setBounds(195, 25, 45, 50);
@@ -86,6 +94,12 @@ public class MainLogin extends JPanel {
 		add(loginPanel);
 
 		add(de.setBackground());
-
+		
+		for (int i = 0; i < loginButton.length; i++) {
+			loginButton[i].addActionListener(al);
+			loginButton[i].addMouseListener(ml);
+		}
+		idText.addKeyListener(kl);
+		pwText.addKeyListener(kl);
 	}
 }

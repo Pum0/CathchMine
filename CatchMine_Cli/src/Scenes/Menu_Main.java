@@ -1,13 +1,21 @@
-package Main;
+package Scenes;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
 public class Menu_Main extends JPanel {
-	JButton[] mainBtn;
+	public JButton[] mainBtn;
 	private String menu[] = { "싱글게임", "멀티게임", "게임방법", "옵션" };
 
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 	
 	public Menu_Main() {
@@ -31,5 +39,11 @@ public class Menu_Main extends JPanel {
 		mainBtn[3].setLocation(90, 400);
 		
 		add(de.setBackground());
+	
+		// 메뉴 패널
+				for (int i = 0; i < mainBtn.length; i++) {
+					mainBtn[i].addActionListener(al);
+					mainBtn[i].addMouseListener(ml);
+				}
 	}
 }

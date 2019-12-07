@@ -1,4 +1,4 @@
-package Main;
+package Scenes;
 
 import java.awt.Color;
 import java.util.Vector;
@@ -9,20 +9,30 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import Main.Design;
+import MyListener.Action;
+import MyListener.Key;
+import MyListener.Mouse;
+
 public class Menu_Multi extends JPanel {
 	JLabel roomLabel, chatLabel, userLabel;
 	JList standbyRoom;
-	JTextArea chatArea;
+	public JTextArea chatArea;
 	JTable userTable;
 	DefaultTableModel userTm;
 	JScrollPane userSPane, chatSPane;
 	Vector userColumn = new Vector(); // 유저 콜륨값
 	Vector userData = new Vector(); // 유저 데이터값
 
-	JTextField chatField;
-	JButton[] multiButton;
+	public JTextField chatField;
+	public JButton[] multiButton;
 	String[] multiButtonString = { "방 생성하기", "방 입장하기", "뒤로가기" };
 
+	public JOptionPane createRoom;
+	
+	Action al = new Action();
+	Key kl = new Key();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public void addUserInfo(String userNick, String userID) {
@@ -120,6 +130,13 @@ public class Menu_Multi extends JPanel {
 
 		chatArea.setEditable(false); // 채팅 에리아 에디트 금지
 
+		// 멀티 패널
+				for (int i = 0; i < multiButton.length; i++) {
+					multiButton[i].addActionListener(al);
+					multiButton[i].addMouseListener(ml);
+				}
+				chatField.addKeyListener(kl);
+		
 		// 추가
 		add(roomLabel);
 		add(standbyRoom);
@@ -132,5 +149,7 @@ public class Menu_Multi extends JPanel {
 		add(chatField);
 		add(multiButton[2]);
 		add(de.setBackground());
+		
+		
 	}
 }
