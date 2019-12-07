@@ -4,9 +4,10 @@ import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class block extends JPanel {
+public class block extends JLayeredPane {
 
 	private boolean blockState; // 블럭이 선택 되었는지 판단 여부
 	private int x; // x 축 좌표
@@ -68,7 +69,7 @@ public class block extends JPanel {
 		this.blockState = state;
 		blockLabel = new JLabel();
 		tileLabel = new JLabel();
-		this.setLayout(new GridLayout(0, 1));
+//		this.setLayout(new GridLayout(0, 1));
 
 //		this.setLayout(null);
 
@@ -83,8 +84,8 @@ public class block extends JPanel {
 		tileLabel.setIcon(tileImage);
 		tileLabel.setLocation(0, 0);
 
-		add(tileLabel);
-		add(blockLabel);
+		this.add(tileLabel, new Integer(0));
+		this.add(blockLabel, new Integer(1));
 
 	}
 
