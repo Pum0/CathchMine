@@ -29,7 +29,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[18][35]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	int mineCount = 250; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	public singleGame() {
 		setLayout(null);
@@ -220,6 +220,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	}
 
+	
+	
 	// 그저 지뢰의 갯수를 나타낼 이미지를 가지고 있는 패널
 	class MineNum extends JPanel {
 		ImageIcon N1 = new ImageIcon("image/GameObject/blockNumber/N1.png");
@@ -249,7 +251,33 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			this.add(mineNumberIcon);
 
 		}
-
 	}
+	
+	
+	
+	
+	// 마찬가지로 그저, 깃발을 보여주기 위한 깃발 클래스
+	class Flag extends JPanel {
+		ImageIcon flagImage = new ImageIcon("image/GameObject/RedFlag.png");
+		JLabel flagIcon;
 
+		public Flag() {
+		}
+
+		public Flag(int x, int y) {
+			this.setSize(40, 40);
+			this.setLayout(new GridLayout(0, 1));
+			this.setOpaque(false);
+			this.setLocation(x, y);
+
+			flagIcon = new JLabel();
+			flagIcon.setIcon(flagImage);
+
+			this.add(flagIcon);
+
+		}
+	}
+	
+	
+	
 }
