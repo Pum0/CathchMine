@@ -92,24 +92,20 @@ public class block extends JLayeredPane {
 
 		for (int i = 0; i < bl.length; i++) {
 			for (int j = 0; j < bl[i].length; j++) {
-
-				if ((i == 0 || j == 0) || (i == 17 || j == 34)) {
+				// i나 j 가 0이거나 배열크기의 값과 같으면 테두리임
+				if ((i == 0 || j == 0) || (i == 17 || j == 34))
 					bl[i][j] = new block(teduriImage, x, y);
-
-				}
-
-				else {
+				// 테두리는 블럭을 체크했는지 안했는지 여부를 판단 하지 않아도 되기때문에 체크 여부를 넣지 않았음
+				else
 					bl[i][j] = new block(blockImage, x, y, false);
-
-				}
+				// 외에 게임이 진행되는 블럭에는 기본적으로 체크를 했지 않기 때문에 false
 				x += 40;
-
 			}
 			x = 0;
 			y += 40;
-
 		}
 
+		// 만들어 진 블럭을 추가하는 부분
 		for (int i = 0; i < bl.length; i++)
 			for (int j = 0; j < bl[i].length; j++)
 				panel.add(bl[i][j]);

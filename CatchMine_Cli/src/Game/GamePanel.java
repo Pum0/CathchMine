@@ -10,18 +10,18 @@ public class GamePanel extends JPanel {
 	singleGame single;
 
 	public GamePanel() {
-		this.setBackground(Color.darkGray);
+		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 
 		setSize(single.FRAMEXSIZE, single.FRAMEYSIZE);
 
 		single = new singleGame(); // 싱글 게임 클래스
 
-		single.setBounds(20, 140, single.GAMEXSIZE, single.GAMEYSIZE);
+		single.setBounds(15, 140, single.GAMEXSIZE, single.GAMEYSIZE);
 		menu = new Game_MenuPanel();
 		add(single);
 		add(menu);
-		menu.setBounds(20, 20, menu.MENUXSIZE, menu.MENUYSIZE);
+		menu.setBounds(15, 20, menu.MENUXSIZE, menu.MENUYSIZE);
 
 	}
 

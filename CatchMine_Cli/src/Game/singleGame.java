@@ -1,10 +1,12 @@
 package Game;
 
-import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class singleGame extends JPanel implements KeyListener { // 싱글
@@ -44,6 +46,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		this.addKeyListener(this);
 	}
 
+	// 실제 지뢰의 이미지를 넣는 메소드를 여기서 만듬
 	public void disposeMine(JPanel pan) {
 
 	}
@@ -56,7 +59,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			int x = (int) (Math.random() * bool.length);
 			int y = (int) (Math.random() * bool[x].length);
 
-			if (bool[x][y] == false) {
+			// 블럭에 지뢰가 없고, 테두리가 아니면 지뢰를 추가하고 지뢰의 갯수를 늘림
+			if (bool[x][y] == false && (x != 0 || y != 0) && (x != bool.length || y != bool[x].length)) {
 				bool[x][y] = true;
 				count++;
 			}
@@ -93,8 +97,20 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_B) {
-			System.out.println("주변 블럭에 있는 지뢰 갯수는 : "+ mine.getMineCount(minePosition, yPoint, xPoint));
+			System.out.println("주변 블럭에 있는 지뢰 갯수는 : " + mine.getMineCount(minePosition, yPoint, xPoint));
 		}
+		if (e.getKeyCode() == KeyEvent.VK_C) {
+			int[][] g = new int[18][35];
+			for (int i = 1; i < 18 - 1; i++) {
+				for (int j = 1; j < 35 - 1; j++)
+					g[i][j] = mine.getMineCount(minePosition, i, j);
+			}
+
+			for (int i = 0; i < 18; i++) {
+				System.out.println(Arrays.toString(g[i]));
+			}
+		}
+
 	}
 
 	@Override
@@ -115,11 +131,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
+		// isMine 메소드로 죽거나, 주변에
 		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + block[yPoint][xPoint].getBlockState());
 		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + ">");
 		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
-		block[yPoint][xPoint].revalidate();
+//		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
 
 		block[yPoint][xPoint].setBlockState(true);
@@ -191,6 +208,38 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
+
+		}
+
+	}
+
+	// 그저 지뢰의 갯수를 나타낼 이미지를 가지고 있는 패널
+	class MineNum extends JPanel {
+		ImageIcon N1 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N2 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N3 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N4 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N5 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N6 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N7 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+		ImageIcon N8 = new ImageIcon("image/GameObject/blockNumber/N1.png");
+
+		ImageIcon[] numberIcon = { null, N1, N2, N3, N4, N5, N6, N7, N8 };
+
+		JLabel mineNumberIcon;
+
+		public MineNum() {
+		}
+
+		public MineNum(int MineCount) {
+			this.setSize(40, 40);
+			this.setLayout(new GridLayout(0, 1));
+			this.setOpaque(false);
+
+			mineNumberIcon = new JLabel();
+			mineNumberIcon.setIcon(numberIcon[MineCount]);
+
+			this.add(mineNumberIcon);
 
 		}
 
