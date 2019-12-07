@@ -1,7 +1,8 @@
 package Game;
 
-import java.awt.Image;
+import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -9,25 +10,43 @@ public class mine extends JPanel {
 
 	private boolean[][] minePosition;
 	private int mineCount;
+	private int x, y; // Áö·ÚÀÇ ÁÂÇ¥
 
-	Image mineImage;
+	// Áö·Ú ÀÌ¹ÌÁö
+	ImageIcon mineImage = new ImageIcon("image/GameObject/Mine.png");
 	JLabel mineLabel;
-	
-	public boolean isMine() {
-
-		return false;
-	}
 
 	public mine() {
 	}
-	
-	
-	
-//	public int getMineCount(block[][] bl) {
-//
-//		int count = 0;
-//
-//		return count;
-//	}
+
+	public mine(int x, int y) {
+		this.setSize(40, 40);
+		this.setLayout(new GridLayout(0, 1));
+		this.setLocation(x, y);
+		mineLabel = new JLabel();
+		mineLabel.setIcon(mineImage);
+
+		add(mineLabel);
+	}
+
+	public int getMineCount(boolean[][] mp, int x, int y) { // Áö·ÚÀÇ °¹¼ö¸¦ ¹İÈ¯
+		int count = 0;
+		int width = x;
+		int height = y;
+
+		for (int i = width - 1; i <= width + 1; i++) {
+			for (int j = height - 1; j <= height + 1; j++) {
+				if (isMine(mp, i, j)) // Áö·Ú°¡ ÀÖÀ» ½Ã Áö·ÚÀÇ °¹¼ö¸¦ Áõ°¡½ÃÅ´
+					count++;
+			}
+		}
+
+		return count;
+	}
+
+	public boolean isMine(boolean[][] minePosi, int x, int y) { // ÇöÀç ÁÂÇ¥¿¡ Áö·Ú°¡ ÀÖ´ÂÁö ÆÇ´Ü, ÀÖÀ¸¸é Á×¾î¾ß µÇ´Ï±ñ¸¸µë
+
+		return minePosi[x][y];
+	}
 
 }
