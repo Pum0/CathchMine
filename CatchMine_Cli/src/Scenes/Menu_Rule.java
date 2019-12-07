@@ -1,18 +1,13 @@
 package Scenes;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import Main.Design;
 import MyListener.Action;
@@ -21,13 +16,13 @@ import MyListener.Mouse;
 
 public class Menu_Rule extends JPanel {
 	JPanel mainPanel;
-	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, keyLabel,
-			backAttackLabel, leftAttackLabel, rightAttackLabel, frontAttackLabel, keyLabel2 ;
-	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, keyIcon,
-			backAttackIcon, leftAttackIcon, rightAttackIcon, frontAttackIcon, keyIcon2;
+	JLabel backMoveLabel, leftMoveLabel, rightMoveLabel, frontMoveLabel, keyLabel;
+	ImageIcon backMoveIcon, leftMoveIcon, rightMoveIcon, frontMoveIcon, keyIcon;
+
+	JScrollPane panelPane;
 	
 	public JButton backButton;
-	
+
 	Action al = new Action();
 	Key kl = new Key();
 	Mouse ml = new Mouse();
@@ -39,9 +34,14 @@ public class Menu_Rule extends JPanel {
 		setLayout(null);
 
 		mainPanel = new JPanel();
-		mainPanel.setBounds(40, 40, 300, 400);
 		mainPanel.setLayout(null);
 		mainPanel.setBorder(de.setBorder());
+		Dimension size = new Dimension();
+		size.setSize(280, 400);
+		mainPanel.setPreferredSize(size);
+		
+		panelPane = new JScrollPane(mainPanel);
+		panelPane.setBounds(40, 40, 300, 400);
 		
 		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -68,47 +68,19 @@ public class Menu_Rule extends JPanel {
 		keyIcon = new ImageIcon("image/moveKey.png");
 		keyLabel = new JLabel(keyIcon);
 		keyLabel.setBounds(160, 20, 120, 120);
-		
-		
-		
-		backAttackIcon = new ImageIcon("image/gif/Back_AttackMotion.gif");
-		backAttackLabel = new JLabel(backAttackIcon);
-		backAttackLabel.setBounds(60, 120, 40, 40);
 
-		leftAttackIcon = new ImageIcon("image/gif/Left_AttackMotion.gif");
-		leftAttackLabel = new JLabel(leftAttackIcon);
-		leftAttackLabel.setBounds(20, 165, 40, 40);
-
-		frontAttackIcon = new ImageIcon("image/gif/Front_AttackMotion.gif");
-		frontAttackLabel = new JLabel(frontAttackIcon);
-		frontAttackLabel.setBounds(60, 165, 40, 40);
-
-		rightAttackIcon = new ImageIcon("image/gif/Right_AttackMotion.gif");
-		rightAttackLabel = new JLabel(rightAttackIcon);
-		rightAttackLabel.setBounds(100, 165, 40, 40);
-		
-		keyIcon2 = new ImageIcon("image/attackKey.png");
-		keyLabel2 = new JLabel(keyIcon2);
-		keyLabel2.setBounds(160, 120, 120, 120);
-
-		add(backButton);
-		add(mainPanel);
 		mainPanel.add(backMoveLabel);
 		mainPanel.add(leftMoveLabel);
 		mainPanel.add(frontMoveLabel);
 		mainPanel.add(rightMoveLabel);
 		mainPanel.add(keyLabel);
-		
-		mainPanel.add(backAttackLabel);
-		mainPanel.add(leftAttackLabel);
-		mainPanel.add(frontAttackLabel);
-		mainPanel.add(rightAttackLabel);
-		mainPanel.add(keyLabel2);
-		
+		add(backButton);
+		add(panelPane);
+
 		// 게임 룰 패널
-				backButton.addActionListener(al);
-				backButton.addMouseListener(ml);
-		
+		backButton.addActionListener(al);
+		backButton.addMouseListener(ml);
+
 		add(de.setBackground());
 	}
 }
