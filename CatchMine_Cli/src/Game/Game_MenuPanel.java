@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,40 +12,54 @@ public class Game_MenuPanel extends JPanel {
 	final static int MENUXSIZE = 1400;
 	final static int MENUYSIZE = 100;
 
-	// ================= 내부 옵션 이미지 ================ //
+	private ImageIcon statusImage = new ImageIcon("image/status.png");
+	private JLabel statIcon;
 
 	// 게임 위쪽 메뉴 UI 패널
-	private JPanel timerPanel; // 타이머 패널
+	private JPanel menuPanel; // 타이머 패널
 	private JLabel timeLabel; // 시간이 출력되는 레이블
 
 	// 게임 플레이 시간
 	final static int time = 0;
 
-	// 게임 메뉴 초기화
-	// 메뉴 패널 초기구성
+	singleGame sG = new singleGame(); // 싱글게임 클래스의 필드를 사용하기위해서 사용
+
+	JLabel mineLabel;
+
 	public Game_MenuPanel() {
 		setLayout(null);
 		setSize(MENUXSIZE, MENUYSIZE);
 		this.setBackground(Color.BLUE);
+		statIcon = new JLabel();
+		statIcon.setIcon(statusImage);
 
-		timerPanel = new JPanel();
+		menuPanel = new JPanel();
+		menuPanel.setLayout(null);
+		menuPanel.setBounds(0, 0, MENUXSIZE, MENUYSIZE);
+		menuPanel.setOpaque(false);
 
 		timeLabel = new JLabel(timer(time));
-		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 20));
-		timeLabel.setLocation(1000, 40);
+		menuPanel.add(timeLabel);
 
-		timerPanel.setSize(180, 50);
-		timerPanel.setOpaque(false);
+		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 50));
+		timeLabel.setBounds(650, 0, 200, 100);
 
-		timerPanel.add(timeLabel);
+		mineLabel = new JLabel(sG.getMineCount() + "");
+		menuPanel.add(mineLabel);
+		
+		mineLabel.setFont(new Font("빙그레체", Font.BOLD, 38));
+		mineLabel.setBounds(540, 0, 200, 100);
 
 		new timerThread().start();
 
-		timerPanel.setLocation(1000, 15);
+		menuPanel.setLocation(0, 0);
 //		setLocation(20, 20);
 
 		setOpaque(false);
-		add(timerPanel);
+
+		add(menuPanel);
+		add(statIcon);
+		statIcon.setBounds(0, 0, MENUXSIZE, MENUYSIZE);
 
 	}
 
