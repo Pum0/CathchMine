@@ -25,12 +25,10 @@ public class Main extends JFrame {
 	public static Multi_Room multiRoom = new Multi_Room();
 
 	public static PlayMusic backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
-//	public static PlayMusic buttonPressedMusic = new PlayMusic("buttonPressedMusic.mp3", false);
-//	public static PlayMusic buttonEnteredMusic = new PlayMusic("buttonEnteredMusic.mp3", false);
 	public static String NickName = null;
 
 	public Main() {
-		setTitle("Catch-Mine");
+		super("Catch-Mine");
 		setSize(400, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

@@ -14,6 +14,7 @@ public class Key implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// 로그인 패널 부분 ----------------------------------------------
 		if (e.getSource() == Main.mainLogin.idText && e.getKeyCode() == 10)
 			Main.mainLogin.pwText.grabFocus();
 
@@ -22,6 +23,9 @@ public class Key implements KeyListener {
 			buttonPressedMusic.start();
 			Main.mainLogin.loginButton[0].doClick();
 		}
+		
+		
+		
 		// 회원가입 프레임 부분 -------------------------------------------
 		// 이름 필드
 		if (e.getSource() == Main.signUp.nameField && e.getKeyCode() == 10)
@@ -47,7 +51,10 @@ public class Key implements KeyListener {
 		System.out.println("keypressed : " + e.getKeyChar());
 		System.out.println(e.getKeyCode());
 
-		// 멀티 채팅
+		
+		
+		
+		// 멀티 채팅 ---------------------------------------------------------
 		if (e.getSource() == Main.multiMenu.chatField && e.getKeyCode() == 10) {
 			if (!Main.multiMenu.chatField.getText().equals("")) {
 				Main.multiMenu.chatArea.append(Main.NickName + " : " + Main.multiMenu.chatField.getText() + "\n");
