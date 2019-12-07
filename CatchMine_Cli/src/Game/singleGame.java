@@ -29,7 +29,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[18][35]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	int mineCount = 250; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+
+	// 깃발 생성
+	Flag flag = new Flag();
+	boolean[][] flagPosition = new boolean[18][35]; // 깃발이 꽂혔는지 안꽂혔는지 확인
+	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼 제공한다.
 
 	public singleGame() {
 		setLayout(null);
@@ -46,9 +51,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		this.addKeyListener(this);
 	}
 
-	// 실제 지뢰의 이미지를 넣는 메소드를 여기서 만듬
-	public void disposeMine(JPanel pan) {
+	public int getMineCount() {
+		return this.mineCount;
+	}
 
+	public int getFlagCount() {
+		return this.flagCount;
 	}
 
 	// 지뢰가 있는 위치를 2차원배열에 정해준 지뢰의 갯수만큼 랜덤하게 담는다.
@@ -84,16 +92,22 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			prevTime = System.currentTimeMillis();
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_Q && block[yPoint][xPoint].getBlockState() != true) {
+		if (e.getKeyCode() == KeyEvent.VK_A && block[yPoint][xPoint].getBlockState() != true) {
 
 			state = 10;
-			p.setState(state);
+			p.setImage(state);
 			hitBlock();
 
 		}
 
+		if (e.getKeyCode() == KeyEvent.VK_S) {
+			putFlag();
+		}
+
 		// Mine 배열 확인용
-		if (e.getKeyCode() == KeyEvent.VK_O) {
+		if (e.getKeyCode() == KeyEvent.VK_O)
+
+		{
 			for (int i = 0; i < minePosition.length; i++)
 				System.out.println(Arrays.toString(minePosition[i]));
 		}
@@ -143,34 +157,46 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고 아니면 지뢰를 넣는다
 		if (mine.isMine(minePosition, yPoint, xPoint) == false)
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2));
-		else
-			block[yPoint][xPoint].add(new mine(), new Integer(2));
+		else {
+			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 
+			defeatGmae(minePosition, block);
+		}
 		block[yPoint][xPoint].setBlockState(true);
 
 	}
 
 	// 이동후 정지할때 나오는 모션들을 나오게 하는 메소드
 	public void stop(int keyType) {
+		int prevMotion = 7;
 		// 방향키 위쪽 입력시
 		if (keyType == KeyEvent.VK_UP) {
 			state = 5; // 위
 			p.setImage(state);
+			prevMotion = state;
 		}
 		// 방향키 왼쪽 입력시
 		if (keyType == KeyEvent.VK_LEFT) {
 			state = 6;
 			p.setImage(state);
+			prevMotion = state;
 		}
 		// 방향키 아래 입력시
 		if (keyType == KeyEvent.VK_DOWN) {
 			state = 7;
 			p.setImage(state);
-
+			prevMotion = state;
 		}
 		// 방향키 오른쪽 입력시
 		if (keyType == KeyEvent.VK_RIGHT) {
 			state = 8;
+			p.setImage(state);
+			prevMotion = state;
+
+		}
+
+		if (keyType == KeyEvent.VK_A) {
+			state = prevMotion;
 			p.setImage(state);
 
 		}
@@ -220,8 +246,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	}
 
-	
-	
 	// 그저 지뢰의 갯수를 나타낼 이미지를 가지고 있는 패널
 	class MineNum extends JPanel {
 		ImageIcon N1 = new ImageIcon("image/GameObject/blockNumber/N1.png");
@@ -252,14 +276,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		}
 	}
-	
-	
-	
-	
+
 	// 마찬가지로 그저, 깃발을 보여주기 위한 깃발 클래스
 	class Flag extends JPanel {
 		ImageIcon flagImage = new ImageIcon("image/GameObject/RedFlag.png");
 		JLabel flagIcon;
+
+		private int flagState; // 깃발이 꽂혔는지 안 꽂혔는지 확인 0이면 없고 1이면 있는거
 
 		public Flag() {
 		}
@@ -268,16 +291,35 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			this.setSize(40, 40);
 			this.setLayout(new GridLayout(0, 1));
 			this.setOpaque(false);
-			this.setLocation(x, y);
 
 			flagIcon = new JLabel();
 			flagIcon.setIcon(flagImage);
 
 			this.add(flagIcon);
-
 		}
+
 	}
-	
-	
-	
+
+	public void putFlag() {
+		int xPoint = p.getX() / 40;
+		int yPoint = p.getY() / 40;
+
+		block[yPoint][xPoint].add(new Flag(yPoint, xPoint), new Integer(2));
+
+	}
+
+	// 지뢰를 밟을 경우 나올 메소드
+	public void defeatGmae(boolean[][] bool, block[][] block) {
+
+		for (int i = 0; i < block.length; i++) {
+			for (int j = 0; j < block[i].length; j++) {
+				if (bool[i][j] == true && block[i][j].getBlockState() == false) {
+					block[i][j].add(new mine(0), new Integer(2));
+				}
+
+			}
+		}
+
+	}
+
 }

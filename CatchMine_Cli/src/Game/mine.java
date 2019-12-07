@@ -8,21 +8,27 @@ import javax.swing.JPanel;
 
 public class mine extends JPanel {
 
-	private boolean[][] minePosition;
+//	private boolean[][] minePosition;
 	private int mineCount;
 	private int x, y; // Áö·ÚÀÇ ÁÂÇ¥
 
 	// Áö·Ú ÀÌ¹ÌÁö
 	ImageIcon mineImage = new ImageIcon("image/GameObject/Mine.png");
+	ImageIcon bomeImage = new ImageIcon("image/GameObject/Explosion.png");
 	JLabel mineLabel;
-	
+
 	public mine() {
+	}
+
+	public mine(int i) {
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
 		this.setOpaque(false);
-
 		mineLabel = new JLabel();
-		mineLabel.setIcon(mineImage);
+		if (i == 0)
+			mineLabel.setIcon(mineImage);
+		else
+			mineLabel.setIcon(bomeImage);
 
 		add(mineLabel);
 	}
