@@ -14,21 +14,20 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int GAMEXSIZE = 1400;
 	final static int GAMEYSIZE = 720;
 
-	// ================= 블럭 이미지 ================ //
-	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
-	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
-	// ================= 블럭 이미지 ================ //
-
-	singleGame sG = this; // 싱글게임패널 자신
-
+//	singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
 	player p = new player();
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
 	block[][] block = new block[18][35]; // 실제 배치될 블럭의 배열
 
-	static int state = 1;
+	// ================= 블럭 이미지 ================ //
+	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
+	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
+	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
+	// ================= 블럭 이미지 ================ //
+
+	static int state;
 
 	// 현재 플레이어의 좌표
 	int playerX = p.getX();
@@ -80,9 +79,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 		stop(e.getKeyCode());
-		
+
 	}
 
 	@Override
@@ -90,37 +89,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// TODO Auto-generated method stub
 
 	}
-
-//	public void initBlock(block[][] bl) {
-//		int x = 0;
-//		int y = 0;
-//
-//		for (int i = 0; i < bl.length; i++) {
-//			for (int j = 0; j < bl[i].length; j++) {
-//
-//				if ((i == 0 || j == 0) || (i == 17 || j == 34)) {
-//					bl[i][j] = new block(teduriImage, x, y);
-//
-//				}
-//
-//				else {
-//					bl[i][j] = new block(blockImage, x, y, false);
-//
-//				}
-//				x += 40;
-//
-//			}
-//			x = 0;
-//			y += 40;
-//
-//		}
-//
-//	}
-
-	// 이동키 입력에 따른 캐릭터의 상태 반환
-//	public int getState() {
-//		return state;
-//	}
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
 	public void hitBlock() {

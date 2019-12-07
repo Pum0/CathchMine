@@ -21,10 +21,6 @@ public class block extends JLayeredPane {
 	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 	// 블럭 자신
-//	block block;
-	block bl[][];
-
-	private boolean[][] MinePosition; // 지뢰가 심어진 블럭에 대한 좌표와 존재여부에 사용
 
 //	private int mineCount; // 남은 지뢰에 대한 갯수를 제공
 
@@ -81,11 +77,11 @@ public class block extends JLayeredPane {
 		blockLabel.setBounds(x, y, 40, 40);
 		blockLabel.setLocation(0, 0);
 
-		tileLabel.setIcon(tileImage);
-		tileLabel.setLocation(0, 0);
+//		tileLabel.setIcon(tileImage);
+//		tileLabel.setLocation(0, 0);
 
-		this.add(tileLabel, new Integer(0));
-		this.add(blockLabel, new Integer(1));
+//		this.add(tileLabel, new Integer(0));
+		this.add(blockLabel, new Integer(0));
 
 	}
 
@@ -154,6 +150,7 @@ public class block extends JLayeredPane {
 //		this.image = image;
 
 		blockLabel.setIcon(tileImage);
+		
 	}
 
 }
