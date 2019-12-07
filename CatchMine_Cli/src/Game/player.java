@@ -13,9 +13,7 @@ public class player extends JPanel {
 	game_item item;
 	private int x;
 	private int y;
-	Queue<String> itemPocket;
-
-	Image playerImage;
+	Queue<String> itemPocket; // 먼저 얻은 아이템을 사용하기 위해서 Queue 자료구조 활용
 
 	// ======================= 캐릭터 이미지 ============================ //
 	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");

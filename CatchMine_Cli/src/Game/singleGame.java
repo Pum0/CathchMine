@@ -3,8 +3,8 @@ package Game;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class singleGame extends JPanel implements KeyListener { // 싱글
@@ -17,15 +17,17 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 //	singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
 	player p = new player();
+	int playerX = p.getX(); // 현재 플레이어의 좌표
+	int playerY = p.getY(); // 현재 플레이어의 좌표
+	static int state; // 플레이어의 상태
+
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
 	block[][] block = new block[18][35]; // 실제 블럭이 만들어질 배열
-
-	static int state;
-
-	// 현재 플레이어의 좌표
-	int playerX = p.getX();
-	int playerY = p.getY();
+	// 지뢰
+	mine mine = new mine();
+	boolean[][] minePosition = new boolean[18][35];
+	int mineCount = 100;
 
 	public singleGame() {
 		setLayout(null);
@@ -33,13 +35,31 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		this.add(p);
 		bl.initBlock(this, block);
-
 		p.setBounds(playerX, playerY, 40, 40);
+
+		generateMine(minePosition);
 
 		this.setFocusable(true);
 
 		this.addKeyListener(this);
 
+	}
+	
+	
+	// 지뢰가 있는 위치를 2차원배열에 정해준 지뢰의 갯수만큼 랜덤하게 담는다.
+	public void generateMine(boolean[][] bool) {
+		int count = 0;
+
+		while (count < mineCount) {
+			int x = (int) (Math.random() * bool.length);
+			int y = (int) (Math.random() * bool[x].length);
+
+			if (bool[x][y] == false) {
+				bool[x][y] = true;
+				count++;
+			}
+
+		}
 	}
 
 	private long prevTime = 0; // 딜레이
@@ -64,6 +84,11 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		}
 
+		// Mine 배열 확인용
+		if (e.getKeyCode() == KeyEvent.VK_O) {
+			for (int i = 0; i < minePosition.length; i++)
+				System.out.println(Arrays.toString(minePosition[i]));
+		}
 	}
 
 	@Override
@@ -89,6 +114,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
+
 		block[yPoint][xPoint].setBlockState(true);
 
 	}
@@ -99,13 +125,11 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		if (keyType == KeyEvent.VK_UP) {
 			state = 5; // 위
 			p.setImage(state);
-
 		}
 		// 방향키 왼쪽 입력시
 		if (keyType == KeyEvent.VK_LEFT) {
 			state = 6;
 			p.setImage(state);
-
 		}
 		// 방향키 아래 입력시
 		if (keyType == KeyEvent.VK_DOWN) {
