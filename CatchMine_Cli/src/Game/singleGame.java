@@ -32,13 +32,14 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
-	Flag flag = new Flag();
+	flag flag = new flag();
+	flag[][] flagArr = new flag[18][35];
 	boolean[][] flagPosition = new boolean[18][35]; // 깃발이 꽂혔는지 안꽂혔는지 확인
 	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼 제공한다.
 
 	public singleGame() {
 		setLayout(null);
-
+		initFlag();
 		this.add(p);
 		p.setBounds(playerX, playerY, 40, 40);
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
@@ -78,6 +79,31 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 	}
 
+	public void initFlag() {
+		for (int i = 0; i < flagArr.length; i++)
+			for (int j = 0; j < flagArr[i].length; j++)
+				flagArr[i][j] = new flag();
+	}
+
+	// s 키를 누르면 나올 메소드를 정의, 누를 시 깃발을 꽂음
+	public void putFlag() {
+		int xPoint = p.getX() / 40;
+		int yPoint = p.getY() / 40;
+
+		if (flag.isFlag(flagPosition, yPoint, xPoint) == false) {
+			flagPosition[yPoint][xPoint] = true;
+			flagArr[yPoint][xPoint].setFlagImage(0);
+			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
+			block[yPoint][xPoint].setBlockState(true);
+		} else { // 깃발을 꽂았는데 다시 눌렀을때
+			flagPosition[yPoint][xPoint] = false;
+			flagArr[yPoint][xPoint].setFlagImage(1);
+			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
+			block[yPoint][xPoint].setBlockState(false);
+		}
+
+	}
+
 	private long prevTime = 0; // 딜레이
 
 	@Override
@@ -115,17 +141,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		if (e.getKeyCode() == KeyEvent.VK_B) {
 			System.out.println("주변 블럭에 있는 지뢰 갯수는 : " + mine.getMineCount(minePosition, yPoint, xPoint));
 		}
-		if (e.getKeyCode() == KeyEvent.VK_C) {
-			int[][] g = new int[18][35];
-			for (int i = 1; i < 18 - 1; i++) {
-				for (int j = 1; j < 35 - 1; j++)
-					g[i][j] = mine.getMineCount(minePosition, i, j);
-			}
-
-			for (int i = 0; i < 18; i++) {
-				System.out.println(Arrays.toString(g[i]));
-			}
-		}
 
 	}
 
@@ -152,18 +167,35 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + ">");
 		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
-//		block[yPoint][xPoint].revalidate();
 		block[yPoint][xPoint].setImage();
-		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고 아니면 지뢰를 넣는다
-		if (mine.isMine(minePosition, yPoint, xPoint) == false)
-			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2));
-		else {
+
+		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 게임 패배
+		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
+			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
+																														// 바꾸고
+			linkedOpen(yPoint, xPoint);
+		} else {
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 
 			defeatGmae(minePosition, block);
 		}
 		block[yPoint][xPoint].setBlockState(true);
 
+	}
+
+	public void linkedOpen(int x, int y) {
+
+		// 동 서 남 북 순으로 숫자를 만날때 까지 재귀 호출 하자.
+		if ((x < 16 && x > 0) && (y > 0 && y < 34) && (mine.getMineCount(minePosition, x, y) == 0)) {
+			linkedOpen(x + 1, y);
+			block[x][y].setImage();
+			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
+
+		} else {
+			block[x][y].setImage();
+			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
+			return;
+		}
 	}
 
 	// 이동후 정지할때 나오는 모션들을 나오게 하는 메소드
@@ -278,47 +310,39 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	}
 
 	// 마찬가지로 그저, 깃발을 보여주기 위한 깃발 클래스
-	class Flag extends JPanel {
-		ImageIcon flagImage = new ImageIcon("image/GameObject/RedFlag.png");
-		JLabel flagIcon;
-
-		private int flagState; // 깃발이 꽂혔는지 안 꽂혔는지 확인 0이면 없고 1이면 있는거
-
-		public Flag() {
-		}
-
-		public Flag(int x, int y) {
-			this.setSize(40, 40);
-			this.setLayout(new GridLayout(0, 1));
-			this.setOpaque(false);
-
-			flagIcon = new JLabel();
-			flagIcon.setIcon(flagImage);
-
-			this.add(flagIcon);
-		}
-
-	}
-
-	public void putFlag() {
-		int xPoint = p.getX() / 40;
-		int yPoint = p.getY() / 40;
-
-		block[yPoint][xPoint].add(new Flag(yPoint, xPoint), new Integer(2));
-
-	}
 
 	// 지뢰를 밟을 경우 나올 메소드
 	public void defeatGmae(boolean[][] bool, block[][] block) {
 
-		for (int i = 0; i < block.length; i++) {
-			for (int j = 0; j < block[i].length; j++) {
-				if (bool[i][j] == true && block[i][j].getBlockState() == false) {
-					block[i][j].add(new mine(0), new Integer(2));
+		new Thread() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					for (int i = 0; i < block.length; i++) {
+						for (int j = 0; j < block[i].length; j++) {
+							if (bool[i][j] == true && block[i][j].getBlockState() == false) {
+								block[i][j].add(new mine(0), new Integer(2));
+							}
+
+						}
+					}
+
+					for (int i = 0; i < block.length; i++) {
+						for (int j = 0; j < block[i].length; j++) {
+							if (bool[i][j] == true && block[i][j].getBlockState() == false) {
+								Thread.sleep(10);
+								block[i][j].add(new mine(1), new Integer(3));
+							}
+
+						}
+					}
+				} catch (InterruptedException e) {
+					// TODO: handle exception
 				}
 
 			}
-		}
+		}.start();
 
 	}
 

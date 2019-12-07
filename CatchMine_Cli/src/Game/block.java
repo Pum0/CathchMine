@@ -43,7 +43,7 @@ public class block extends JLayeredPane {
 		this.x = x;
 		this.y = y;
 		this.image = image;
-		this.blockState = false;
+		this.blockState = true;
 
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));

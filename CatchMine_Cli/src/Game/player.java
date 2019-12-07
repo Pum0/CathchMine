@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -37,8 +38,11 @@ public class player extends JPanel {
 		playerlabel.setIcon(F_StandBy);
 		this.x = 40;
 		this.y = 40;
-		this.setSize(40, 40);
 		this.charState = 3; // 처음 캐릭터가 생성되면 정면을 바라보고있음
+
+		this.setSize(40, 40);
+		this.setLayout(new GridLayout(0, 1));
+
 		this.isAlive = true; // 기본적으로 생성되면 살아있다
 
 		this.setOpaque(false);
