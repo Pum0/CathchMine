@@ -1,8 +1,12 @@
 package Game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 
 public class Game extends JFrame {
+	// 게임이 실행 될 프레임
 	GamePanel game_Panel;
 
 	public Game() {

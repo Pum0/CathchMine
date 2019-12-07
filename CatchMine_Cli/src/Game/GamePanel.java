@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
-// 게임요소 집어 넣는 패널
+	// 게임요소들을 담고 있는 패널
 	Game_MenuPanel menu;
 	singleGame single;
 

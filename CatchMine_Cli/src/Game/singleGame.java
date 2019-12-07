@@ -1,14 +1,10 @@
 package Game;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class singleGame extends JPanel implements KeyListener { // 싱글
@@ -18,21 +14,23 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int GAMEXSIZE = 1400;
 	final static int GAMEYSIZE = 720;
 
-	singleGame sG = this; // 싱글게임패널 자신
-
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
 	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 
+	singleGame sG = this; // 싱글게임패널 자신
+
 	// Player 객체
 	player p = new player();
 	// 블럭
-	block[][] bl = new block[18][35];
+	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
+	block[][] block = new block[18][35]; // 실제 배치될 블럭의 배열
 
 	static int state = 1;
 
+	// 현재 플레이어의 좌표
 	int playerX = p.getX();
 	int playerY = p.getY();
 
@@ -41,13 +39,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		setBackground(Color.RED);
 
 		this.add(p);
+//		bl.setBlock(block);
+		bl.initBlock(this, block);
+//		bl.disposeBlock(this, block);
+
 		p.setBounds(playerX, playerY, 40, 40);
 
-		initBlock(bl);
-
-		for (int i = 0; i < bl.length; i++)
-			for (int j = 0; j < bl[i].length; j++)
-				add(bl[i][j]);
+//		for (int i = 0; i < block.length; i++)
+//			for (int j = 0; j < block[i].length; j++)
+//				add(block[i][j]);
 
 		this.setFocusable(true);
 
@@ -59,7 +59,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
@@ -67,20 +66,23 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		if (curTime > 35) { // 쿨타임 0.1초
 			move(e.getKeyCode());
 
-			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				state = 5;
-				p.setState(state);
-				hitBlock();
-			}
-
 			prevTime = System.currentTimeMillis();
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_Q && block[yPoint][xPoint].getBlockState() != true) {
+//			state = 10;
+//			p.setState(state);
+			hitBlock();
+
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		
+		stop(e.getKeyCode());
+		
 	}
 
 	@Override
@@ -89,106 +91,119 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	}
 
-	public void initBlock(block[][] bl) {
-		int x = 0;
-		int y = 0;
-
-		for (int i = 0; i < bl.length; i++) {
-			for (int j = 0; j < bl[i].length; j++) {
-
-				if ((i == 0 || j == 0) || (i == 17 || j == 34)) {
-					bl[i][j] = new block(teduriImage, x, y);
-
-				}
-
-				else
-					bl[i][j] = new block(blockImage, x, y, false);
-
-				x += 40;
-
-			}
-			x = 0;
-			y += 40;
-
-		}
-
-	}
+//	public void initBlock(block[][] bl) {
+//		int x = 0;
+//		int y = 0;
+//
+//		for (int i = 0; i < bl.length; i++) {
+//			for (int j = 0; j < bl[i].length; j++) {
+//
+//				if ((i == 0 || j == 0) || (i == 17 || j == 34)) {
+//					bl[i][j] = new block(teduriImage, x, y);
+//
+//				}
+//
+//				else {
+//					bl[i][j] = new block(blockImage, x, y, false);
+//
+//				}
+//				x += 40;
+//
+//			}
+//			x = 0;
+//			y += 40;
+//
+//		}
+//
+//	}
 
 	// 이동키 입력에 따른 캐릭터의 상태 반환
-	public int getState() {
-		return state;
-	}
+//	public int getState() {
+//		return state;
+//	}
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
 	public void hitBlock() {
-		int xPoint = (p.getX() + 20) / 40;
-		int yPoint = (p.getY() + 20) / 40;
+		int xPoint = p.getX() / 40;
+		int yPoint = p.getY() / 40;
 
-		bl[yPoint][xPoint].invalidate();
-		p.invalidate();
-		bl[yPoint][xPoint].setImage(tileImage);
+		state = 10;
+		p.setState(state);
 
-		bl[yPoint][xPoint].setBlockState(true);
-		p.repaint();
+		block[yPoint][xPoint].revalidate();
+		block[yPoint][xPoint].setImage();
+		block[yPoint][xPoint].setBlockState(true);
 
-		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + bl[yPoint][xPoint].getBlockState());
+//		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + bl[yPoint][xPoint].getBlockState());
 	}
 
+	public void stop(int keyType) {
+		// 방향키 위쪽 입력시
+		if (keyType == KeyEvent.VK_UP) {
+			state = 5; // 위
+			p.setImage(state);
+
+		}
+		// 방향키 왼쪽 입력시
+		if (keyType == KeyEvent.VK_LEFT) {
+			state = 6;
+			p.setImage(state);
+
+		}
+		// 방향키 아래 입력시
+		if (keyType == KeyEvent.VK_DOWN) {
+			state = 7;
+			p.setImage(state);
+
+		}
+		// 방향키 오른쪽 입력시
+		if (keyType == KeyEvent.VK_RIGHT) {
+			state = 8;
+			p.setImage(state);
+
+		}
+	}
+
+	// 이동만을 다루는 메소드
 	public void move(int keyType) {
 
-		// W키 입력시
-		if (keyType == KeyEvent.VK_W) {
+		// 방향키 위쪽 입력시
+		if (keyType == KeyEvent.VK_UP) {
 			state = 1; // 위
-			p.setState(state);
+			p.setImage(state);
 
 			p.LocationSet(playerX, playerY -= 40);
 			p.outOfrange();
 
-			p.invalidate();
-//			p.repaint();
-
-			System.out.println(p.getX() + " " + p.getY());
-			System.out.println(p.getX() + " " + p.getY());
 		}
-		// A키 입력시
-		if (keyType == KeyEvent.VK_A) {
+		// 방향키 왼쪽 입력시
+		if (keyType == KeyEvent.VK_LEFT) {
 			state = 2;
-			p.setState(state);
+			p.setImage(state);
+
 			p.LocationSet(playerX -= 40, playerY);
 
 			p.outOfrange();
 
-			p.invalidate();
-//			p.repaint();
-
-			System.out.println(p.getX() + " " + p.getY());
-
 		}
-		// S키 입력시
-		if (keyType == KeyEvent.VK_S) {
+		// 방향키 아래 입력시
+		if (keyType == KeyEvent.VK_DOWN) {
 			state = 3;
-			p.setState(state);
+			p.setImage(state);
+
 			p.LocationSet(playerX, playerY += 40);
 
 			p.outOfrange();
 
-			p.invalidate();
-//			p.repaint();
-
-			System.out.println(p.getX() + " " + p.getY());
-
 		}
-		// D키 입력시
-		if (keyType == KeyEvent.VK_D) {
+		// 방향키 오른쪽 입력시
+		if (keyType == KeyEvent.VK_RIGHT) {
 			state = 4;
-			p.setState(state);
+			p.setImage(state);
+
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
-			p.invalidate();
-//			p.repaint();
-
-			System.out.println(p.getX() + " " + p.getY());
 		}
 
 	}
