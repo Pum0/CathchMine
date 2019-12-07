@@ -45,6 +45,7 @@ public class Game_MenuPanel extends JPanel {
 		timerPanel.setLocation(1000, 15);
 //		setLocation(20, 20);
 
+		setOpaque(false);
 		add(timerPanel);
 
 	}

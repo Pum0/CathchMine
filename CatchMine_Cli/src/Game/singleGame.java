@@ -20,19 +20,14 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	singleGame sG = this; // 싱글게임패널 자신
 
-	// ================= 이미지 ================ //
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-
 	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
 	// ================= 블럭 이미지 ================ //
 
-	// ================= 이미지 ================ //
-
 	// Player 객체
 	player p = new player();
-
 	// 블럭
 	block[][] bl = new block[18][35];
 
@@ -107,7 +102,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 				}
 
 				else
-					bl[i][j] = new block(blockImage, x, y);
+					bl[i][j] = new block(blockImage, x, y, false);
 
 				x += 40;
 
@@ -129,9 +124,14 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = (p.getX() + 20) / 40;
 		int yPoint = (p.getY() + 20) / 40;
 
+		bl[yPoint][xPoint].invalidate();
+		p.invalidate();
 		bl[yPoint][xPoint].setImage(tileImage);
-		p.revalidate();
+
+		bl[yPoint][xPoint].setBlockState(true);
 		p.repaint();
+
+		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + bl[yPoint][xPoint].getBlockState());
 	}
 
 	public void move(int keyType) {
@@ -144,8 +144,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.LocationSet(playerX, playerY -= 40);
 			p.outOfrange();
 
-			p.revalidate();
-			p.repaint();
+			p.invalidate();
+//			p.repaint();
 
 			System.out.println(p.getX() + " " + p.getY());
 			System.out.println(p.getX() + " " + p.getY());
@@ -158,8 +158,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 			p.outOfrange();
 
-			p.revalidate();
-			p.repaint();
+			p.invalidate();
+//			p.repaint();
 
 			System.out.println(p.getX() + " " + p.getY());
 
@@ -172,8 +172,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 			p.outOfrange();
 
-			p.revalidate();
-			p.repaint();
+			p.invalidate();
+//			p.repaint();
 
 			System.out.println(p.getX() + " " + p.getY());
 
@@ -185,8 +185,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
-			p.revalidate();
-			p.repaint();
+			p.invalidate();
+//			p.repaint();
 
 			System.out.println(p.getX() + " " + p.getY());
 		}

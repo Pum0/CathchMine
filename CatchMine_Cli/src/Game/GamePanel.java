@@ -1,5 +1,7 @@
 package Game;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -8,13 +10,14 @@ public class GamePanel extends JPanel {
 	singleGame single;
 
 	public GamePanel() {
+		this.setBackground(Color.darkGray);
 		this.setLayout(null);
 
 		setSize(single.FRAMEXSIZE, single.FRAMEYSIZE);
 
 		single = new singleGame(); // 싱글 게임 클래스
 
-		single.setBounds(20, 160, single.GAMEXSIZE, single.GAMEYSIZE);
+		single.setBounds(20, 140, single.GAMEXSIZE, single.GAMEYSIZE);
 		menu = new Game_MenuPanel();
 		add(single);
 		add(menu);

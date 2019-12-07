@@ -2,23 +2,28 @@ package Game;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
 	private int charState;
-
+	game_item item;
 	private int x;
 	private int y;
+
+	Queue<String> itemPocket;
 
 	// ======================= 캐릭터 이미지 ============================ //
 	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");
 	static ImageIcon FrontImage = new ImageIcon("image/gif/Front_Move.gif");
 	static ImageIcon LeftImage = new ImageIcon("image/gif/Left_Move.gif");
 	static ImageIcon RightImage = new ImageIcon("image/gif/Right_Move.gif");
-
-	static ImageIcon FrontAttack = new ImageIcon("image/gif/Front_AttackMotion.gif");
+	
+	// 블럭 부시기
+	static ImageIcon Check = new ImageIcon("image/gif/Front_AttackMotion.gif");
 
 	public player() {
 		this.x = 40;
@@ -26,6 +31,7 @@ public class player extends JPanel {
 		this.setSize(40, 40);
 		this.charState = 3;
 
+		this.itemPocket = new LinkedList<>();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -40,7 +46,7 @@ public class player extends JPanel {
 		if (charState == 4)
 			gifImg = RightImage;
 		if (charState == 5)
-			gifImg = FrontAttack;
+			gifImg = Check;
 
 		img = gifImg.getImage();
 		g.drawImage(img, 0, 0, 40, 40, null);
@@ -76,10 +82,10 @@ public class player extends JPanel {
 		}
 
 	}
-	
-	public void setState(int state){
+
+	public void setState(int state) {
 		charState = state;
-		
+
 	}
 //	public void painting(int state) {
 //		charState = state;

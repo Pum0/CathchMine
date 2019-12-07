@@ -9,11 +9,11 @@ public class game_item {
 	private List<String> itemList = Arrays.asList(item);
 
 	public List<String> getItemList() {
-		return itemList;
+		return this.itemList;
 	}
 
-	public void setItemList(List<String> itemList) {
-		this.itemList = itemList;
+	public game_item() {
+
 	}
 
 }
