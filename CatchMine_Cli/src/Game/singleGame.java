@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int FRAMEXSIZE = 1440;
 	final static int FRAMEYSIZE = 900;
-
 	final static int GAMEXSIZE = 1400;
 	final static int GAMEYSIZE = 720;
 
@@ -35,7 +34,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	flag flag = new flag();
 	flag[][] flagArr = new flag[18][35];
 	boolean[][] flagPosition = new boolean[18][35]; // 깃발이 꽂혔는지 안꽂혔는지 확인
-	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼 제공한다.
+	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼만 제공해야 한다.
 
 	public singleGame() {
 		setLayout(null);
@@ -56,8 +55,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		return this.mineCount;
 	}
 
-	public int getFlagCount() {
-		return this.flagCount;
+	public int getFlagCount() { // 기본은 지뢰의 갯수만큼 이지 만 맵에서 꽂힌 깃발수를 제외해야함.
+		int usingFlag = 0; // 사용한 갯수를 flagPosition을 검사하면서 증가시킬예정
+
+		for (int i = 0; i < 18; i++)
+			for (int j = 0; j < 35; j++)
+				if (flagPosition[i][j] == true)
+					usingFlag++;
+
+		return this.flagCount - usingFlag; // 주어진 깃발의 갯수 - 사용한 갯수
 	}
 
 	// 지뢰가 있는 위치를 2차원배열에 정해준 지뢰의 갯수만큼 랜덤하게 담는다.
@@ -90,21 +96,22 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
-		System.out.println(flag.isFlag(flagPosition, yPoint, xPoint) == false);
-		if (flag.isFlag(flagPosition, yPoint, xPoint) == false) {
+		System.out.println(flagPosition[yPoint][xPoint]);
+		if (flagPosition[yPoint][xPoint] == false) {
 			block[yPoint][xPoint].setBlockState(true); // 깃발이 꽂힌블럭은 열어볼 수 없게 방문여부를 true
 
 			flagPosition[yPoint][xPoint] = true;
 			flagArr[yPoint][xPoint].setFlagImage(0);
 
 			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
-		} else { // 깃발을 꽂았는데 다시 눌렀을때
+		}
+
+		else {// 깃발을 꽂았는데 다시 눌렀을때
 			block[yPoint][xPoint].setBlockState(false);
 
 			flagPosition[yPoint][xPoint] = false;
-			flagArr[yPoint][xPoint].setFlagImage(1);
+			flagArr[yPoint][xPoint].setFlagImage(1); // ? 이미지로 변경
 
-			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
 		}
 
 	}
@@ -123,16 +130,16 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			prevTime = System.currentTimeMillis();
 		}
 
+		// A키를 입력 + 그 위치 블럭이 선택되지 않았다면, 블럭을 부심
 		if (e.getKeyCode() == KeyEvent.VK_A && block[yPoint][xPoint].getBlockState() != true) {
-
 			state = 10;
 			p.setImage(state);
 			hitBlock();
-
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_S) {
-			putFlag();
+			if (getFlagCount() > 0)
+				putFlag();
 		}
 
 		// Mine 배열 확인용
@@ -144,38 +151,33 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_B) {
-			System.out.println("주변 블럭에 있는 지뢰 갯수는 : " + mine.getMineCount(minePosition, yPoint, xPoint));
+//			for (int i = 0; i < 18; i++)
+//				System.out.println(i + "번쨰 줄 깃발 : " + Arrays.toString(flagPosition[i]));
+			System.out.println("남은 깃발 갯수 : " + getFlagCount());
 		}
 
+		// 게임의 전체 배치현황을 나타내는 2차원 배열, 10은 지뢰 11은 벽, 나머지는 지뢰의 갯수
 		if (e.getKeyCode() == KeyEvent.VK_C) {
 			int[][] numArr = new int[18][35];
 
 			for (int i = 0; i < block.length; i++)
-				for (int j = 0; j < block[i].length ; j++)
-					if ((i == 0 || j == 0) || (i == 17 || j == 34))
+				for (int j = 0; j < block[i].length; j++)
+					if ((i == 0 || j == 0) || (i == 17 || j == 34)) // 벽
 						numArr[i][j] = 11;
 					else if (minePosition[i][j] == false)
-						numArr[i][j] = mine.getMineCount(minePosition, i, j);
+						numArr[i][j] = mine.getMineCount(minePosition, i, j); // 지뢰의 갯수
 					else
-						numArr[i][j] = 10;
+						numArr[i][j] = 10; // 지뢰
 
 			for (int i = 0; i < block.length; i++)
 				System.out.println(Arrays.toString(numArr[i]));
 		}
 
-	}
+	} // KeyPressed
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
 		stop(e.getKeyCode());
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	// 블럭 타격 버튼 입력시 호출 될 메소드 정의
@@ -189,14 +191,18 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
 		block[yPoint][xPoint].setImage();
+		flagArr[yPoint][xPoint].setFlagImage();
 
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 게임 패배
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
 			linkedOpen(yPoint, xPoint);
-		} else {
+		} else { // 지뢰를 밟았을 시 ?
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
-			defeatGmae(minePosition, block);
+			p.setPlayerHP(p.getPlayerHP() - 1);
+
+			if (p.getPlayerHP() == 0)
+				defeatGmae(minePosition, block);
 		}
 		block[yPoint][xPoint].setBlockState(true);
 
@@ -208,20 +214,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int startX = x;
 		int startY = y;
 
-		// 동 서 남 북 순으로 숫자를 만날때 까지 재귀 호출 하자.
-		if (x > 1 && (mine.getMineCount(minePosition, x, y) == 0)) {
-			linkedOpen(x - 1, y);
-			block[x][y].setImage();
-			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
-
-		} else if ((x < startX && startX < 16) && (mine.getMineCount(minePosition, x, y) == 0)) {
+		// 동 서 남 북 순으로 숫자를 만날때 까지 재귀 호출 하자. + 블럭이 선택되지 않은 곳 까지
+		if (x < 17 && (mine.getMineCount(minePosition, x, y) == 0) && block[x + 1][y].getBlockState() != true) {
 			linkedOpen(x + 1, y);
 			block[x][y].setImage();
 			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
 
 		}
 
-		if (mine.getMineCount(minePosition, x, y) != 0) {
+		else {
 			block[x][y].setImage();
 			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
 			return;
@@ -374,4 +375,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 }

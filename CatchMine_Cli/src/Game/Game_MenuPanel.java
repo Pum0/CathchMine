@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class Game_MenuPanel extends JPanel {
 	// 메뉴에 있어야 할 목록 가진 아이템, 사용가능한 깃발 갯수, 멀티면 유저 목록
+	// 이 클래스에서는 진행되고 있는 게임에서 값을 받아와 단순히 진행도(지뢰의 갯수, 깃발의 갯수)와 캐릭터의 상태(체력, 아이템)를 알려준다.
 	final static int MENUXSIZE = 1400;
 	final static int MENUYSIZE = 100;
 
@@ -16,15 +17,16 @@ public class Game_MenuPanel extends JPanel {
 	private JLabel statIcon;
 
 	// 게임 위쪽 메뉴 UI 패널
-	private JPanel menuPanel; // 타이머 패널
+	private JPanel menuPanel; // 메뉴 전체에 컴포넌트를 담을 패널
 	private JLabel timeLabel; // 시간이 출력되는 레이블
+	private JLabel mineLabel; // 이 게임에 있는 지뢰의 갯수를 명시해놓는 레이블
+	private JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
+	private JLabel flagLabel;
 
 	// 게임 플레이 시간
 	final static int time = 0;
 
 	singleGame sG = new singleGame(); // 싱글게임 클래스의 필드를 사용하기위해서 사용
-
-	JLabel mineLabel;
 
 	public Game_MenuPanel() {
 		setLayout(null);
@@ -33,13 +35,13 @@ public class Game_MenuPanel extends JPanel {
 		statIcon = new JLabel();
 		statIcon.setIcon(statusImage);
 
-		menuPanel = new JPanel();
-		menuPanel.setLayout(null);
+		menuPanel = new JPanel(); // 메뉴 패널 생성
+		menuPanel.setLayout(null); // 절대좌표를 쓰기 위해 레이아웃을 null로 맞춰줌
 		menuPanel.setBounds(0, 0, MENUXSIZE, MENUYSIZE);
 		menuPanel.setOpaque(false);
 
-		timeLabel = new JLabel(timer(time));
-		menuPanel.add(timeLabel);
+		timeLabel = new JLabel(timer(time)); // 분:초 형식으로 Label에 텍스트를 넣음
+		menuPanel.add(timeLabel); // 메뉴 패널에 추가
 
 		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 50));
 		timeLabel.setBounds(850, 5, 200, 100);
@@ -50,16 +52,34 @@ public class Game_MenuPanel extends JPanel {
 		mineLabel.setFont(new Font("빙그레체", Font.BOLD, 40));
 		mineLabel.setBounds(560, 2, 200, 100);
 
-		new timerThread().start();
+		flagLabel = new JLabel();
+		flagLabel.setFont(new Font("빙그레체", Font.BOLD, 40));
+		flagLabel.setBounds(343, 2, 200, 100);
+
+		menuPanel.add(flagLabel);
+
+		new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					flagLabel.setText(sG.getFlagCount() + "");
+				}
+			}
+
+		}.start();
+
+		new timerThread().start(); // 생성과 동시에 타이머를 실행시킨다.
 
 		menuPanel.setLocation(0, 0);
-//		setLocation(20, 20);
 
 		setOpaque(false);
-
 		add(menuPanel);
 		add(statIcon);
 		statIcon.setBounds(0, 0, MENUXSIZE, MENUYSIZE);
+
+	}
+
+	public Game_MenuPanel(int i) {
 
 	}
 
@@ -85,7 +105,6 @@ public class Game_MenuPanel extends JPanel {
 					System.out.println("timerThread");
 					System.out.println(e.toString());
 				}
-				timeLabel.setText("");
 				timeLabel.setText(timer(count));
 
 			}
