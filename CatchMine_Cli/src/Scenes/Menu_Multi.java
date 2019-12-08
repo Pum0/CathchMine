@@ -14,6 +14,8 @@ import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;
 
+import Main.Main;
+
 public class Menu_Multi extends JPanel {
 	JLabel roomLabel, chatLabel, userLabel;
 	JList standbyRoom;
@@ -34,6 +36,8 @@ public class Menu_Multi extends JPanel {
 	Key kl = new Key();
 	Mouse ml = new Mouse();
 	Design de = new Design();
+	
+//	public boolean loginCheck = false;
 
 	public void addUserInfo(String userNick, String userID) {
 		userData.addElement(userNick);
@@ -148,7 +152,15 @@ public class Menu_Multi extends JPanel {
 		add(chatField);
 		add(multiButton[2]);
 		add(de.setBackground());
+		
+//		if(loginCheck) {
+//			Main.chatingClient.connect();
+//		}
 	}
+	
+//	public void loginCheck(boolean login) {
+//		this.loginCheck = login;
+//	}
 	
 	public void appendMsg(String msg) {
 		chatArea.append(msg);

@@ -24,6 +24,8 @@ public class Action implements ActionListener {
 				Main.mainMenu.setVisible(true);
 //				Main.NickName = db.getNickName();
 				Main.chatingClient.setNickName(db.getNickName());
+//				Main.multiMenu.loginCheck(true);
+				Main.chatingClient.connect();
 				
 				db.disConnectSQL();
 			} else {
@@ -109,13 +111,11 @@ public class Action implements ActionListener {
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
 			db.ConnectSQL();
 			
-			Main.chatingClient.connect();
-			
 			Main.mainMenu.setVisible(false);
-			Main.multiMenu.chatArea.setText("");
+//			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.setVisible(true);
-//			Main.chatingClient.setNickName();
-//			ChatingClient.setNickName(Main.NickName);
+			
+//			Main.chatingClient.connect();
 		}
 		
 		// Multi Chating TextArea
