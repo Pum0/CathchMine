@@ -31,7 +31,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[GAMEYPoint][GAMEXPoint]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	int mineCount = 50; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
 //	flag flag = new flag();
@@ -186,7 +186,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 게임 패배
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
-			linkedOpen(yPoint, xPoint);
+			if (mine.getMineCount(minePosition, yPoint, xPoint) == 0)
+				linkedOpen(yPoint, xPoint);
 //			mineRecursive(blockPlan, yPoint, xPoint / 2);
 		} else { // 지뢰를 밟았을 시 ?
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
