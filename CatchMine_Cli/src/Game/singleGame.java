@@ -128,7 +128,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 					blockPlan[i][j] = mine.getMineCount(minePosition, i, j); // 지뢰의 갯수
 				else
 					blockPlan[i][j] = 10; // 지뢰
-
 	}
 
 	private long prevTime = 0; // 딜레이
@@ -201,6 +200,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	}
 
+	// 선택한 블럭주변에 지뢰가 없으면 인접 블럭을 같이 여는 메소드
 	public void linkedOpen(int x, int y) {
 		// x,y는 타격한 내 현재 위치를 가진다, 반복은 x-1~x+1 까지 , y-1 ~ y+1 까지 해야한다..
 		// x에 높이(yPoint) , y에 너비(xPoint)를 넣었다.
@@ -212,7 +212,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 				} else if ((i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
 						|| block[i][j].getBlockState()) { // i,j 좌표에 지뢰가 있거나, 처음 들어왔떤 좌표와 같거나, 테두리를 벗어나면 return
 					continue;
-				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 지뢰가 아니고 주변에 지뢰가 있다
+				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 선택된 블럭주변에 지뢰가 없을때 이부분에서 재귀적으로 함수를 호출
 					block[i][j].setImage();
 					block[i][j].add(new MineNum(mine.getMineCount(minePosition, i, j)), new Integer(2));
 					block[i][j].setBlockState(true);
