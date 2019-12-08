@@ -103,7 +103,6 @@ public class ChatingServer {
 				
 				NickName = in.readUTF();
 				addClient(NickName, out);
-
 			} catch (IOException e) {
 				System.out.print("Receiver Error : " + e.getStackTrace());
 			}

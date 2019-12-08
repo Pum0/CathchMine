@@ -14,6 +14,8 @@ public class Action implements ActionListener {
 	mariaDB db = new mariaDB();
 	
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
+	
+	public boolean isVisible = false;
 
 	public void actionPerformed(ActionEvent e) {
 		// 로그인 액션 리스너 --------------------------------------------------------
@@ -115,11 +117,14 @@ public class Action implements ActionListener {
 			Main.multiMenu.setVisible(true);
 			
 			Main.chatingClient.connect();
+			
+//			isVisible = true;
+			
 		}
 		
-		// Multi Chating TextArea
-		if(e.getSource() == Main.multiMenu.chatArea) {
-			String msg = Main.chatingClient.getNickName() + " : " + Main.multiMenu.chatArea.getText() + "\n";
+		// Multi Chating TextField
+		if(e.getSource() == Main.multiMenu.chatField) {
+			String msg = Main.chatingClient.getNickName() + " : " + Main.multiMenu.chatField.getText() + "\n";
 			Main.chatingClient.sendMessage(msg);
 			Main.multiMenu.chatField.setText(null);
 		}

@@ -49,8 +49,8 @@ public class Key implements KeyListener {
 		// PW 확인 필드
 		if (e.getSource() == Main.signUp.pwCheckField && e.getKeyCode() == 10)
 			Main.signUp.checkButton[2].doClick();
-		System.out.println("keypressed : " + e.getKeyChar());
-		System.out.println(e.getKeyCode());
+//		System.out.println("keypressed : " + e.getKeyChar());
+//		System.out.println(e.getKeyCode());
 
 		// 멀티 채팅 ---------------------------------------------------------
 		if (e.getSource() == Main.multiMenu.chatField && e.getKeyCode() == 10) {
@@ -64,8 +64,8 @@ public class Key implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("keyReleased : " + e.getKeyChar());
-		System.out.println(e.getKeyCode());
+//		System.out.println("keyReleased : " + e.getKeyChar());
+//		System.out.println(e.getKeyCode());
 
 	}
 }

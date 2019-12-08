@@ -14,6 +14,7 @@ import Scenes.Multi_Room;
 import Scenes.SignUp;
 import Server.ChatingClient;
 import Server.ChatingServer;
+
 //import thread.net.Client;
 
 public class Main extends JFrame {
@@ -34,6 +35,7 @@ public class Main extends JFrame {
 	
 //	public static ChatingServer chatingServer = new ChatingServer();
 	public static ChatingClient chatingClient = new ChatingClient();
+	public static boolean isVisible = false;
 
 	public Main() {
 		super("Catch-Mine");
