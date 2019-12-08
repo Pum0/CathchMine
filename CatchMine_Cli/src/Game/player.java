@@ -17,6 +17,8 @@ public class player extends JPanel {
 	private boolean isAlive;
 	Queue<String> itemPocket; // 먼저 얻은 아이템을 사용하기 위해서 Queue 자료구조 활용
 
+	private int playerHP;
+
 	// ======================= 캐릭터 이미지 ============================ //
 	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");
 	static ImageIcon FrontImage = new ImageIcon("image/gif/Front_Move.gif");
@@ -39,6 +41,7 @@ public class player extends JPanel {
 		this.x = 40;
 		this.y = 40;
 		this.charState = 3; // 처음 캐릭터가 생성되면 정면을 바라보고있음
+		this.playerHP = 3;
 
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
@@ -125,4 +128,13 @@ public class player extends JPanel {
 		this.y = locationY;
 	}
 
+	public int getPlayerHP() {
+		return playerHP;
+	}
+
+	public void setPlayerHP(int playerHP) {
+		this.playerHP = playerHP;
+	}
+	
+	
 }

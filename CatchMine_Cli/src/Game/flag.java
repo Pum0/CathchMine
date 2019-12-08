@@ -22,6 +22,7 @@ class flag extends JPanel {
 		this.setOpaque(false);
 		this.flagState = false; // 기본은 꽂혀있지않음
 		flagIcon = new JLabel();
+		flagIcon.setIcon(flagImage);
 
 		this.add(flagIcon);
 	}
@@ -42,8 +43,12 @@ class flag extends JPanel {
 		return this.flagState;
 	}
 
+	public void setFlagImage() {
+		this.flagIcon.setIcon(null);
+	}
+
 	public void setFlagImage(int i) {
-		this.flagIcon.setIcon(this.flagList[i]);
+		this.flagIcon.setIcon(flagList[i]);
 	}
 
 }
