@@ -25,7 +25,6 @@ public class Action implements ActionListener {
 //				Main.NickName = db.getNickName();
 				Main.chatingClient.setNickName(db.getNickName());
 //				Main.multiMenu.loginCheck(true);
-				Main.chatingClient.connect();
 				
 				db.disConnectSQL();
 			} else {
@@ -115,7 +114,7 @@ public class Action implements ActionListener {
 //			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.setVisible(true);
 			
-//			Main.chatingClient.connect();
+			Main.chatingClient.connect();
 		}
 		
 		// Multi Chating TextArea
