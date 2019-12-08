@@ -16,12 +16,19 @@ public class Game_MenuPanel extends JPanel {
 	private ImageIcon statusImage = new ImageIcon("image/status.png");
 	private JLabel statIcon;
 
+	private static ImageIcon p_hp0 = new ImageIcon("image/GameObject/Heart 0.png");
+	private static ImageIcon p_hp1 = new ImageIcon("image/GameObject/Heart 1.png");
+	private static ImageIcon p_hp2 = new ImageIcon("image/GameObject/Heart 2.png");
+	private static ImageIcon p_hp3 = new ImageIcon("image/GameObject/Heart 3.png");
+	private static ImageIcon[] hpImageList = { p_hp0, p_hp1, p_hp2, p_hp3 };
+
 	// 게임 위쪽 메뉴 UI 패널
 	private JPanel menuPanel; // 메뉴 전체에 컴포넌트를 담을 패널
 	private JLabel timeLabel; // 시간이 출력되는 레이블
 	private JLabel mineLabel; // 이 게임에 있는 지뢰의 갯수를 명시해놓는 레이블
 	private JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
 	private JLabel flagLabel;
+	private static JLabel hpLabel; // player의 Hp를 표시해주는 이미지
 
 	// 게임 플레이 시간
 	final static int time = 0;
@@ -58,11 +65,20 @@ public class Game_MenuPanel extends JPanel {
 
 		menuPanel.add(flagLabel);
 
+		hpLabel = new JLabel();
+		hpLabel.setIcon(p_hp3);
+		hpLabel.setBounds(30, 26, 174, 60);
+
+		menuPanel.add(hpLabel);
+
 		new Thread() {
+			int fc = 0;
+
 			@Override
 			public void run() {
+				fc = sG.getFlagCount();
 				while (true) {
-					flagLabel.setText(sG.getFlagCount() + "");
+					flagLabel.setText(fc + "");
 				}
 			}
 
@@ -79,8 +95,8 @@ public class Game_MenuPanel extends JPanel {
 
 	}
 
-	public Game_MenuPanel(int i) {
-
+	public static void sethpImage(int i) {
+		hpLabel.setIcon(hpImageList[i]);
 	}
 
 	// 플레이 타임을 00:00 형식으로 출력

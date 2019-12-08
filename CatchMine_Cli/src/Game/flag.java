@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class flag extends JPanel {
+public class flag extends JPanel {
 	ImageIcon flagImage = new ImageIcon("image/GameObject/RedFlag.png");
 	ImageIcon Q_Image = new ImageIcon("image/GameObject/Q_Mark.png");
 
