@@ -27,7 +27,7 @@ public class Game_MenuPanel extends JPanel {
 	private JLabel timeLabel; // 시간이 출력되는 레이블
 	private JLabel mineLabel; // 이 게임에 있는 지뢰의 갯수를 명시해놓는 레이블
 	private JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
-	private JLabel flagLabel;
+	private static JLabel flagLabel;
 	private static JLabel hpLabel; // player의 Hp를 표시해주는 이미지
 
 	// 게임 플레이 시간
@@ -59,9 +59,9 @@ public class Game_MenuPanel extends JPanel {
 		mineLabel.setFont(new Font("빙그레체", Font.BOLD, 40));
 		mineLabel.setBounds(560, 2, 200, 100);
 
-		flagLabel = new JLabel();
+		flagLabel = new JLabel(sG.getFlagCount() + "");
 		flagLabel.setFont(new Font("빙그레체", Font.BOLD, 40));
-		flagLabel.setBounds(343, 2, 200, 100);
+		flagLabel.setBounds(353, 2, 200, 100);
 
 		menuPanel.add(flagLabel);
 
@@ -70,19 +70,6 @@ public class Game_MenuPanel extends JPanel {
 		hpLabel.setBounds(30, 26, 174, 60);
 
 		menuPanel.add(hpLabel);
-
-		new Thread() {
-			int fc = 0;
-
-			@Override
-			public void run() {
-				fc = sG.getFlagCount();
-				while (true) {
-					flagLabel.setText(fc + "");
-				}
-			}
-
-		}.start();
 
 		new timerThread().start(); // 생성과 동시에 타이머를 실행시킨다.
 
@@ -97,6 +84,10 @@ public class Game_MenuPanel extends JPanel {
 
 	public static void sethpImage(int i) {
 		hpLabel.setIcon(hpImageList[i]);
+	}
+
+	public static void setFlagCount(int i) {
+		flagLabel.setText(i + "");
 	}
 
 	// 플레이 타임을 00:00 형식으로 출력

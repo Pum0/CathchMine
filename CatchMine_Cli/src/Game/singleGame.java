@@ -15,6 +15,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int GAMEXSIZE = 1400;
 	final static int GAMEYSIZE = 720;
 
+	final static int GAMEXPoint = 35;
+	final static int GAMEYPoint = 18;
+
 //	singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
 	player p = new player();
@@ -24,17 +27,19 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
-	block[][] block = new block[18][35]; // 실제 블럭이 만들어질 배열
+	block[][] block = new block[GAMEYPoint][GAMEXPoint]; // 실제 블럭이 만들어질 배열
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
-	boolean[][] minePosition = new boolean[18][35]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	boolean[][] minePosition = new boolean[GAMEYPoint][GAMEXPoint]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
+	int mineCount = 50; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
-	flag flag = new flag();
-	flag[][] flagArr = new flag[18][35];
-	boolean[][] flagPosition = new boolean[18][35]; // 깃발이 꽂혔는지 안꽂혔는지 확인
+//	flag flag = new flag();
+	flag[][] flagArr = new flag[GAMEYPoint][GAMEXPoint];
+	boolean[][] flagPosition = new boolean[GAMEYPoint][GAMEXPoint]; // 깃발이 꽂혔는지 안꽂혔는지 확인
 	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼만 제공해야 한다.
+
+	int[][] blockPlan = new int[GAMEYPoint][GAMEXPoint]; // 전체맵의 배치된 요소들의 현황을 담아 둠
 
 	public singleGame() {
 		setLayout(null);
@@ -46,6 +51,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// player의 초기 위치를 잡아줌
 		// 지뢰의 위치를 선정해주는 메소드
 		generateMine(minePosition);
+		genMap();
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
@@ -94,6 +100,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
+		block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
+
 		System.out.println(flagPosition[yPoint][xPoint]);
 		if (flagPosition[yPoint][xPoint] == false) {
 			block[yPoint][xPoint].setBlockState(true); // 깃발이 꽂힌블럭은 열어볼 수 없게 방문여부를 true
@@ -101,16 +109,25 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			flagPosition[yPoint][xPoint] = true;
 			flagArr[yPoint][xPoint].setFlagImage(0);
 
-			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
-		}
-
-		else {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
+		} else {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
 			flagPosition[yPoint][xPoint] = false; // 깃발은 아니지만.. '?' 라서 구분 해줘야할듯..?
 			flagArr[yPoint][xPoint].setFlagImage(1); // ? 이미지로 변경
 
 		}
+
+	}
+
+	public void genMap() {
+		for (int i = 0; i < block.length; i++)
+			for (int j = 0; j < block[i].length; j++)
+				if ((i == 0 || j == 0) || (i == 17 || j == 34)) // 벽
+					blockPlan[i][j] = 11;
+				else if (minePosition[i][j] == false)
+					blockPlan[i][j] = mine.getMineCount(minePosition, i, j); // 지뢰의 갯수
+				else
+					blockPlan[i][j] = 10; // 지뢰
 
 	}
 
@@ -134,39 +151,16 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.setImage(state);
 			hitBlock();
 		}
-
+		// S키는 블럭에 깃발 or ? 를 놓을 수 있다.
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			if (getFlagCount() > 0)
 				putFlag();
+			Game_MenuPanel.setFlagCount(getFlagCount());
 		}
 
-		// Mine 배열 확인용
-		if (e.getKeyCode() == KeyEvent.VK_O) {
-			System.out.println("플레이어의 남은 체력은 " + p.getPlayerHP());
-		}
-
-		if (e.getKeyCode() == KeyEvent.VK_B) {
-//			for (int i = 0; i < 18; i++)
-//				System.out.println(i + "번쨰 줄 깃발 : " + Arrays.toString(flagPosition[i]));
-			System.out.println("남은 깃발 갯수 : " + getFlagCount());
-		}
-
-		// 게임의 전체 배치현황을 나타내는 2차원 배열, 10은 지뢰 11은 벽, 나머지는 지뢰의 갯수
-		if (e.getKeyCode() == KeyEvent.VK_C) {
-			int[][] numArr = new int[18][35];
-
+		if (e.getKeyCode() == KeyEvent.VK_M)
 			for (int i = 0; i < block.length; i++)
-				for (int j = 0; j < block[i].length; j++)
-					if ((i == 0 || j == 0) || (i == 17 || j == 34)) // 벽
-						numArr[i][j] = 11;
-					else if (minePosition[i][j] == false)
-						numArr[i][j] = mine.getMineCount(minePosition, i, j); // 지뢰의 갯수
-					else
-						numArr[i][j] = 10; // 지뢰
-
-			for (int i = 0; i < block.length; i++)
-				System.out.println(Arrays.toString(numArr[i]));
-		}
+				System.out.println(Arrays.toString(blockPlan[i]));
 
 	} // KeyPressed
 
@@ -182,7 +176,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		// isMine 메소드로 죽거나, 주변에
 		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + block[yPoint][xPoint].getBlockState());
-		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + ">");
+		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + "> : <"
+				+ yPoint + "," + xPoint + ">");
 		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
 		block[yPoint][xPoint].setImage();
@@ -192,6 +187,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
 			linkedOpen(yPoint, xPoint);
+//			mineRecursive(blockPlan, yPoint, xPoint / 2);
 		} else { // 지뢰를 밟았을 시 ?
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 			p.setPlayerHP(p.getPlayerHP() - 1);
@@ -205,24 +201,30 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	}
 
 	public void linkedOpen(int x, int y) {
-		int[][] open = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-		// -1,0 위로 , 1,0 아래로, 0,-1 왼쪽으로, 0,1 오른쪽으로
-		int startX = x;
-		int startY = y;
+		// x,y는 타격한 내 현재 위치를 가진다, 반복은 x-1~x+1 까지 , y-1 ~ y+1 까지 해야한다..
+		// x에 높이(yPoint) , y에 너비(xPoint)를 넣었다.
 
-		// 동 서 남 북 순으로 숫자를 만날때 까지 재귀 호출 하자. + 블럭이 선택되지 않은 곳 까지
-		if (x < 17 && (mine.getMineCount(minePosition, x, y) == 0) && block[x + 1][y].getBlockState() != true) {
-			block[x][y].setImage();
-			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
-			linkedOpen(x + 1, y);
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if ((i == x && j == y)) {
+					continue;
+				} else if ((i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
+						|| block[i][j].getBlockState()) { // i,j 좌표에 지뢰가 있거나, 처음 들어왔떤 좌표와 같거나, 테두리를 벗어나면 return
+					return;
+				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 지뢰가 아니고 주변에 지뢰가 있다
+					block[i][j].setImage();
+					block[i][j].add(new MineNum(mine.getMineCount(minePosition, i, j)), new Integer(2));
+					block[i][j].setBlockState(true);
+					linkedOpen(i, j);
 
+				} else { //
+					block[i][j].setImage();
+					block[i][j].add(new MineNum(mine.getMineCount(minePosition, i, j)), new Integer(2));
+					block[i][j].setBlockState(true);
+				}
+			}
 		}
 
-		else {
-			block[x][y].setImage();
-			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
-			return;
-		}
 	}
 
 	// 이동후 정지할때 나오는 모션들을 나오게 하는 메소드
@@ -336,7 +338,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 	}
 
-	// 지뢰를 밟을 경우 나올 메소드
+	// 게임에 패배할 시 나올 메소드
 	public void defeatGmae(boolean[][] bool, block[][] block) {
 
 		new Thread() {
