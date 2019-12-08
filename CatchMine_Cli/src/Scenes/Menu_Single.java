@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import Main.Design;
+import Grahpics.Design;
 import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;

@@ -15,6 +15,7 @@ public class ServerThread implements Runnable {
 			try {
 			client = serverSocket.accept();
 			System.out.println("connected client : " + client);
+			System.out.println(client.getPort());
 			} catch(Exception e) {
 				
 			}

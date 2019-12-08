@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import Main.Design;
+import Grahpics.Design;
 import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;

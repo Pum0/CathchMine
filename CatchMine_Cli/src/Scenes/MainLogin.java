@@ -10,7 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import Main.Design;
+import Grahpics.Design;
 import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;

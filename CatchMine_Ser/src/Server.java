@@ -11,10 +11,13 @@ public class Server {
 				ServerThread serverThread = new ServerThread(serverSocket);
 
 				new Thread(serverThread).start();
+				
 			} catch (Exception e) {
 
 			}
 		}
 	}
+	
+	
 
 }

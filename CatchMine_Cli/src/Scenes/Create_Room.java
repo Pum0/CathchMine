@@ -2,7 +2,7 @@ package Scenes;
 
 import javax.swing.*;
 
-import Main.Design;
+import Grahpics.Design;
 
 public class Create_Room extends JFrame {
 	JLabel roomNum;

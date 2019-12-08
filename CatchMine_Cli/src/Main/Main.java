@@ -12,6 +12,7 @@ import Scenes.Menu_Single;
 import Scenes.Multi_Room;
 import Scenes.PlayMusic;
 import Scenes.SignUp;
+import thread.net.Client;
 
 public class Main extends JFrame {
 	public static MainLogin mainLogin = new MainLogin();
@@ -26,6 +27,8 @@ public class Main extends JFrame {
 
 	public static PlayMusic backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
 	public static String NickName = null;
+
+	Client cli = new Client();
 
 	public Main() {
 		super("Catch-Mine");
@@ -58,7 +61,6 @@ public class Main extends JFrame {
 
 	public static void main(String[] args) {
 		new Main();
-		
 	}
 
 }

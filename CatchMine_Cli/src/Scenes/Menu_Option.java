@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Main.Design;
+import Grahpics.Design;
 import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;
