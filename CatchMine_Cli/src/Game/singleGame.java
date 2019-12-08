@@ -207,10 +207,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
-				if ((i == x && j == y)) {
-					continue;
-				} else if ((i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
-						|| block[i][j].getBlockState()) { // i,j 좌표에 지뢰가 있거나, 처음 들어왔떤 좌표와 같거나, 테두리를 벗어나면 return
+				if ((i == x && j == y) || (i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
+						|| block[i][j].getBlockState()) { // 좌표는 테두리, 기준점이거나 , 위치에 지뢰가 있으면 
 					continue;
 				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 선택된 블럭주변에 지뢰가 없을때 이부분에서 재귀적으로 함수를 호출
 					block[i][j].setImage();
