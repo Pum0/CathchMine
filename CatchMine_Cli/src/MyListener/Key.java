@@ -3,8 +3,8 @@ package MyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Grahpics.PlayMusic;
 import Main.Main;
-import Scenes.PlayMusic;
 
 public class Key implements KeyListener {
 	@Override

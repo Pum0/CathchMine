@@ -2,6 +2,7 @@ package Main;
 
 import javax.swing.JFrame;
 
+import Grahpics.PlayMusic;
 import Scenes.Create_Room;
 import Scenes.MainLogin;
 import Scenes.Menu_Main;
@@ -10,9 +11,8 @@ import Scenes.Menu_Option;
 import Scenes.Menu_Rule;
 import Scenes.Menu_Single;
 import Scenes.Multi_Room;
-import Scenes.PlayMusic;
 import Scenes.SignUp;
-import thread.net.Client;
+//import thread.net.Client;
 
 public class Main extends JFrame {
 	public static MainLogin mainLogin = new MainLogin();
@@ -28,7 +28,7 @@ public class Main extends JFrame {
 	public static PlayMusic backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
 	public static String NickName = null;
 
-	Client cli = new Client();
+//	Client cli = new Client();
 
 	public Main() {
 		super("Catch-Mine");

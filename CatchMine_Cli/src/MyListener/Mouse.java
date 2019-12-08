@@ -5,8 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 
+import Grahpics.PlayMusic;
 import Main.Main;
-import Scenes.PlayMusic;
 
 public class Mouse implements MouseListener {
 	@Override
