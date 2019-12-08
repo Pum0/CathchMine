@@ -210,7 +210,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 					continue;
 				} else if ((i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
 						|| block[i][j].getBlockState()) { // i,j 좌표에 지뢰가 있거나, 처음 들어왔떤 좌표와 같거나, 테두리를 벗어나면 return
-					return;
+					continue;
 				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 지뢰가 아니고 주변에 지뢰가 있다
 					block[i][j].setImage();
 					block[i][j].add(new MineNum(mine.getMineCount(minePosition, i, j)), new Integer(2));
