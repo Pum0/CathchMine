@@ -15,8 +15,8 @@ public class mariaDB {
 	static String pass = "daehwan";
 	static Connection conn = null;
 	static PreparedStatement pstmt = null;
-	
-	static private String NickName;
+	// 여기도 non-static으로 변경
+	public String NickName;
 	
 	public boolean LoginCheck(JTextField idText, JTextField pwText) {
 		if (!idText.getText().isEmpty() && !pwText.getText().isEmpty())

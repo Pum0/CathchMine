@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 import DB.mariaDB;
 import Grahpics.PlayMusic;
 import Main.Main;
+import Scenes.Menu_Multi;
+import Server.ChatingClient;
 
 public class Action implements ActionListener {
 
 	mariaDB db = new mariaDB();
-
+	
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
 	public void actionPerformed(ActionEvent e) {
@@ -20,7 +22,9 @@ public class Action implements ActionListener {
 			if (db.LoginCheck(Main.mainLogin.idText, Main.mainLogin.pwText)) {
 				Main.mainLogin.setVisible(false);
 				Main.mainMenu.setVisible(true);
-				Main.NickName = db.getNickName();
+//				Main.NickName = db.getNickName();
+				Main.chatingClient.setNickName(db.getNickName());
+				
 				db.disConnectSQL();
 			} else {
 				Main.mainLogin.pwText.setText("");
@@ -104,10 +108,23 @@ public class Action implements ActionListener {
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
 			db.ConnectSQL();
+			
+			Main.chatingClient.connect();
+			
 			Main.mainMenu.setVisible(false);
 			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.setVisible(true);
+//			Main.chatingClient.setNickName();
+//			ChatingClient.setNickName(Main.NickName);
 		}
+		
+		// Multi Chating TextArea
+		if(e.getSource() == Main.multiMenu.chatArea) {
+			String msg = Main.chatingClient.getNickName() + " : " + Main.multiMenu.chatArea.getText() + "\n";
+			Main.chatingClient.sendMessage(msg);
+			Main.multiMenu.chatField.setText(null);
+		}
+		
 		// Role Button
 		if (e.getSource() == Main.mainMenu.mainBtn[2]) {
 			Main.mainMenu.setVisible(false);

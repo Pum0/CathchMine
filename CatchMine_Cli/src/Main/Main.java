@@ -12,6 +12,8 @@ import Scenes.Menu_Rule;
 import Scenes.Menu_Single;
 import Scenes.Multi_Room;
 import Scenes.SignUp;
+import Server.ChatingClient;
+import Server.ChatingServer;
 //import thread.net.Client;
 
 public class Main extends JFrame {
@@ -26,9 +28,12 @@ public class Main extends JFrame {
 	public static Multi_Room multiRoom = new Multi_Room();
 
 	public static PlayMusic backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
-	public static String NickName = null;
+//	public String NickName = null;
 
 //	Client cli = new Client();
+	
+//	public static ChatingServer chatingServer = new ChatingServer();
+	public static ChatingClient chatingClient = new ChatingClient();
 
 	public Main() {
 		super("Catch-Mine");
@@ -62,5 +67,4 @@ public class Main extends JFrame {
 	public static void main(String[] args) {
 		new Main();
 	}
-
 }

@@ -29,7 +29,7 @@ public class Menu_Multi extends JPanel {
 	String[] multiButtonString = { "방 생성하기", "방 입장하기", "뒤로가기" };
 
 	public JOptionPane createRoom;
-	
+
 	Action al = new Action();
 	Key kl = new Key();
 	Mouse ml = new Mouse();
@@ -38,7 +38,7 @@ public class Menu_Multi extends JPanel {
 	public void addUserInfo(String userNick, String userID) {
 		userData.addElement(userNick);
 		userData.addElement(userID);
-		
+
 	} // 유저 목록 생성 메소드
 
 	public void removeUserInfo(String userNick, String userID) {
@@ -58,7 +58,7 @@ public class Menu_Multi extends JPanel {
 		standbyRoom = new JList();
 		multiButton = new JButton[3];
 		for (int i = 0; i < multiButton.length; i++) {
-			if(i < 2)
+			if (i < 2)
 				multiButton[i] = new JButton(multiButtonString[i], new ImageIcon("image/button/180x45.png"));
 			else
 				multiButton[i] = new JButton(multiButtonString[i], new ImageIcon("image/button/115x30.png"));
@@ -87,13 +87,13 @@ public class Menu_Multi extends JPanel {
 		userTable.getTableHeader().setReorderingAllowed(false); // 헤드 이동(드래그)불가
 		userTable.setDragEnabled(false); // 선택 드래그 불가
 		userTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		// 싱글 선택 모드
 		userTable.setShowGrid(false);
 		userTable.getColumnModel().getColumn(0).setPreferredWidth(180);
 		userTable.setRowHeight(20);
 		userSPane.getViewport().setBackground(Color.white);
-		
+
 		// 테두리 설정
 		standbyRoom.setBorder(de.setBorder());
 		chatSPane.setBorder(de.setBorder());
@@ -108,9 +108,8 @@ public class Menu_Multi extends JPanel {
 		for (int j = 0; j < tcm.getColumnCount(); j++)
 			tcm.getColumn(j).setCellRenderer(dtcr);
 
-
 		userTable.setEnabled(false);
-		
+
 		// -----------------------유저 테이블 설정 끝----------
 
 		chatField = new JTextField(20);
@@ -131,12 +130,12 @@ public class Menu_Multi extends JPanel {
 		chatArea.setEditable(false); // 채팅 에리아 에디트 금지
 
 		// 멀티 패널
-				for (int i = 0; i < multiButton.length; i++) {
-					multiButton[i].addActionListener(al);
-					multiButton[i].addMouseListener(ml);
-				}
-				chatField.addKeyListener(kl);
-		
+		for (int i = 0; i < multiButton.length; i++) {
+			multiButton[i].addActionListener(al);
+			multiButton[i].addMouseListener(ml);
+		}
+		chatField.addKeyListener(kl);
+
 		// 추가
 		add(roomLabel);
 		add(standbyRoom);
@@ -149,7 +148,9 @@ public class Menu_Multi extends JPanel {
 		add(chatField);
 		add(multiButton[2]);
 		add(de.setBackground());
-		
-		
+	}
+	
+	public void appendMsg(String msg) {
+		chatArea.append(msg);
 	}
 }
