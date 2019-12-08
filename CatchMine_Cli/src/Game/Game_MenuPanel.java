@@ -42,13 +42,13 @@ public class Game_MenuPanel extends JPanel {
 		menuPanel.add(timeLabel);
 
 		timeLabel.setFont(new Font("ºù±×·¹Ã¼", Font.BOLD, 50));
-		timeLabel.setBounds(650, 0, 200, 100);
+		timeLabel.setBounds(850, 5, 200, 100);
 
 		mineLabel = new JLabel(sG.getMineCount() + "");
 		menuPanel.add(mineLabel);
-		
-		mineLabel.setFont(new Font("ºù±×·¹Ã¼", Font.BOLD, 38));
-		mineLabel.setBounds(540, 0, 200, 100);
+
+		mineLabel.setFont(new Font("ºù±×·¹Ã¼", Font.BOLD, 40));
+		mineLabel.setBounds(560, 2, 200, 100);
 
 		new timerThread().start();
 

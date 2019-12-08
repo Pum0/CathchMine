@@ -43,7 +43,7 @@ class flag extends JPanel {
 	}
 
 	public void setFlagImage(int i) {
-		flagIcon.setIcon(this.flagList[i]);
+		this.flagIcon.setIcon(this.flagList[i]);
 	}
 
 }

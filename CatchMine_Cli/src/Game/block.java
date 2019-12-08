@@ -15,7 +15,7 @@ public class block extends JLayeredPane {
 	ImageIcon image; // 블럭의 이미지
 
 	JLabel blockLabel;
-	JLabel tileLabel;
+	public JLabel tileLabel;
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
