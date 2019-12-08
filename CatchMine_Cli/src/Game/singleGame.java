@@ -71,11 +71,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int count = 0;
 		int imsi = 0;
 		while (count < mineCount) {
-			imsi++;
 			int x = (int) (Math.random() * bool.length);
 			int y = (int) (Math.random() * bool[x].length);
 
-			System.out.println(imsi);
 			// 블럭에 지뢰가 없고, 테두리가 아니면 지뢰를 추가하고 지뢰의 갯수를 늘림
 			if (bool[x][y] == false && (x != 0 && y != 0) && (x != bool.length - 1 && y != bool[x].length - 1)) {
 				bool[x][y] = true;
@@ -106,10 +104,10 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
 		}
 
-		else {// 깃발을 꽂았는데 다시 눌렀을때
+		else {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
-			flagPosition[yPoint][xPoint] = false;
+			flagPosition[yPoint][xPoint] = false; // 깃발은 아니지만.. '?' 라서 구분 해줘야할듯..?
 			flagArr[yPoint][xPoint].setFlagImage(1); // ? 이미지로 변경
 
 		}
@@ -143,11 +141,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 
 		// Mine 배열 확인용
-		if (e.getKeyCode() == KeyEvent.VK_O)
-
-		{
-			for (int i = 0; i < minePosition.length; i++)
-				System.out.println(Arrays.toString(minePosition[i]));
+		if (e.getKeyCode() == KeyEvent.VK_O) {
+			System.out.println("플레이어의 남은 체력은 " + p.getPlayerHP());
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_B) {
@@ -200,6 +195,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		} else { // 지뢰를 밟았을 시 ?
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 			p.setPlayerHP(p.getPlayerHP() - 1);
+			Game_MenuPanel.sethpImage(p.getPlayerHP());
 
 			if (p.getPlayerHP() == 0)
 				defeatGmae(minePosition, block);
@@ -216,9 +212,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		// 동 서 남 북 순으로 숫자를 만날때 까지 재귀 호출 하자. + 블럭이 선택되지 않은 곳 까지
 		if (x < 17 && (mine.getMineCount(minePosition, x, y) == 0) && block[x + 1][y].getBlockState() != true) {
-			linkedOpen(x + 1, y);
 			block[x][y].setImage();
 			block[x][y].add(new MineNum(mine.getMineCount(minePosition, x, y)), new Integer(2));
+			linkedOpen(x + 1, y);
 
 		}
 
@@ -380,4 +376,5 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// TODO Auto-generated method stub
 
 	}
+
 }
