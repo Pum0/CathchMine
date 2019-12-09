@@ -13,7 +13,7 @@ public class RoomManager {
         roomList = new ArrayList();
         atomicInteger = new AtomicInteger();
     }
-
+     
     public RoomManager() {
 
     }
@@ -62,6 +62,8 @@ public class RoomManager {
         System.out.println("Room Created!");
         return room;
     }
+    
+
 
     public static GameRoom getRoom(GameRoom gameRoom){
 
