@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
+	private static int player_num = getPlayer_num();
 	private int charState;
 	game_item item;
 	private int x;
@@ -18,28 +19,42 @@ public class player extends JPanel {
 	Queue<String> itemPocket; // 먼저 얻은 아이템을 사용하기 위해서 Queue 자료구조 활용
 
 	private int playerHP;
-
 	// ======================= 캐릭터 이미지 ============================ //
-	static ImageIcon BackImage = new ImageIcon("image/gif/Back_Move.gif");
-	static ImageIcon FrontImage = new ImageIcon("image/gif/Front_Move.gif");
-	static ImageIcon LeftImage = new ImageIcon("image/gif/Left_Move.gif");
-	static ImageIcon RightImage = new ImageIcon("image/gif/Right_Move.gif");
+	ImageIcon BackImage = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Back_Move.gif");
+	ImageIcon FrontImage = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Front_Move.gif");
+	ImageIcon LeftImage = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Left_Move.gif");
+	ImageIcon RightImage = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Right_Move.gif");
 
 	// 블럭 부시기
-	static ImageIcon Check = new ImageIcon("image/gif/Front_AttackMotion.gif");
+	ImageIcon Check = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Jump_Motion.png");
 
-	static ImageIcon F_StandBy = new ImageIcon("image/testGif/1P_Front_Standby.gif");
-	static ImageIcon B_StandBy = new ImageIcon("image/testGif/1P_Back_Standby.gif");
-	static ImageIcon L_StandBy = new ImageIcon("image/testGif/1P_Left_Standby.gif");
-	static ImageIcon R_StandBy = new ImageIcon("image/testGif/1P_Right_Standby.gif");
+	// 가만히 있는 모션
+	ImageIcon F_StandBy = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Front_Standby.gif");
+	ImageIcon B_StandBy = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Back_Standby.gif");
+	ImageIcon L_StandBy = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Left_Standby.gif");
+	ImageIcon R_StandBy = new ImageIcon(
+			"image/Game_Character/" + player_num + "P_Motion/" + player_num + "P_Right_Standby.gif");
+	// ======================= 캐릭터 이미지 ============================ //
 
 	JLabel playerlabel;
 
 	public player() {
+	}
+
+	public player(int p_n, int x, int y) {
+		setPlayer_num(p_n);
 		playerlabel = new JLabel();
 		playerlabel.setIcon(F_StandBy);
-		this.x = 40;
-		this.y = 40;
+		this.x = x;
+		this.y = y;
 		this.charState = 3; // 처음 캐릭터가 생성되면 정면을 바라보고있음
 		this.playerHP = 3;
 
@@ -52,6 +67,15 @@ public class player extends JPanel {
 		this.add(playerlabel);
 
 		this.itemPocket = new LinkedList<>();
+
+	}
+
+	public static void setPlayer_num(int player_num) {
+		player.player_num = player_num;
+	}
+
+	public static int getPlayer_num() {
+		return player_num;
 	}
 
 	public void LocationSet(int x, int y) {
@@ -135,6 +159,5 @@ public class player extends JPanel {
 	public void setPlayerHP(int playerHP) {
 		this.playerHP = playerHP;
 	}
-	
-	
+
 }

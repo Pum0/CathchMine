@@ -20,7 +20,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 //	singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
-	player p = new player();
+	player p = new player(1,40, 40);
+	player p2 = new player(2,1320, 40);
+
+	player p3 = new player(3,40, 640);
+
+	player p4 = new player(4,1320, 640);
 	int playerX = p.getX(); // 현재 플레이어의 좌표
 	int playerY = p.getY(); // 현재 플레이어의 좌표
 	static int state; // 플레이어의 상태
@@ -45,6 +50,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		setLayout(null);
 		initFlag();
 		this.add(p);
+		this.add(p2);
+		this.add(p3);
+		this.add(p4);
 		p.setBounds(playerX, playerY, 40, 40);
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
 		bl.initBlock(this, block);
@@ -208,7 +216,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
 				if ((i == x && j == y) || (i < 1 || j < 1 || i > 16 || j > 33) || mine.isMine(minePosition, i, j)
-						|| block[i][j].getBlockState()) { // 좌표는 테두리, 기준점이거나 , 위치에 지뢰가 있으면 
+						|| block[i][j].getBlockState()) { // 좌표는 테두리, 기준점이거나 , 위치에 지뢰가 있으면
 					continue;
 				} else if (mine.getMineCount(minePosition, i, j) == 0) { // 선택된 블럭주변에 지뢰가 없을때 이부분에서 재귀적으로 함수를 호출
 					block[i][j].setImage();
