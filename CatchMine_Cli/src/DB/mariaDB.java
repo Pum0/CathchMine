@@ -17,6 +17,10 @@ public class mariaDB {
 	static PreparedStatement pstmt = null;
 	// 여기도 non-static으로 변경
 	public String NickName;
+
+	public String getNickName() {
+		return NickName;
+	}
 	
 	public boolean LoginCheck(JTextField idText, JTextField pwText) {
 		if (!idText.getText().isEmpty() && !pwText.getText().isEmpty())
@@ -41,9 +45,6 @@ public class mariaDB {
 		return false;
 	}
 	
-	public String getNickName() {
-		return NickName;
-	}
 
 	public void intsertSQL(String id, String pw, String name, String nick) {
 		try {

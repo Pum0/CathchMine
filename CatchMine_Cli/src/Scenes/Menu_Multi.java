@@ -1,6 +1,7 @@
 package Scenes;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -79,6 +80,7 @@ public class Menu_Multi extends JPanel {
 
 		chatArea = new JTextArea(10, 10);
 		chatSPane = new JScrollPane(chatArea);
+		chatSPane.getViewport().setViewPosition(new Point(0, 0));
 
 		userLabel = new JLabel("사용자"); // 폰트지정
 		userLabel.setFont(de.setFont(20));
@@ -141,7 +143,7 @@ public class Menu_Multi extends JPanel {
 			multiButton[i].addActionListener(al);
 			multiButton[i].addMouseListener(ml);
 		}
-		chatField.addKeyListener(kl);
+		chatField.addActionListener(al);
 
 		// 추가
 		add(roomLabel);
@@ -157,7 +159,7 @@ public class Menu_Multi extends JPanel {
 		add(de.setBackground());
 
 	}
-	
+
 //	public void chatingStart() {
 //		Main.chatingClient.startChating();
 //	}

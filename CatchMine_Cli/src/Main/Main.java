@@ -2,6 +2,7 @@ package Main;
 
 import javax.swing.JFrame;
 
+import Client.Client;
 import Grahpics.PlayMusic;
 import Scenes.Create_Room;
 import Scenes.MainLogin;
@@ -12,8 +13,6 @@ import Scenes.Menu_Rule;
 import Scenes.Menu_Single;
 import Scenes.Multi_Room;
 import Scenes.SignUp;
-import Server.ChatingClient;
-import Server.ChatingServer;
 
 //import thread.net.Client;
 
@@ -29,14 +28,13 @@ public class Main extends JFrame {
 	public static Multi_Room multiRoom = new Multi_Room();
 
 	public static PlayMusic backgroundMusic = new PlayMusic("backgroundMusic1.mp3", true);
-//	public String NickName = null;
-
-//	Client cli = new Client();
 	
-//	public static ChatingServer chatingServer = new ChatingServer();
-	public static ChatingClient chatingClient = new ChatingClient();
+	public static String NickName = null;
+
 	public static boolean isVisible = false;
 
+	public static Client cli;
+	
 	public Main() {
 		super("Catch-Mine");
 		setSize(400, 600);
@@ -65,7 +63,7 @@ public class Main extends JFrame {
 
 		setVisible(true);
 	}
-
+	
 	public static void main(String[] args) {
 		new Main();
 	}

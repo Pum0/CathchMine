@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 import Grahpics.PlayMusic;
 import Main.Main;
-import Server.ChatingClient;
 
 public class Key implements KeyListener {
 	@Override
@@ -51,15 +50,6 @@ public class Key implements KeyListener {
 			Main.signUp.checkButton[2].doClick();
 //		System.out.println("keypressed : " + e.getKeyChar());
 //		System.out.println(e.getKeyCode());
-
-		// 멀티 채팅 ---------------------------------------------------------
-		if (e.getSource() == Main.multiMenu.chatField && e.getKeyCode() == 10) {
-			if (!Main.multiMenu.chatField.getText().equals("")) {
-				Main.multiMenu.chatArea.append(Main.chatingClient.getNickName() + " : " + Main.multiMenu.chatField.getText() + "\n");
-				Main.multiMenu.chatArea.setCaretPosition(Main.multiMenu.chatArea.getDocument().getLength());
-				Main.multiMenu.chatField.setText("");
-			}
-		}
 	}
 
 	@Override

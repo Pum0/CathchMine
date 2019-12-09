@@ -3,11 +3,10 @@ package MyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Client.Client;
 import DB.mariaDB;
 import Grahpics.PlayMusic;
 import Main.Main;
-import Scenes.Menu_Multi;
-import Server.ChatingClient;
 
 public class Action implements ActionListener {
 
@@ -24,9 +23,8 @@ public class Action implements ActionListener {
 			if (db.LoginCheck(Main.mainLogin.idText, Main.mainLogin.pwText)) {
 				Main.mainLogin.setVisible(false);
 				Main.mainMenu.setVisible(true);
-//				Main.NickName = db.getNickName();
-				Main.chatingClient.setNickName(db.getNickName());
-//				Main.multiMenu.loginCheck(true);
+				Main.cli = new Client();
+				Main.cli.NickName = db.getNickName();
 				
 				db.disConnectSQL();
 			} else {
@@ -110,24 +108,12 @@ public class Action implements ActionListener {
 		}
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
-			db.ConnectSQL();
-			
+			Main.multiMenu.chatArea.setText("");
+			Main.cli.chat.enterChat();
 			Main.mainMenu.setVisible(false);
-//			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.setVisible(true);
-			
-			Main.chatingClient.connect();
-			
-//			isVisible = true;
-			
 		}
 		
-		// Multi Chating TextField
-		if(e.getSource() == Main.multiMenu.chatField) {
-			String msg = Main.chatingClient.getNickName() + " : " + Main.multiMenu.chatField.getText() + "\n";
-			Main.chatingClient.sendMessage(msg);
-			Main.multiMenu.chatField.setText(null);
-		}
 		
 		// Role Button
 		if (e.getSource() == Main.mainMenu.mainBtn[2]) {
@@ -168,9 +154,18 @@ public class Action implements ActionListener {
 			Main.createRoom.setVisible(true);
 		}
 
+		// Multi Chating TextField
+		if(e.getSource() == Main.multiMenu.chatField) {
+			if (!Main.multiMenu.chatField.getText().equals("")) {
+//				Main.multiMenu.chatArea.append(Main.NickName + " : " + Main.multiMenu.chatField.getText()+"\n");
+				Main.cli.chat.sendMessage(Main.multiMenu.chatField.getText());
+				Main.multiMenu.chatField.setText(null);
+			}
+		}
+
 		// Back
 		if (e.getSource() == Main.multiMenu.multiButton[2]) {
-			db.disConnectSQL();
+			Main.cli.chat.exitChat();
 			Main.multiMenu.setVisible(false);
 			Main.mainMenu.setVisible(true);
 		}
