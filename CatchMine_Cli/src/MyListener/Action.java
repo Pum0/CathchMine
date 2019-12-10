@@ -126,6 +126,7 @@ public class Action implements ActionListener {
 		// -------------------------------------------------------------------------
 
 		// 싱글 액션 리스너 ---------------------------------------------------------
+//		Main.backgroundMusic.close();
 		// EASY
 
 		// NORMAL
