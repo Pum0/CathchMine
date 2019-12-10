@@ -11,9 +11,9 @@ import Main.Main;
 public class Action implements ActionListener {
 
 	mariaDB db = new mariaDB();
-	
+
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
-	
+
 	public boolean isVisible = false;
 
 	public void actionPerformed(ActionEvent e) {
@@ -25,7 +25,6 @@ public class Action implements ActionListener {
 				Main.mainMenu.setVisible(true);
 				Main.cli = new Client();
 				Main.cli.NickName = db.getNickName();
-				
 				db.disConnectSQL();
 			} else {
 				Main.mainLogin.pwText.setText("");
@@ -43,9 +42,6 @@ public class Action implements ActionListener {
 			System.exit(0);
 		// --------------------------------------------------------------------------
 
-		
-		
-		
 		// 회원가입 액션 리스너 ------------------------------------------------------
 		// ID 확인 버튼
 		if (e.getSource() == Main.signUp.checkButton[0]) {
@@ -97,9 +93,6 @@ public class Action implements ActionListener {
 		}
 		// --------------------------------------------------------------------------
 
-		
-		
-		
 		// 메뉴 액션 리스너 ---------------------------------------------------------
 		// Single Button
 		if (e.getSource() == Main.mainMenu.mainBtn[0]) {
@@ -109,12 +102,14 @@ public class Action implements ActionListener {
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
 			Main.multiMenu.chatArea.setText("");
-			Main.cli.chat.enterChat();
+			try {
+				Main.cli.chat.enterChat();
+			} catch (Exception ee) {
+			}
 			Main.mainMenu.setVisible(false);
 			Main.multiMenu.setVisible(true);
 		}
-		
-		
+
 		// Role Button
 		if (e.getSource() == Main.mainMenu.mainBtn[2]) {
 			Main.mainMenu.setVisible(false);
@@ -127,9 +122,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 싱글 액션 리스너 ---------------------------------------------------------
 		// EASY
 
@@ -144,9 +136,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 멀티 액션 리스너 ---------------------------------------------------------
 		// 방 생성하기 버튼
 		if (e.getSource() == Main.multiMenu.multiButton[0]) {
@@ -155,7 +144,7 @@ public class Action implements ActionListener {
 		}
 
 		// Multi Chating TextField
-		if(e.getSource() == Main.multiMenu.chatField) {
+		if (e.getSource() == Main.multiMenu.chatField) {
 			if (!Main.multiMenu.chatField.getText().equals("")) {
 //				Main.multiMenu.chatArea.append(Main.NickName + " : " + Main.multiMenu.chatField.getText()+"\n");
 				Main.cli.chat.sendMessage(Main.multiMenu.chatField.getText());
@@ -171,9 +160,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 방 생성 리스너 -----------------------------------------------------------
 		if (e.getSource() == Main.createRoom.okButton) {
 			Main.createRoom.setVisible(false);
@@ -182,9 +168,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 멀티 방 리스너 -----------------------------------------------------------
 		if (e.getSource() == Main.multiRoom.multiRoomButton[1]) {
 			Main.multiRoom.setVisible(false);
@@ -193,9 +176,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 게임 방법 리스너 ---------------------------------------------------------
 		if (e.getSource() == Main.ruleMenu.backButton) {
 			Main.ruleMenu.setVisible(false);
@@ -204,9 +184,6 @@ public class Action implements ActionListener {
 		}
 		// -------------------------------------------------------------------------
 
-		
-		
-		
 		// 옵션 액션 리스너 ---------------------------------------------------------
 		if (e.getSource() == Main.optionMenu.backButton) {
 			Main.optionMenu.setVisible(false);

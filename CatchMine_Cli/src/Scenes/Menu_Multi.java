@@ -4,7 +4,19 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -15,14 +27,12 @@ import MyListener.Action;
 import MyListener.Key;
 import MyListener.Mouse;
 
-import Main.Main;
-import MyListener.Action;
-
 public class Menu_Multi extends JPanel {
 	JLabel roomLabel, chatLabel, userLabel;
 	JList standbyRoom;
 	public JTextArea chatArea;
 	JTable userTable;
+	DefaultListModel roomModel;
 	DefaultTableModel userTm;
 	JScrollPane userSPane, chatSPane;
 	Vector userColumn = new Vector(); // 유저 콜륨값
@@ -32,7 +42,7 @@ public class Menu_Multi extends JPanel {
 	public JButton[] multiButton;
 	String[] multiButtonString = { "방 생성하기", "방 입장하기", "뒤로가기" };
 
-	public JOptionPane createRoom;
+//	public JOptionPane createRoom;
 
 	Action al = new Action();
 	Key kl = new Key();
@@ -40,19 +50,6 @@ public class Menu_Multi extends JPanel {
 	Design de = new Design();
 
 	Action ac = new Action();
-
-//	public boolean loginCheck = false;
-
-	public void addUserInfo(String userNick, String userID) {
-		userData.addElement(userNick);
-		userData.addElement(userID);
-
-	} // 유저 목록 생성 메소드
-
-	public void removeUserInfo(String userNick, String userID) {
-		userData.removeElement(userNick);
-		userData.removeElement(userID);
-	}
 
 	public Menu_Multi() {
 		setSize(400, 600);
@@ -63,7 +60,11 @@ public class Menu_Multi extends JPanel {
 		roomLabel.setFont(de.setFont(20)); // 폰트지정
 		roomLabel.setForeground(Color.white);
 
-		standbyRoom = new JList();
+		standbyRoom = new JList(new DefaultListModel<Roomlist>());
+		roomModel = (DefaultListModel) standbyRoom.getModel();
+		roomModel.addElement(new Roomlist("시발waerwerrwewer", 1));
+		roomModel.addElement(new Roomlist("시", 1));
+
 		multiButton = new JButton[3];
 		for (int i = 0; i < multiButton.length; i++) {
 			if (i < 2)
@@ -159,12 +160,19 @@ public class Menu_Multi extends JPanel {
 		add(de.setBackground());
 
 	}
+}
 
-//	public void chatingStart() {
-//		Main.chatingClient.startChating();
-//	}
+class Roomlist {
+	String name;
+	int num;
 
-	public void appendMsg(String msg) {
-		chatArea.append(msg);
+	public Roomlist(String name, int num) {
+		this.name = name;
+		this.num = num;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("      %-90s%d/2", name, num);
 	}
 }

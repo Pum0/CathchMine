@@ -18,7 +18,7 @@ public class ChatThread implements Runnable {
 			Server.people.add(out);
 
 		} catch (IOException e) {
-			System.out.println("chat thread " +e.getMessage());
+			System.out.println("chat thread " + e.getMessage());
 		}
 	}
 
@@ -30,14 +30,14 @@ public class ChatThread implements Runnable {
 			}
 		} catch (IOException e) {
 			Server.people.remove(out);
-			System.out.println("chat run " + e.getMessage());
+			Thread.interrupted();
 		}
 	}
 
 	public void sendAll(String str) throws IOException {
 		for (DataOutputStream out : Server.people) {
-				out.writeUTF(str);
-				out.flush();
+			out.writeUTF(str);
+			out.flush();
 		}
 	}
 }

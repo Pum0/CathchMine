@@ -10,8 +10,12 @@ public class GameThread implements Runnable {
 
 	@Override
 	public void run() {
-		while(true) {
-			
+		try {
+			while (true) {
+
+			}
+		} catch (Exception ee) {
+			Thread.interrupted();
 		}
 	}
 }
