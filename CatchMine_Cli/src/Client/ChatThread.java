@@ -38,7 +38,6 @@ public class ChatThread implements Runnable {
 			while (true) {
 				String str;
 				str = in.readUTF();
-				System.out.println(str);
 				Main.multiMenu.chatArea.append(str);
 			}
 		} catch (IOException e) {

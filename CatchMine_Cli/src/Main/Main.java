@@ -31,8 +31,6 @@ public class Main extends JFrame {
 	
 	public static String NickName = null;
 
-	public static boolean isVisible = false;
-
 	public static Client cli;
 	
 	public Main() {

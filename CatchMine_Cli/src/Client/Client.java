@@ -9,6 +9,8 @@ public class Client {
 
 	private ServerSocket ChatServer = null;;
 	private ServerSocket GameServer = null;;
+	
+//	private String SERVER_IP = "localhost";
 
 	public ChatThread chat;
 	public GameThread game; 

@@ -14,7 +14,7 @@ public class Server {
 	Socket GameSocket;
 
 	public static ArrayList<DataOutputStream> people = new ArrayList<DataOutputStream>();
-	
+
 	public Server() {
 		System.out.println("서버 시작...");
 		try {
@@ -23,14 +23,15 @@ public class Server {
 			while (true) {
 				ChatSocket = ChatServer.accept();
 				GameSocket = GameServer.accept();
-				
+
 				ChatThread Chat = new ChatThread(ChatSocket);
 				GameThread Game = new GameThread(GameSocket);
 
 				new Thread(Chat).start();
 				new Thread(Game).start();
-				
-				System.out.println(ChatSocket.getPort()+", " + GameSocket.getPort() + " 연결 성공");
+
+				System.out.println(ChatSocket.getPort() + ", " + GameSocket.getPort() + " 연결 성공");
+				System.out.println(people.size());
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
