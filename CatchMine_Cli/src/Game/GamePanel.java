@@ -5,15 +5,20 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
+	final static int FRAMEXSIZE = 1440;
+	final static int FRAMEYSIZE = 900;
+
 	// 게임요소들을 담고 있는 패널
 	Game_MenuPanel menu;
 	singleGame single;
+
+//	multiGame multi;
 
 	public GamePanel() {
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 
-		setSize(single.FRAMEXSIZE, single.FRAMEYSIZE);
+		setSize(FRAMEXSIZE, FRAMEYSIZE);
 
 		single = new singleGame(); // 싱글 게임 클래스
 

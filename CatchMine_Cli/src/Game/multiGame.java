@@ -3,28 +3,22 @@ package Game;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class singleGame extends JPanel implements KeyListener { // 싱글
-	final static int FRAMEXSIZE = 1440;
-	final static int FRAMEYSIZE = 900;
+public class multiGame extends JPanel implements KeyListener { // 싱글
+
 	final static int GAMEXSIZE = 1400;
 	final static int GAMEYSIZE = 720;
 
 	final static int GAMEXPoint = 35;
 	final static int GAMEYPoint = 18;
-
-//	singleGame sG = this; // 싱글게임패널 자신
-	// Player 객체
-	player p = new player(1, 40, 40);
-	player p2 = new player(2, 1320, 40);
-	int playerX = p.getX(); // 현재 플레이어의 좌표
-	int playerY = p.getY(); // 현재 플레이어의 좌표
-	static int state; // 플레이어의 상태
+	multiGame multi = this;
 
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
@@ -42,13 +36,37 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	int[][] blockPlan = new int[GAMEYPoint][GAMEXPoint]; // 전체맵의 배치된 요소들의 현황을 담아 둠
 
-	public singleGame() {
+	static Socket gameSocket;
+	Thread gameTh;
+	multiGameReceiverThread gameRun;
+
+	static DataOutputStream gameOutStream;
+
+	// Player 객체
+	player p = new player(1, 40, 40);
+	player p2 = new player(2, 1320, 40);
+	int playerX = p.getX(); // 현재 플레이어의 좌표
+	int playerY = p.getY(); // 현재 플레이어의 좌표
+	static int state; // 플레이어의 상태
+
+	public multiGame(Socket gameSocket) {
+		this.gameSocket = gameSocket;
 		setLayout(null);
 		initFlag();
-		this.add(p);
-		this.add(p2);
+		add(p);
+		add(p2);
 
-		p.setBounds(playerX, playerY, 40, 40);
+		// 게임의 아웃 스트림 연다.
+		try {
+			gameOutStream = new DataOutputStream(gameSocket.getOutputStream());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		gameRun = new multiGameReceiverThread(gameSocket, multi);
+		gameTh = new Thread(gameRun);
+		
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
 		bl.initBlock(this, block);
 		// player의 초기 위치를 잡아줌
@@ -117,20 +135,17 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
 
 		System.out.println(flagPosition[yPoint][xPoint]);
-		
-		if (flagPosition[yPoint][xPoint] == false && (flagArr[yPoint][xPoint].getFlagShape() != 1)) {
+		if (flagPosition[yPoint][xPoint] == false) {
 			block[yPoint][xPoint].setBlockState(true); // 깃발이 꽂힌블럭은 열어볼 수 없게 방문여부를 true
 
 			flagPosition[yPoint][xPoint] = true;
-			flagArr[yPoint][xPoint].setFlagShape(1);
-			flagArr[yPoint][xPoint].setFlagImage(1);
+			flagArr[yPoint][xPoint].setFlagImage(0);
 
 		} else {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
 			flagPosition[yPoint][xPoint] = false; // 깃발은 아니지만.. '?' 라서 구분 해줘야할듯..?
-			flagArr[yPoint][xPoint].setFlagShape(2);
-			flagArr[yPoint][xPoint].setFlagImage(2); // ? 이미지로 변경
+			flagArr[yPoint][xPoint].setFlagImage(1); // ? 이미지로 변경
 
 		}
 
@@ -143,13 +158,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
-		long curTime = System.currentTimeMillis() - prevTime; // 쿨타임 계산용
-		
-		if (curTime > 35) { // 쿨타임 0.035초 , 아주 잠깐의 끊기는 느낌만 주면 된다.
+		long curTime = System.currentTimeMillis() - prevTime; // 쿨타임 계산
+		if (curTime > 35) { // 쿨타임 0.1초
 			move(e.getKeyCode());
 
 			prevTime = System.currentTimeMillis();
-		} 
+		}
 
 		// A키를 입력 + 그 위치 블럭이 선택되지 않았다면, 블럭을 부심
 		if (e.getKeyCode() == KeyEvent.VK_A && block[yPoint][xPoint].getBlockState() != true) {
@@ -157,19 +171,16 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.setImage(state);
 			hitBlock();
 		}
-		
 		// S키는 블럭에 깃발 or ? 를 놓을 수 있다.
 		if (e.getKeyCode() == KeyEvent.VK_S) {
-			if (getFlagCount() > 0) // 사용 가능한 깃발이 남아 있으면
+			if (getFlagCount() > 0)
 				putFlag();
-			
-			Game_MenuPanel.setFlagCount(getFlagCount()); // 메뉴패널에 숫자를 띄울 수 있게
+			Game_MenuPanel.setFlagCount(getFlagCount());
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_M)
 			for (int i = 0; i < block.length; i++)
-				System.out.println(Arrays.toString(blockPlan[i])); // 블럭 배치도를 확인해보는 용도로 만듬
-		// 나중엔 지울 예정
+				System.out.println(Arrays.toString(blockPlan[i]));
 
 	} // KeyPressed
 
@@ -203,7 +214,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			Game_MenuPanel.sethpImage(p.getPlayerHP());
 
 			if (p.getPlayerHP() == 0)
-				defeatGame(minePosition, block);
+				defeatGmae(minePosition, block);
 		}
 		block[yPoint][xPoint].setBlockState(true);
 
@@ -347,7 +358,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	}
 
 	// 게임에 패배할 시 나올 메소드
-	public void defeatGame(boolean[][] bool, block[][] block) {
+	public void defeatGmae(boolean[][] bool, block[][] block) {
 
 		new Thread() {
 			@Override

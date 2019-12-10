@@ -19,7 +19,7 @@ public class block extends JLayeredPane {
 	// ================= 블럭 이미지 ================ //
 	ImageIcon teduriImage = new ImageIcon("image/GameObject/teduri.png");
 	ImageIcon blockImage = new ImageIcon("image/GameObject/block1.png");
-	ImageIcon tileImage = new ImageIcon("image/GameObject/tile.png");
+	ImageIcon tileImage = new ImageIcon("image/GameObject/tileBlock.png");
 	// ================= 블럭 이미지 ================ //
 	// 블럭 자신
 

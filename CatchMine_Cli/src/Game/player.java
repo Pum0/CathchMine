@@ -10,12 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
-	private static int player_num = getPlayer_num();
+	private int player_num = 1 + getPlayer_num();
 	private int charState;
 	game_item item;
 	private int x;
 	private int y;
-	private boolean isAlive;
+	private boolean isAlive; // 산지 죽은지 ?
 	Queue<String> itemPocket; // 먼저 얻은 아이템을 사용하기 위해서 Queue 자료구조 활용
 
 	private int playerHP;
@@ -47,34 +47,38 @@ public class player extends JPanel {
 	JLabel playerlabel;
 
 	public player() {
+		setPlayer_num(1);
 	}
 
 	public player(int p_n, int x, int y) {
+		System.out.println("P" + p_n + "생성");
 		setPlayer_num(p_n);
+
 		playerlabel = new JLabel();
-		playerlabel.setIcon(F_StandBy);
 		this.x = x;
 		this.y = y;
 		this.charState = 3; // 처음 캐릭터가 생성되면 정면을 바라보고있음
 		this.playerHP = 3;
 
-		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
+		this.setSize(40, 40);
 
 		this.isAlive = true; // 기본적으로 생성되면 살아있다
 
 		this.setOpaque(false);
+
+		playerlabel.setIcon(F_StandBy);
 		this.add(playerlabel);
 
 		this.itemPocket = new LinkedList<>();
 
 	}
 
-	public static void setPlayer_num(int player_num) {
-		player.player_num = player_num;
+	public void setPlayer_num(int player_num) {
+		this.player_num = player_num;
 	}
 
-	public static int getPlayer_num() {
+	public int getPlayer_num() {
 		return player_num;
 	}
 
@@ -93,16 +97,16 @@ public class player extends JPanel {
 			LocationSet(40, getY());
 			repaint();
 		}
-		if (getX() + getWidth() > singleGame.GAMEXSIZE - 40) {
-			LocationSet(singleGame.GAMEXSIZE - 80, getY());
+		if (getX() + getWidth() > multiGame.GAMEXSIZE - 40) {
+			LocationSet(multiGame.GAMEXSIZE - 80, getY());
 			repaint();
 		}
 		if (getY() < 40) {
 			LocationSet(getX(), 40);
 			repaint();
 		}
-		if (getY() + getHeight() > singleGame.GAMEYSIZE - 40) {
-			LocationSet(getX(), singleGame.GAMEYSIZE - 80);
+		if (getY() + getHeight() > multiGame.GAMEYSIZE - 40) {
+			LocationSet(getX(), multiGame.GAMEYSIZE - 80);
 			repaint();
 		}
 
@@ -114,6 +118,7 @@ public class player extends JPanel {
 	}
 
 	public void setImage(int State) {
+
 		if (State == 1)
 			playerlabel.setIcon(BackImage);
 		if (State == 2)
@@ -136,6 +141,8 @@ public class player extends JPanel {
 
 	}
 
+	
+	
 	public int getX() {
 		return x;
 	}
