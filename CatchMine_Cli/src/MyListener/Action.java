@@ -3,6 +3,9 @@ package MyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JScrollPane;
+
+import Client.ChatThread;
 import Client.Client;
 import DB.mariaDB;
 import Grahpics.PlayMusic;
@@ -148,6 +151,7 @@ public class Action implements ActionListener {
 			if (!Main.multiMenu.chatField.getText().equals("")) {
 //				Main.multiMenu.chatArea.append(Main.NickName + " : " + Main.multiMenu.chatField.getText()+"\n");
 				Main.cli.chat.sendMessage(Main.multiMenu.chatField.getText());
+				Main.multiMenu.chatArea.setCaretPosition(Main.multiMenu.chatArea.getDocument().getLength());
 				Main.multiMenu.chatField.setText(null);
 			}
 		}

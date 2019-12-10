@@ -34,7 +34,7 @@ public class Menu_Multi extends JPanel {
 	JTable userTable;
 	DefaultListModel roomModel;
 	DefaultTableModel userTm;
-	JScrollPane userSPane, chatSPane;
+	public JScrollPane userSPane, chatSPane;
 	Vector userColumn = new Vector(); // 유저 콜륨값
 	Vector userData = new Vector(); // 유저 데이터값
 

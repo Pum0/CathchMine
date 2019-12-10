@@ -13,7 +13,7 @@ public class Server {
 	Socket ChatSocket;
 	Socket GameSocket;
 
-	public static ArrayList<DataOutputStream> people = new ArrayList<DataOutputStream>();
+	public static ArrayList<DataOutputStream> outList = new ArrayList<DataOutputStream>();
 
 	public Server() {
 		System.out.println("서버 시작...");
@@ -31,7 +31,7 @@ public class Server {
 				new Thread(Game).start();
 
 				System.out.println(ChatSocket.getPort() + ", " + GameSocket.getPort() + " 연결 성공");
-				System.out.println(people.size());
+				System.out.println("접속자 수  : " + outList.size());
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
