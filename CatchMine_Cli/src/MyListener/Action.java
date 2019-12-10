@@ -166,9 +166,11 @@ public class Action implements ActionListener {
 
 		// 规 积己 府胶呈 -----------------------------------------------------------
 		if (e.getSource() == Main.createRoom.okButton) {
-			Main.createRoom.setVisible(false);
-			Main.multiMenu.setVisible(false);
-			Main.multiRoom.setVisible(true);
+			if (!Main.createRoom.roomField.getText().equals("")) {
+				Main.createRoom.setVisible(false);
+				Main.multiMenu.setVisible(false);
+				Main.multiRoom.setVisible(true);
+			}
 		}
 		// -------------------------------------------------------------------------
 

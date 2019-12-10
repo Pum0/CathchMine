@@ -1,7 +1,13 @@
 package Scenes;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+import MyListener.*;
 import Grahpics.Design;
 
 public class Create_Room extends JFrame {
@@ -9,6 +15,8 @@ public class Create_Room extends JFrame {
 	public JTextField roomField;
 	public JButton okButton;
 
+	Action al = new Action();
+	Mouse ml = new Mouse();
 	Design de = new Design();
 
 	public Create_Room() {
@@ -39,6 +47,9 @@ public class Create_Room extends JFrame {
 		add(roomNum);
 		add(roomField);
 		add(okButton);
+
+		okButton.addActionListener(al);
+		okButton.addMouseListener(ml);
 
 		setVisible(false);
 	}
