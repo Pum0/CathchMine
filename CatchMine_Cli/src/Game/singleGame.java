@@ -21,10 +21,11 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 //	singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
 	player p = new player(1, 40, 40);
-	player p2 = new player(2, 1320, 40);
-	int playerX = p.getX(); // 현재 플레이어의 좌표
-	int playerY = p.getY(); // 현재 플레이어의 좌표
-	static int state; // 플레이어의 상태
+//	player p2 = new player(2, 1320, 40);
+	
+	int playerX = p.getX(); // 현재 플레이어의 좌표 - 세로축
+	int playerY = p.getY(); // 현재 플레이어의 좌표 - 가로축
+	static int state; // 플레이어의 상태 (모션)
 
 	// 블럭
 	block bl = new block(); // block 클래스가 가지고있는 필드를 사용하기 위해서 생성, 필요에 의해서 삭제할수있음
@@ -35,7 +36,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
-//	flag flag = new flag();
 	flag[][] flagArr = new flag[GAMEYPoint][GAMEXPoint];
 	boolean[][] flagPosition = new boolean[GAMEYPoint][GAMEXPoint]; // 깃발이 꽂혔는지 안꽂혔는지 확인
 	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼만 제공해야 한다.
@@ -45,13 +45,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	public singleGame() {
 		setLayout(null);
 		this.add(p);
-		this.add(p2);
+//		this.add(p2);
 
+		// player의 초기 위치를 잡아줌
 		p.setBounds(playerX, playerY, 40, 40);
+
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
 		bl.initBlock(this, block);
 		initFlag();
-		// player의 초기 위치를 잡아줌
+		
 		// 지뢰의 위치를 선정해주는 메소드
 		generateMine(minePosition);
 		genMap();
@@ -121,22 +123,23 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		System.out.println(flagPosition[yPoint][xPoint]);
 
-		if (flagPosition[yPoint][xPoint] == false && (flagArr[yPoint][xPoint].getFlagShape() != 1)) {
+		if (flagPosition[yPoint][xPoint] == false && block[yPoint][xPoint].getBlockState() != true
+				&& (flagArr[yPoint][xPoint].getFlagShape() == 0)) {
 			block[yPoint][xPoint].setBlockState(true); // 깃발이 꽂힌블럭은 열어볼 수 없게 방문여부를 true
 
 			flagPosition[yPoint][xPoint] = true; // 깃발이 있음
 			flagArr[yPoint][xPoint].setFlagShape(1);
 			flagArr[yPoint][xPoint].setFlagImage(1);
 
-		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1) {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
+		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1 && flagPosition[yPoint][xPoint] == true) {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
+			flagPosition[yPoint][xPoint] = false;
+			
 			flagArr[yPoint][xPoint].setFlagShape(2);
 			flagArr[yPoint][xPoint].setFlagImage(2); // ? 이미지로 변경
 
 		} else { // ?상태도 없앰
-			block[yPoint][xPoint].setBlockState(false);
-
 			flagPosition[yPoint][xPoint] = false;
 
 			flagArr[yPoint][xPoint].setFlagShape(0);
@@ -200,7 +203,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
 
 		block[yPoint][xPoint].setImage();
-
+		flagArr[yPoint][xPoint].setFlagImage(0);
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 게임 패배
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳

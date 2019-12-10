@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 	final static int FRAMEXSIZE = 1440;
 	final static int FRAMEYSIZE = 900;
-
+	static GamePanel GP;
 	// 게임요소들을 담고 있는 패널
 	Game_MenuPanel menu;
 	singleGame single;
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
 		this.setLayout(null);
 
 		setSize(FRAMEXSIZE, FRAMEYSIZE);
-
+		System.out.println("꼐임 패널");
 		single = new singleGame(); // 싱글 게임 클래스
 
 		single.setBounds(15, 140, single.GAMEXSIZE, single.GAMEYSIZE);

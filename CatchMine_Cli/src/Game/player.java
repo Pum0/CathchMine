@@ -45,11 +45,9 @@ public class player extends JPanel {
 	// ======================= 캐릭터 이미지 ============================ //
 
 	JLabel playerlabel;
-
 	public player() {
-		setPlayer_num(1);
+		// TODO Auto-generated constructor stub
 	}
-
 	public player(int p_n, int x, int y) {
 		System.out.println("P" + p_n + "생성");
 		setPlayer_num(p_n);
@@ -141,8 +139,6 @@ public class player extends JPanel {
 
 	}
 
-	
-	
 	public int getX() {
 		return x;
 	}
