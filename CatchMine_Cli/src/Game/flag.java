@@ -16,11 +16,13 @@ class flag extends JPanel {
 	int flagShape = 0; // 0이면 x 1이면 깃발 2면 ?
 
 	public flag() {
+		flagIcon = new JLabel();
+
 		this.setSize(40, 40);
 		this.setLayout(new GridLayout(0, 1));
 		this.setOpaque(false);
-		this.flagShape = 0; // 기본은 x(없다)
-		flagIcon = new JLabel();
+
+		flagIcon.setIcon(null);
 
 		this.add(flagIcon);
 	}
@@ -41,12 +43,14 @@ class flag extends JPanel {
 	}
 
 	public void setFlagImage(int i) {
+
 		if (i == 1)
 			flagIcon.setIcon(flagImage);
 		else if (i == 2)
 			flagIcon.setIcon(Q_Image);
-		else
+		else {
 			flagIcon.setIcon(null);
+		}
 
 	}
 

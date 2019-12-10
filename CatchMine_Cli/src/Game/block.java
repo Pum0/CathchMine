@@ -46,13 +46,11 @@ public class block extends JLayeredPane {
 		this.blockState = true;
 
 		this.setSize(40, 40);
-		this.setLayout(new GridLayout(0, 1));
-
-		super.setLocation(x, y);
 
 		blockLabel = new JLabel();
 
 		blockLabel.setIcon(image);
+		blockLabel.setBounds(x, y, 40, 40);
 		blockLabel.setLocation(0, 0);
 
 		this.add(blockLabel);
@@ -66,9 +64,6 @@ public class block extends JLayeredPane {
 		this.blockState = state;
 		blockLabel = new JLabel();
 		tileLabel = new JLabel();
-//		this.setLayout(new GridLayout(0, 1));
-
-//		this.setLayout(null);
 
 		this.setSize(40, 40);
 
@@ -78,10 +73,6 @@ public class block extends JLayeredPane {
 		blockLabel.setBounds(x, y, 40, 40);
 		blockLabel.setLocation(0, 0);
 
-//		tileLabel.setIcon(tileImage);
-//		tileLabel.setLocation(0, 0);
-
-//		this.add(tileLabel, new Integer(0));
 		this.add(blockLabel, new Integer(0));
 
 	}

@@ -44,13 +44,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	public singleGame() {
 		setLayout(null);
-		initFlag();
 		this.add(p);
 		this.add(p2);
 
 		p.setBounds(playerX, playerY, 40, 40);
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
 		bl.initBlock(this, block);
+		initFlag();
 		// player의 초기 위치를 잡아줌
 		// 지뢰의 위치를 선정해주는 메소드
 		generateMine(minePosition);
@@ -94,8 +94,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	public void initFlag() {
 		for (int i = 0; i < flagArr.length; i++)
-			for (int j = 0; j < flagArr[i].length; j++)
+			for (int j = 0; j < flagArr[i].length; j++) {
 				flagArr[i][j] = new flag();
+
+				if (i != 0 || j != 0 || i < flagArr.length - 1 || j < flagArr[j].length - 1)
+					block[i][j].add(flagArr[i][j], new Integer(100)); // 생성하면서 블럭마다 깃발을가지게함
+			}
+
 	}
 
 	public void genMap() {
@@ -114,23 +119,28 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
-		block[yPoint][xPoint].add(flagArr[yPoint][xPoint], new Integer(2));
-
 		System.out.println(flagPosition[yPoint][xPoint]);
-		
+
 		if (flagPosition[yPoint][xPoint] == false && (flagArr[yPoint][xPoint].getFlagShape() != 1)) {
 			block[yPoint][xPoint].setBlockState(true); // 깃발이 꽂힌블럭은 열어볼 수 없게 방문여부를 true
 
-			flagPosition[yPoint][xPoint] = true;
+			flagPosition[yPoint][xPoint] = true; // 깃발이 있음
 			flagArr[yPoint][xPoint].setFlagShape(1);
 			flagArr[yPoint][xPoint].setFlagImage(1);
 
-		} else {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
+		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1) {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
-			flagPosition[yPoint][xPoint] = false; // 깃발은 아니지만.. '?' 라서 구분 해줘야할듯..?
 			flagArr[yPoint][xPoint].setFlagShape(2);
 			flagArr[yPoint][xPoint].setFlagImage(2); // ? 이미지로 변경
+
+		} else { // ?상태도 없앰
+			block[yPoint][xPoint].setBlockState(false);
+
+			flagPosition[yPoint][xPoint] = false;
+
+			flagArr[yPoint][xPoint].setFlagShape(0);
+			flagArr[yPoint][xPoint].setFlagImage(0);
 
 		}
 
@@ -144,12 +154,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int yPoint = p.getY() / 40;
 
 		long curTime = System.currentTimeMillis() - prevTime; // 쿨타임 계산용
-		
+
 		if (curTime > 35) { // 쿨타임 0.035초 , 아주 잠깐의 끊기는 느낌만 주면 된다.
 			move(e.getKeyCode());
 
 			prevTime = System.currentTimeMillis();
-		} 
+		}
 
 		// A키를 입력 + 그 위치 블럭이 선택되지 않았다면, 블럭을 부심
 		if (e.getKeyCode() == KeyEvent.VK_A && block[yPoint][xPoint].getBlockState() != true) {
@@ -157,12 +167,12 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.setImage(state);
 			hitBlock();
 		}
-		
+
 		// S키는 블럭에 깃발 or ? 를 놓을 수 있다.
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			if (getFlagCount() > 0) // 사용 가능한 깃발이 남아 있으면
 				putFlag();
-			
+
 			Game_MenuPanel.setFlagCount(getFlagCount()); // 메뉴패널에 숫자를 띄울 수 있게
 		}
 
