@@ -30,6 +30,7 @@ public class Menu_Rule extends JPanel {
 	Mouse ml = new Mouse();
 	Design de = new Design();
 
+
 	public Menu_Rule() {
 
 		setSize(400, 600);
@@ -38,12 +39,7 @@ public class Menu_Rule extends JPanel {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(null);
 		mainPanel.setBorder(de.setBorder());
-		Dimension size = new Dimension();
-		size.setSize(280, 400);
-		mainPanel.setPreferredSize(size);
-
-		panelPane = new JScrollPane(mainPanel);
-		panelPane.setBounds(40, 40, 300, 400);
+		mainPanel.setSize(300, 400);
 
 		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -129,8 +125,7 @@ public class Menu_Rule extends JPanel {
 		mainPanel.add(ItemLabel);
 		mainPanel.add(ItemLabel2);
 		add(backButton);
-		add(panelPane);
-
+		add(mainPanel);
 		// 게임 룰 패널
 		backButton.addActionListener(al);
 		backButton.addMouseListener(ml);

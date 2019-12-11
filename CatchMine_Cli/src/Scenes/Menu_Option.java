@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
@@ -23,11 +24,12 @@ import MyListener.Mouse;
 
 public class Menu_Option extends JPanel /* implements ActionListener */ {
 	public JComboBox<String> music;
-	JLabel selectMusic, volumeValue;
+	JLabel selectMusic, volumeValue, IPset;
+	JTextField IPfield;
 	JSlider musicVolume; // 슬라이더
 	JPanel mainPanel;
 	JPanel box;
-	public JButton backButton;
+	public JButton setIP, backButton;
 
 	private String musics[] = { "배경음 1", "배경음 2", "배경음 3", "배경음 4" };
 
@@ -45,7 +47,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		mainPanel.setLayout(null);
 		mainPanel.setBorder(de.setBorder());
 		add(mainPanel);
-		
+
 		selectMusic = new JLabel("음악 선택"); // 음악선택 레이블
 		selectMusic.setForeground(Color.BLACK); // 폰트색 화이트
 		selectMusic.setFont(de.setFont(14));
@@ -83,8 +85,27 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		};
 		box.setBounds(130, 30, 100, 100);
 		box.setForeground(Color.BLACK);
+
+		// --------------------------------------------------------
+		IPset = new JLabel("IP 주소 입력");
+		IPset.setBounds(100, 310, 150, 20);
+		IPset.setFont(de.setFont(18));
+		
+		IPfield = new JTextField(10);
+		IPfield.setFont(de.setFont(18));
+		IPfield.setBounds(25, 350, 150, 30);
+		setIP = new JButton("적용", new ImageIcon("image/button/90x30.png"));
+		setIP.setBorderPainted(false);
+		setIP.setHorizontalTextPosition(SwingConstants.CENTER);
+		setIP.setBounds(185, 350, 90, 30);
+		// --------------------------------------------------------
+		
+		mainPanel.add(IPset);
+		mainPanel.add(IPfield);
+		mainPanel.add(setIP);
 		mainPanel.add(box);
 		
+
 		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setBounds(140, 460, 100, 40);
@@ -94,15 +115,17 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		musicVolume.addChangeListener(new ChangeListener() { // 슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				volumeValue.setText(""+musicVolume.getValue());
+				volumeValue.setText("" + musicVolume.getValue());
 			}
 		});
 
 		// 게임 옵션 패널
-				backButton.addActionListener(al);
-				backButton.addMouseListener(ml);
-				music.addActionListener(al);
-		
+		setIP.addActionListener(al);
+		setIP.addMouseListener(ml);
+		backButton.addActionListener(al);
+		backButton.addMouseListener(ml);
+		music.addActionListener(al);
+
 		add(de.setBackground());
 	}
 

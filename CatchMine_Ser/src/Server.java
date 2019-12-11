@@ -1,6 +1,8 @@
 import java.io.DataOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class Server {
@@ -13,11 +15,15 @@ public class Server {
 	Socket ChatSocket;
 	Socket GameSocket;
 
+	String SERVER_IP = null;
+	
 	public static ArrayList<DataOutputStream> outList = new ArrayList<DataOutputStream>();
 	public static ArrayList<DataOutputStream> playList = new ArrayList<DataOutputStream>();
 
 	public Server() {
 		System.out.println("서버 시작...");
+		SERVER_IP = getHostAdd();
+		System.out.println(SERVER_IP);
 		try {
 			ChatServer = new ServerSocket(CHAR_PORT);
 			GameServer = new ServerSocket(GAME_PORT);
@@ -41,5 +47,13 @@ public class Server {
 
 	public static void main(String[] args) {
 		new Server();
+	}
+	
+	public String getHostAdd() {
+		try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			return null;
+		}
 	}
 }

@@ -2,6 +2,7 @@ package Scenes;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -12,8 +13,9 @@ import MyListener.Mouse;
 
 public class Menu_Main extends JPanel {
 	public JButton[] mainBtn;
+//	public JOptionPane setipPane = new JOptionPane(message, messageType, optionType, icon);
 	private String menu[] = { "싱글게임", "멀티게임", "게임방법", "옵션" };
-
+	
 	Action al = new Action();
 	Key kl = new Key();
 	Mouse ml = new Mouse();

@@ -11,7 +11,7 @@ public class Client {
 	private ServerSocket ChatServer = null;;
 	private ServerSocket GameServer = null;;
 	
-//	private String SERVER_IP = "localhost";
+	private String SERVER_IP = null;;
 
 	public ChatThread chat;
 	public GameThread game; 
@@ -20,8 +20,8 @@ public class Client {
 
 	public Client() {
 		try {
-			chatSocket = new Socket("localhost", 9100);
-			gameSocket = new Socket("localhost", 9200);
+			chatSocket = new Socket(SERVER_IP, 9100);
+			gameSocket = new Socket(SERVER_IP, 9200);
 
 			System.out.println("소켓 연결 성공");
 
@@ -34,6 +34,10 @@ public class Client {
 		} catch (Exception e) {
 			System.out.println("소켓 연결 실패");
 		}
+	}
+	
+	public void setServerIP() {
+		
 	}
 	
 	public void close() {
