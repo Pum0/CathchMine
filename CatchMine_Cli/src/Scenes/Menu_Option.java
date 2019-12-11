@@ -26,9 +26,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 	public JComboBox<String> music;
 	JLabel selectMusic, volumeValue, IPset;
 	public JTextField IPfield;
-	JSlider musicVolume; // 슬라이더
 	JPanel mainPanel;
-	JPanel box;
 	public JButton setIP, backButton;
 
 	private String musics[] = { "배경음 1", "배경음 2", "배경음 3", "배경음 4" };
@@ -61,30 +59,7 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		mainPanel.add(music);
 		music.setBounds(110, 20, 150, 20);
 
-		musicVolume = new JSlider(0, 100); // 슬라이더
-		musicVolume.setMajorTickSpacing(50); // 큰 눈금 간격
-		musicVolume.setPaintTicks(true); // 눈금 표시
-		musicVolume.setPaintLabels(true); // 값을 레이블로 표시
-		musicVolume.setForeground(Color.BLACK);
-		musicVolume.setOpaque(false);
-		musicVolume.setFont(de.setFont(14));
-		mainPanel.add(musicVolume);
-		musicVolume.setBounds(25, 80, 250, 50);
 
-		volumeValue = new JLabel("50"); // 볼륨값 표시
-		volumeValue.setForeground(Color.BLACK);
-		volumeValue.setBounds(135, 10, 100, 100);
-		volumeValue.setFont(de.setFont(14));
-		mainPanel.add(volumeValue);
-
-		box = new JPanel() { // 패널에다가 페인트 추가해서 사각형 생성
-			@Override
-			public void paint(Graphics g) {
-				g.drawRoundRect(0, 20, 35, 20, 5, 5);
-			}
-		};
-		box.setBounds(130, 30, 100, 100);
-		box.setForeground(Color.BLACK);
 
 		// --------------------------------------------------------
 		IPset = new JLabel("IP 주소 입력");
@@ -103,7 +78,6 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		mainPanel.add(IPset);
 		mainPanel.add(IPfield);
 		mainPanel.add(setIP);
-		mainPanel.add(box);
 		
 
 		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
@@ -111,13 +85,6 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		backButton.setBounds(140, 460, 100, 40);
 		backButton.setBorderPainted(false);
 		add(backButton);
-
-		musicVolume.addChangeListener(new ChangeListener() { // 슬라이더 값을 받아와서 musicVolume 레이블에 텍스트 셋
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				volumeValue.setText("" + musicVolume.getValue());
-			}
-		});
 
 		// 게임 옵션 패널
 		setIP.addActionListener(al);
