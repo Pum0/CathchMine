@@ -3,14 +3,13 @@ package Game;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Main.Main;
 import Grahpics.PlayMusic;
 
 public class singleGame extends JPanel implements KeyListener { // ΩÃ±€
@@ -23,7 +22,6 @@ public class singleGame extends JPanel implements KeyListener { // ΩÃ±€
 	final static int GAMEYPoint = 18;
 
 //   singleGame sG = this; // ΩÃ±€∞‘¿”∆–≥Œ ¿⁄Ω≈
-	PlayMusic backgroundMusic = new PlayMusic("gameMusic.mp3", true);
 	PlayMusic playBGM;
 	
 	// Player ∞¥√º
@@ -56,7 +54,8 @@ public class singleGame extends JPanel implements KeyListener { // ΩÃ±€
 		setLayout(null);
 		this.add(p);
 		
-		backgroundMusic.start();
+//		Main.backgroundMusic = new PlayMusic("gameMusic.mp3", true);
+//		Main.backgroundMusic.start();
 		
 		// player¿« √ ±‚ ¿ßƒ°∏¶ ¿‚æ∆¡‹
 		p.setBounds(playerX, playerY, 40, 40);

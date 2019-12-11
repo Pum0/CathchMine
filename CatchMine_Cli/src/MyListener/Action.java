@@ -129,12 +129,16 @@ public class Action implements ActionListener {
 		// EASY
 		if (e.getSource() == Main.singleMenu.modeButton[0]) {
 			Main.backgroundMusic.close();
+			Main.backgroundMusic = new PlayMusic("gameMusic.mp3", true);
+			Main.backgroundMusic.start();
 			singleGame.setMineCount(30);
 			new Game();
 		}
 		// NORMAL
 		if (e.getSource() == Main.singleMenu.modeButton[1]) {
 			Main.backgroundMusic.close();
+			Main.backgroundMusic = new PlayMusic("gameMusic.mp3", true);
+			Main.backgroundMusic.start();
 			singleGame.setMineCount(50);
 			new Game();
 		}
@@ -142,6 +146,8 @@ public class Action implements ActionListener {
 		// HARD
 		if (e.getSource() == Main.singleMenu.modeButton[2]) {
 			Main.backgroundMusic.close();
+			Main.backgroundMusic = new PlayMusic("gameMusic.mp3", true);
+			Main.backgroundMusic.start();
 			singleGame.setMineCount(70);
 			new Game();
 		}
