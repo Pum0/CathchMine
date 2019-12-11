@@ -15,6 +15,7 @@ public class ChatThread implements Runnable {
 	DataOutputStream out = null;
 
 	String NickName = null;
+	private boolean stop = false;
 
 	public ChatThread() {
 		// TODO Auto-generated constructor stub
@@ -35,13 +36,13 @@ public class ChatThread implements Runnable {
 	@Override
 	public void run() {
 		try {
-			while (true) {
+			while (!stop) {
 				String str;
 				str = in.readUTF();
 				Main.multiMenu.chatArea.append(str);
 			}
 		} catch (IOException e) {
-			System.out.println("Client run 오류 : " + e.getMessage());
+			System.out.println("Chat run 오류 : " + e.getMessage());
 		}
 	}
 
@@ -67,5 +68,9 @@ public class ChatThread implements Runnable {
 			out.flush();
 		} catch (IOException e) {
 		}
+	}
+
+	public void stop(boolean stop) {
+		this.stop = stop;
 	}
 }

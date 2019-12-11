@@ -1,5 +1,6 @@
 package Client;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,11 +28,20 @@ public class Client {
 			chat = new ChatThread(chatSocket);
 			game = new GameThread(gameSocket);
 
-			new Thread(chat).start();
-			new Thread(game).start();
+//			new Thread(chat).start();
+//			new Thread(game).start();
 
 		} catch (Exception e) {
 			System.out.println("소켓 연결 실패");
+		}
+	}
+	
+	public void close() {
+		try {
+			chatSocket.close();
+			gameSocket.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 

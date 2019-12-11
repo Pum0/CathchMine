@@ -30,7 +30,7 @@ public class ChatThread implements Runnable {
 			}
 		} catch (IOException e) {
 			Server.outList.remove(out);
-			Thread.interrupted();
+			System.out.println("접속자 수 : " + Server.outList.size()+"\n");
 		}
 	}
 

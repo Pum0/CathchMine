@@ -16,9 +16,9 @@ public class mariaDB {
 	static Connection conn = null;
 	static PreparedStatement pstmt = null;
 	// 여기도 non-static으로 변경
-	public String NickName;
+	private static String NickName;
 
-	public String getNickName() {
+	public static String getNickName() {
 		return NickName;
 	}
 	

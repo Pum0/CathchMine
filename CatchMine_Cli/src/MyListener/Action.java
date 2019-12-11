@@ -26,8 +26,8 @@ public class Action implements ActionListener {
 			if (db.LoginCheck(Main.mainLogin.idText, Main.mainLogin.pwText)) {
 				Main.mainLogin.setVisible(false);
 				Main.mainMenu.setVisible(true);
-				Main.cli = new Client();
-				Main.cli.NickName = db.getNickName();
+//				Main.cli = new Client();
+//				Main.cli.NickName = db.getNickName();
 				db.disConnectSQL();
 			} else {
 				Main.mainLogin.pwText.setText("");
@@ -104,11 +104,12 @@ public class Action implements ActionListener {
 		}
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
+			Main.cli = new Client();
+			Main.cli.NickName = db.getNickName();
+			new Thread(Main.cli.chat).start();
 			Main.multiMenu.chatArea.setText("");
-			try {
-				Main.cli.chat.enterChat();
-			} catch (Exception ee) {
-			}
+			Main.multiMenu.chatField.setText("");
+			Main.cli.chat.enterChat();
 			Main.mainMenu.setVisible(false);
 			Main.multiMenu.setVisible(true);
 		}
@@ -160,6 +161,7 @@ public class Action implements ActionListener {
 		// Back
 		if (e.getSource() == Main.multiMenu.multiButton[2]) {
 			Main.cli.chat.exitChat();
+			Main.cli.close();
 			Main.multiMenu.setVisible(false);
 			Main.mainMenu.setVisible(true);
 		}
