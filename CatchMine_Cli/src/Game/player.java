@@ -45,9 +45,11 @@ public class player extends JPanel {
 	// ======================= 캐릭터 이미지 ============================ //
 
 	JLabel playerlabel;
+
 	public player() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public player(int p_n, int x, int y) {
 		System.out.println("P" + p_n + "생성");
 		setPlayer_num(p_n);
@@ -145,6 +147,19 @@ public class player extends JPanel {
 
 	public void setX(int locationX) {
 		this.x = locationX;
+	}
+
+	public Queue<String> getItemPocket() {
+		return itemPocket;
+	}
+
+	public void setItemPocket(int i) {
+		if (i == 0)
+			itemPocket.offer(item.getItemList().get(0));
+		else if (i == 1)
+			itemPocket.offer(item.getItemList().get(1));
+
+		this.itemPocket = itemPocket;
 	}
 
 	public int getY() {
