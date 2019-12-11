@@ -17,7 +17,7 @@ public class Action implements ActionListener {
 
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
-	String IP_Add="localhost";
+	private static String IP_Add="localhost";
 	
 	public void actionPerformed(ActionEvent e) {
 		// 로그인 액션 리스너 --------------------------------------------------------
@@ -102,8 +102,7 @@ public class Action implements ActionListener {
 		}
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
-			Main.cli = new Client();
-			Main.cli.setServerIP(IP_Add);
+			Main.cli = new Client(IP_Add);
 			Main.cli.NickName = db.getNickName();
 			new Thread(Main.cli.chat).start();
 			
@@ -226,7 +225,6 @@ public class Action implements ActionListener {
 			if (!Main.optionMenu.IPfield.getText().equals("")) {
 				System.out.println(Main.optionMenu.IPfield.getText());
 				IP_Add = Main.optionMenu.IPfield.getText();
-//				System.out.println(Main.cli.getServerIP());
 			}
 		}
 	}
