@@ -25,7 +25,7 @@ import MyListener.Mouse;
 public class Menu_Option extends JPanel /* implements ActionListener */ {
 	public JComboBox<String> music;
 	JLabel selectMusic, volumeValue, IPset;
-	JTextField IPfield;
+	public JTextField IPfield;
 	JSlider musicVolume; // 슬라이더
 	JPanel mainPanel;
 	JPanel box;

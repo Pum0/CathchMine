@@ -17,8 +17,8 @@ public class Action implements ActionListener {
 
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
-	public boolean isVisible = false;
-
+	String IP_Add="localhost";
+	
 	public void actionPerformed(ActionEvent e) {
 		// 로그인 액션 리스너 --------------------------------------------------------
 		if (e.getSource() == Main.mainLogin.loginButton[0]) {
@@ -26,8 +26,6 @@ public class Action implements ActionListener {
 			if (db.LoginCheck(Main.mainLogin.idText, Main.mainLogin.pwText)) {
 				Main.mainLogin.setVisible(false);
 				Main.mainMenu.setVisible(true);
-//				Main.cli = new Client();
-//				Main.cli.NickName = db.getNickName();
 				db.disConnectSQL();
 			} else {
 				Main.mainLogin.pwText.setText("");
@@ -105,8 +103,10 @@ public class Action implements ActionListener {
 		// Multi button
 		if (e.getSource() == Main.mainMenu.mainBtn[1]) {
 			Main.cli = new Client();
+			Main.cli.setServerIP(IP_Add);
 			Main.cli.NickName = db.getNickName();
 			new Thread(Main.cli.chat).start();
+			
 			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.chatField.setText("");
 			Main.cli.chat.enterChat();
@@ -219,6 +219,14 @@ public class Action implements ActionListener {
 				Main.backgroundMusic.close();
 				Main.backgroundMusic = new PlayMusic("backgroundMusic4.mp3", true);
 				Main.backgroundMusic.start();
+			}
+		}
+
+		if (e.getSource() == Main.optionMenu.setIP) {
+			if (!Main.optionMenu.IPfield.getText().equals("")) {
+				System.out.println(Main.optionMenu.IPfield.getText());
+				IP_Add = Main.optionMenu.IPfield.getText();
+//				System.out.println(Main.cli.getServerIP());
 			}
 		}
 	}
