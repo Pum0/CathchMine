@@ -3,11 +3,10 @@ package MyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JScrollPane;
-
-import Client.ChatThread;
 import Client.Client;
 import DB.mariaDB;
+import Game.Game;
+import Game.singleGame;
 import Grahpics.PlayMusic;
 import Main.Main;
 
@@ -17,8 +16,8 @@ public class Action implements ActionListener {
 
 	boolean idCheck = false, nickCheck = false, pwCheck = false;
 
-	private static String IP_Add="localhost";
-	
+	private static String IP_Add = "localhost";
+
 	public void actionPerformed(ActionEvent e) {
 		// 로그인 액션 리스너 --------------------------------------------------------
 		if (e.getSource() == Main.mainLogin.loginButton[0]) {
@@ -105,7 +104,7 @@ public class Action implements ActionListener {
 			Main.cli = new Client(IP_Add);
 			Main.cli.NickName = db.getNickName();
 			new Thread(Main.cli.chat).start();
-			
+
 			Main.multiMenu.chatArea.setText("");
 			Main.multiMenu.chatField.setText("");
 			Main.cli.chat.enterChat();
@@ -128,11 +127,21 @@ public class Action implements ActionListener {
 		// 싱글 액션 리스너 ---------------------------------------------------------
 //		Main.backgroundMusic.close();
 		// EASY
-
+		if (e.getSource() == Main.singleMenu.modeButton[0]) {
+			singleGame.setMineCount(30);
+			new Game();
+		}
 		// NORMAL
+		if (e.getSource() == Main.singleMenu.modeButton[1]) {
+			singleGame.setMineCount(50);
+			new Game();
+		}
 
 		// HARD
-
+		if (e.getSource() == Main.singleMenu.modeButton[2]) {
+			singleGame.setMineCount(70);
+			new Game();
+		}
 		// BACK
 		if (e.getSource() == Main.singleMenu.modeButton[3]) {
 			Main.singleMenu.setVisible(false);

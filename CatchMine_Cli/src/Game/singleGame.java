@@ -3,7 +3,9 @@ package Game;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// Player 객체
 	player p = new player(1, 40, 40);
 //	player p2 = new player(2, 1320, 40);
-	
+
 	int playerX = p.getX(); // 현재 플레이어의 좌표 - 세로축
 	int playerY = p.getY(); // 현재 플레이어의 좌표 - 가로축
 	static int state; // 플레이어의 상태 (모션)
@@ -33,7 +35,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[GAMEYPoint][GAMEXPoint]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	static int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
 	flag[][] flagArr = new flag[GAMEYPoint][GAMEXPoint];
@@ -45,7 +47,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	public singleGame() {
 		setLayout(null);
 		this.add(p);
-//		this.add(p2);
 
 		// player의 초기 위치를 잡아줌
 		p.setBounds(playerX, playerY, 40, 40);
@@ -53,15 +54,18 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		// block에 대한 모든 초기 상태를 정의하고 패널에 입력해줌
 		bl.initBlock(this, block);
 		initFlag();
-		
+
 		// 지뢰의 위치를 선정해주는 메소드
 		generateMine(minePosition);
 		genMap();
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
+		removeKeyListener(this);
 	}
-
+	public static void setMineCount(int mineCount) {
+		singleGame.mineCount = mineCount;
+	}
 	public int getMineCount() {
 		return this.mineCount;
 	}
@@ -131,11 +135,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			flagArr[yPoint][xPoint].setFlagShape(1);
 			flagArr[yPoint][xPoint].setFlagImage(1);
 
-		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1 && flagPosition[yPoint][xPoint] == true) {// 깃발을 꽂았는데 다시 눌렀을때 -> ? 표시로 바뀜 이때는 블럭을 건들일 수 있다.
+		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1 && flagPosition[yPoint][xPoint] == true) {// 깃발을 꽂았는데 다시
+																											// 눌렀을때 -> ?
+																											// 표시로 바뀜
+																											// 이때는 블럭을
+																											// 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
 			flagPosition[yPoint][xPoint] = false;
-			
+
 			flagArr[yPoint][xPoint].setFlagShape(2);
 			flagArr[yPoint][xPoint].setFlagImage(2); // ? 이미지로 변경
 
@@ -204,12 +212,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		block[yPoint][xPoint].setImage();
 		flagArr[yPoint][xPoint].setFlagImage(0);
-		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 게임 패배
+		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 라이프 소모
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
+
 			if (mine.getMineCount(minePosition, yPoint, xPoint) == 0)
 				linkedOpen(yPoint, xPoint);
-//			mineRecursive(blockPlan, yPoint, xPoint / 2);
+
 		} else { // 지뢰를 밟았을 시 ?
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 			p.setPlayerHP(p.getPlayerHP() - 1);
@@ -359,9 +368,46 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 	}
 
-	// 게임에 패배할 시 나올 메소드
-	public void defeatGame(boolean[][] bool, block[][] block) {
+	class WindDefaet {
+		List<Runnable> W_D = new ArrayList<>();
 
+		Runnable defeat, win;
+
+		public WindDefaet() {
+			win = new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+
+				}
+			};
+
+			defeat = new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+
+				}
+
+			};
+
+			W_D.add(win);
+			W_D.add(defeat);
+
+		}
+
+		public Runnable getW_D(int i) {
+			return W_D.get(i); // 0일때 승리, 1일때 패배를 불려옴
+		}
+	}
+
+	// 승리
+	public void winGame() {
+
+	}
+
+	// 패배
+	public void defeatGame(boolean[][] bool, block[][] block) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -379,14 +425,15 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 					for (int i = 0; i < block.length; i++) {
 						for (int j = 0; j < block[i].length; j++) {
 							if (bool[i][j] == true && block[i][j].getBlockState() == false) {
-								Thread.sleep(10);
+								Thread.sleep(15);
 								block[i][j].add(new mine(1), new Integer(3));
 							}
 
 						}
 					}
 				} catch (InterruptedException e) {
-					// TODO: handle exception
+				} finally {
+
 				}
 
 			}

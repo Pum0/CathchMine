@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 
