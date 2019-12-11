@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Grahpics.PlayMusic;
+
 public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int FRAMEXSIZE = 1440;
 	final static int FRAMEYSIZE = 900;
@@ -21,6 +23,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int GAMEYPoint = 18;
 
 //	singleGame sG = this; // 싱글게임패널 자신
+
+	PlayMusic playBGM;
 	// Player 객체
 	player p = new player(1, 40, 40);
 //	player p2 = new player(2, 1320, 40);
@@ -61,11 +65,13 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
-		removeKeyListener(this);
+//		removeKeyListener(this);
 	}
+
 	public static void setMineCount(int mineCount) {
 		singleGame.mineCount = mineCount;
 	}
+
 	public int getMineCount() {
 		return this.mineCount;
 	}
@@ -214,12 +220,16 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		flagArr[yPoint][xPoint].setFlagImage(0);
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 라이프 소모
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
+			playBGM = new PlayMusic("Object/stone_break.mp3", false);
+			playBGM.start();
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
 
 			if (mine.getMineCount(minePosition, yPoint, xPoint) == 0)
 				linkedOpen(yPoint, xPoint);
 
 		} else { // 지뢰를 밟았을 시 ?
+			playBGM = new PlayMusic("Object/boom.mp3", false);
+			playBGM.start();
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 			p.setPlayerHP(p.getPlayerHP() - 1);
 			Game_MenuPanel.sethpImage(p.getPlayerHP());
@@ -295,7 +305,8 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	// 이동만을 다루는 메소드
 	public void move(int keyType) {
-
+		playBGM = new PlayMusic("Object/footstep.mp3", false);
+		playBGM.start();
 		// 방향키 위쪽 입력시
 		if (keyType == KeyEvent.VK_UP) {
 			state = 1; // 위
