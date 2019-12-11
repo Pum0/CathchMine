@@ -3,13 +3,14 @@ package Game;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Main.Main;
 import Grahpics.PlayMusic;
 
 public class singleGame extends JPanel implements KeyListener { // 싱글
@@ -285,9 +286,19 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 
 	}
-
+	
+	public void getItem() {
+		// 아이템 드랍
+		List<String> item = new ArrayList<>();
+		
+		
+		
+	}
+	
 	// 이동후 정지할때 나오는 모션들을 나오게 하는 메소드
 	public void stop(int keyType) {
+	
+		
 		int prevMotion = 7;
 		// 방향키 위쪽 입력시
 		if (keyType == KeyEvent.VK_UP) {
@@ -363,7 +374,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
-			result re = new result(0);
 		}
 
 	}

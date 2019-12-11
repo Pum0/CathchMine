@@ -26,7 +26,7 @@ public class Game_MenuPanel extends JPanel {
 	private JPanel menuPanel; // 메뉴 전체에 컴포넌트를 담을 패널
 	private static JLabel timeLabel; // 시간이 출력되는 레이블
 	private JLabel mineLabel; // 이 게임에 있는 지뢰의 갯수를 명시해놓는 레이블
-	private JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
+	private static JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
 	private static JLabel flagLabel;
 	private static JLabel hpLabel; // player의 Hp를 표시해주는 이미지
 
@@ -34,7 +34,13 @@ public class Game_MenuPanel extends JPanel {
 	final static int time = 0;
 	static Thread timerT = new timerThread();
 	singleGame sG = new singleGame(); // 싱글게임 클래스의 필드를 사용하기위해서 사용
+	
+	private static ImageIcon item_0 = new ImageIcon("image/GameObject/item/HP_Potion.png");
+	private static ImageIcon item_1 = new ImageIcon("image/GameObject/item/Radar.png");
 
+	
+	private static ImageIcon[] itemImageList = {};
+	
 	public Game_MenuPanel() {
 		setLayout(null);
 		setSize(MENUXSIZE, MENUYSIZE);
@@ -74,7 +80,11 @@ public class Game_MenuPanel extends JPanel {
 		menuPanel.add(hpLabel);
 
 		menuPanel.setLocation(0, 0);
-
+		
+		itemPocketLabel = new JLabel();
+		itemPocketLabel.setIcon(null);
+//		itemPocketLabel.setBounds();
+		
 		setOpaque(false);
 		add(menuPanel);
 		add(statIcon);
@@ -84,6 +94,10 @@ public class Game_MenuPanel extends JPanel {
 
 	public static void sethpImage(int i) {
 		hpLabel.setIcon(hpImageList[i]);
+	}
+	
+	public static void setItemImage(int i) {
+		itemPocketLabel.setIcon(itemImageList[i]);
 	}
 
 	public static void setFlagCount(int i) {
