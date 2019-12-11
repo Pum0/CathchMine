@@ -40,6 +40,7 @@ public class ChatThread implements Runnable {
 				String str;
 				str = in.readUTF();
 				Main.multiMenu.chatArea.append(str);
+				Main.multiMenu.chatArea.setCaretPosition(Main.multiMenu.chatArea.getDocument().getLength());
 			}
 		} catch (IOException e) {
 			System.out.println("Chat run ¿À·ù : " + e.getMessage());
