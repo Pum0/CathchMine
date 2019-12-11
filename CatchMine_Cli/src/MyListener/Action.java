@@ -128,17 +128,20 @@ public class Action implements ActionListener {
 //		Main.backgroundMusic.close();
 		// EASY
 		if (e.getSource() == Main.singleMenu.modeButton[0]) {
+			Main.backgroundMusic.close();
 			singleGame.setMineCount(30);
 			new Game();
 		}
 		// NORMAL
 		if (e.getSource() == Main.singleMenu.modeButton[1]) {
+			Main.backgroundMusic.close();
 			singleGame.setMineCount(50);
 			new Game();
 		}
 
 		// HARD
 		if (e.getSource() == Main.singleMenu.modeButton[2]) {
+			Main.backgroundMusic.close();
 			singleGame.setMineCount(70);
 			new Game();
 		}
