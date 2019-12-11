@@ -11,8 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Grahpics.PlayMusic;
-
 public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int FRAMEXSIZE = 1440;
 	final static int FRAMEYSIZE = 900;
@@ -22,12 +20,10 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	final static int GAMEXPoint = 35;
 	final static int GAMEYPoint = 18;
 
-//	singleGame sG = this; // 싱글게임패널 자신
-
-	PlayMusic playBGM;
+//   singleGame sG = this; // 싱글게임패널 자신
 	// Player 객체
 	player p = new player(1, 40, 40);
-//	player p2 = new player(2, 1320, 40);
+//   player p2 = new player(2, 1320, 40);
 
 	int playerX = p.getX(); // 현재 플레이어의 좌표 - 세로축
 	int playerY = p.getY(); // 현재 플레이어의 좌표 - 가로축
@@ -39,7 +35,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[GAMEYPoint][GAMEXPoint]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	static int mineCount = 100; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	static int mineCount = 5; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
 	flag[][] flagArr = new flag[GAMEYPoint][GAMEXPoint];
@@ -47,6 +43,9 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	int flagCount = mineCount; // 깃발은 지뢰의 갯수만큼만 제공해야 한다.
 
 	int[][] blockPlan = new int[GAMEYPoint][GAMEXPoint]; // 전체맵의 배치된 요소들의 현황을 담아 둠
+
+	result result = new result();
+//   result result;
 
 	public singleGame() {
 		setLayout(null);
@@ -65,7 +64,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
-//		removeKeyListener(this);
 	}
 
 	public static void setMineCount(int mineCount) {
@@ -142,10 +140,10 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			flagArr[yPoint][xPoint].setFlagImage(1);
 
 		} else if (flagArr[yPoint][xPoint].getFlagShape() == 1 && flagPosition[yPoint][xPoint] == true) {// 깃발을 꽂았는데 다시
-																											// 눌렀을때 -> ?
-																											// 표시로 바뀜
-																											// 이때는 블럭을
-																											// 건들일 수 있다.
+			// 눌렀을때 -> ?
+			// 표시로 바뀜
+			// 이때는 블럭을
+			// 건들일 수 있다.
 			block[yPoint][xPoint].setBlockState(false);
 
 			flagPosition[yPoint][xPoint] = false;
@@ -190,6 +188,17 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			if (getFlagCount() > 0) // 사용 가능한 깃발이 남아 있으면
 				putFlag();
 
+			if (isWin(minePosition, flagPosition)) {
+				System.out.println("게임에 승리하셨습니다!");
+				result = new result(0);
+
+				this.add(result);
+				this.remove(p);
+				removeKeyListener(this);
+				result.setBounds(0, 0, 1400, 720);
+				Game_MenuPanel.timerT.stop(); // 승리시에도 클리어타임 체크를 위해 타이머를 종료
+			}
+
 			Game_MenuPanel.setFlagCount(getFlagCount()); // 메뉴패널에 숫자를 띄울 수 있게
 		}
 
@@ -210,32 +219,32 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		int xPoint = p.getX() / 40;
 		int yPoint = p.getY() / 40;
 
-		// isMine 메소드로 죽거나, 주변에
-		System.out.println("캐릭터 위치의 블럭이 선택 되었는지 ? : " + block[yPoint][xPoint].getBlockState());
-		System.out.println("선택된 블럭의 좌표 <" + block[yPoint][xPoint].getX() + ", " + block[yPoint][xPoint].getY() + "> : <"
-				+ yPoint + "," + xPoint + ">");
-		System.out.println("여기에 지뢰가 있는지?" + mine.isMine(minePosition, yPoint, xPoint));
-
 		block[yPoint][xPoint].setImage();
 		flagArr[yPoint][xPoint].setFlagImage(0);
 		// 내가 밟은 땅이 지뢰가 아니면 주변에 있는 지뢰의 갯수를 넣고, 아니면 지뢰를 넣는다. 이 경우 라이프 소모
 		if (mine.isMine(minePosition, yPoint, xPoint) == false) {
-			playBGM = new PlayMusic("Object/stone_break.mp3", false);
-			playBGM.start();
 			block[yPoint][xPoint].add(new MineNum(mine.getMineCount(minePosition, yPoint, xPoint)), new Integer(2)); // 일단찍은곳
 
 			if (mine.getMineCount(minePosition, yPoint, xPoint) == 0)
 				linkedOpen(yPoint, xPoint);
 
 		} else { // 지뢰를 밟았을 시 ?
-			playBGM = new PlayMusic("Object/boom.mp3", false);
-			playBGM.start();
+			flagCount--;
+			Game_MenuPanel.setFlagCount(getFlagCount());
 			block[yPoint][xPoint].add(new mine(1), new Integer(2));
 			p.setPlayerHP(p.getPlayerHP() - 1);
 			Game_MenuPanel.sethpImage(p.getPlayerHP());
 
-			if (p.getPlayerHP() == 0)
-				defeatGame(minePosition, block);
+			if (isDefeat()) {
+				System.out.println("게임 패배");
+//            defeatGame();
+//            new Thread(defeat).run();
+				result = new result(1);
+				this.add(result);
+				result.setBounds(0, 0, 1400, 720);
+				removeKeyListener(this);
+				Game_MenuPanel.timerT.stop();
+			}
 		}
 		block[yPoint][xPoint].setBlockState(true);
 
@@ -305,8 +314,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 	// 이동만을 다루는 메소드
 	public void move(int keyType) {
-		playBGM = new PlayMusic("Object/footstep.mp3", false);
-		playBGM.start();
+
 		// 방향키 위쪽 입력시
 		if (keyType == KeyEvent.VK_UP) {
 			state = 1; // 위
@@ -344,6 +352,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 			p.LocationSet(playerX += 40, playerY);
 			p.outOfrange();
 
+			result re = new result(0);
 		}
 
 	}
@@ -379,76 +388,101 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 		}
 	}
 
-	class WindDefaet {
-		List<Runnable> W_D = new ArrayList<>();
+	// 승리와 패배 여부를 판단 해 주는 메소드 둘
+	public boolean isWin(boolean[][] mine, boolean[][] flag) {
+		for (int i = 0; i < mine.length; i++)
+			for (int j = 0; j < mine[i].length; j++)
+				if (mine[i][j] != flag[i][j]) // 지뢰의 위치와 깃발의 위치가 같지 않다면?
+					return false;
+		// 모든 배열이의 배치요소가 매치가 되었을 때 true 를 반환
+		return true;
+	} // win메소드는 모든 flag를 다 사용 하였을때 정확하게 놓았는지
 
+	public boolean isDefeat() {
+		if (p.getPlayerHP() == 0)
+			return true;
+
+		return false;
+	}
+
+	class result extends JPanel {
 		Runnable defeat, win;
 
-		public WindDefaet() {
-			win = new Runnable() {
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
+		JLabel winDe;
+		Thread w_T, d_T;
 
-				}
-			};
+		public result() {
 
+		}
+
+		public result(int i) {
+			winDe = new JLabel();
+
+			setSize(FRAMEXSIZE, FRAMEYSIZE);
+
+			setLayout(new GridLayout(0, 1));
+			add(winDe);
+
+			if (i == 0) {
+				System.out.println("Win Event");
+
+				winGame();
+
+			} else {
+				System.out.println("Defeat Event");
+				defeatGame();
+			}
+		}
+
+		public void winGame() {
+
+			winDe.setIcon(new ImageIcon("image/gif/YOUWIN.gif"));
+
+		}
+
+		// 패배
+		public void defeatGame() {
 			defeat = new Runnable() {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					try {
+						for (int i = 0; i < block.length; i++) {
+							for (int j = 0; j < block[i].length; j++) {
+								if (minePosition[i][j] == true && block[i][j].getBlockState() == false) {
+									block[i][j].add(new mine(0), new Integer(2));
+								}
+
+							}
+						}
+
+						for (int i = 0; i < block.length; i++) {
+							for (int j = 0; j < block[i].length; j++) {
+								if (minePosition[i][j] == true && block[i][j].getBlockState() == false) {
+									Thread.sleep(15);
+									block[i][j].add(new mine(1), new Integer(3));
+								}
+
+							}
+						}
+					} catch (InterruptedException e) {
+					}
 
 				}
-
 			};
 
-			W_D.add(win);
-			W_D.add(defeat);
+			d_T = new Thread(defeat);
+			d_T.start();
 
-		}
+			try {
 
-		public Runnable getW_D(int i) {
-			return W_D.get(i); // 0일때 승리, 1일때 패배를 불려옴
-		}
-	}
-
-	// 승리
-	public void winGame() {
-
-	}
-
-	// 패배
-	public void defeatGame(boolean[][] bool, block[][] block) {
-		new Thread() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					for (int i = 0; i < block.length; i++) {
-						for (int j = 0; j < block[i].length; j++) {
-							if (bool[i][j] == true && block[i][j].getBlockState() == false) {
-								block[i][j].add(new mine(0), new Integer(2));
-							}
-
-						}
-					}
-
-					for (int i = 0; i < block.length; i++) {
-						for (int j = 0; j < block[i].length; j++) {
-							if (bool[i][j] == true && block[i][j].getBlockState() == false) {
-								Thread.sleep(15);
-								block[i][j].add(new mine(1), new Integer(3));
-							}
-
-						}
-					}
-				} catch (InterruptedException e) {
-				} finally {
-
-				}
-
+				d_T.join(1000);
+				winDe.setIcon(new ImageIcon("image/gif/GAMEOVER(0).gif"));
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-		}.start();
+
+		}
 
 	}
 

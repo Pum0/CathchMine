@@ -24,7 +24,7 @@ public class Game_MenuPanel extends JPanel {
 
 	// 게임 위쪽 메뉴 UI 패널
 	private JPanel menuPanel; // 메뉴 전체에 컴포넌트를 담을 패널
-	private JLabel timeLabel; // 시간이 출력되는 레이블
+	private static JLabel timeLabel; // 시간이 출력되는 레이블
 	private JLabel mineLabel; // 이 게임에 있는 지뢰의 갯수를 명시해놓는 레이블
 	private JLabel itemPocketLabel; // 가진 아이템을 메뉴창에 표시해줄 이미지를 그릴 레이블
 	private static JLabel flagLabel;
@@ -32,7 +32,7 @@ public class Game_MenuPanel extends JPanel {
 
 	// 게임 플레이 시간
 	final static int time = 0;
-
+	static Thread timerT = new timerThread();
 	singleGame sG = new singleGame(); // 싱글게임 클래스의 필드를 사용하기위해서 사용
 
 	public Game_MenuPanel() {
@@ -47,7 +47,7 @@ public class Game_MenuPanel extends JPanel {
 		menuPanel.setBounds(0, 0, MENUXSIZE, MENUYSIZE);
 		menuPanel.setOpaque(false);
 
-		timeLabel = new JLabel(timer(time)); // 분:초 형식으로 Label에 텍스트를 넣음
+		timeLabel = new JLabel(timerThread.timer(time)); // 분:초 형식으로 Label에 텍스트를 넣음
 		menuPanel.add(timeLabel); // 메뉴 패널에 추가
 
 		timeLabel.setFont(new Font("빙그레체", Font.BOLD, 50));
@@ -69,9 +69,9 @@ public class Game_MenuPanel extends JPanel {
 		hpLabel.setIcon(p_hp3);
 		hpLabel.setBounds(30, 26, 174, 60);
 
-		menuPanel.add(hpLabel);
+		timerT.start(); // 타이머 흘러가게
 
-		new timerThread().start(); // 생성과 동시에 타이머를 실행시킨다.
+		menuPanel.add(hpLabel);
 
 		menuPanel.setLocation(0, 0);
 
@@ -90,16 +90,8 @@ public class Game_MenuPanel extends JPanel {
 		flagLabel.setText(i + "");
 	}
 
-	// 플레이 타임을 00:00 형식으로 출력
-	public String timer(int time) {
-		int min = time / 60;
-		int sec = time % 60;
-
-		return String.format("%d : %02d", min, sec);
-	}
-
 	// 시간이 흘러가게 설정
-	class timerThread extends Thread {
+	static class timerThread extends Thread {
 
 		@Override
 		public void run() {
@@ -116,6 +108,15 @@ public class Game_MenuPanel extends JPanel {
 
 			}
 		}
+
+		// 플레이 타임을 00:00 형식으로 출력
+		public static String timer(int time) {
+			int min = time / 60;
+			int sec = time % 60;
+
+			return String.format("%d : %02d", min, sec);
+		}
+
 	}
 
 }
