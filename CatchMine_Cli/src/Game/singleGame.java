@@ -23,7 +23,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 //   singleGame sG = this; // 싱글게임패널 자신
 	PlayMusic playBGM;
-	
+
 	// Player 객체
 	player p = new player(1, 40, 40);
 //   player p2 = new player(2, 1320, 40);
@@ -38,7 +38,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	// 지뢰
 	mine mine = new mine(); // mine 클래스에 있는 메소드를 사용하기 위해 생성
 	boolean[][] minePosition = new boolean[GAMEYPoint][GAMEXPoint]; // 지뢰가 배치될 위치를 선정해주기 위해 만든 2차원배열
-	static int mineCount = 5; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
+	static int mineCount = 30; // 지뢰가 들어갈 갯수, 차후 Mune_Single 에서 난이도 설정을 통해 다른 값을 받게할 예정
 
 	// 깃발 생성
 	flag[][] flagArr = new flag[GAMEYPoint][GAMEXPoint];
@@ -53,10 +53,10 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 	public singleGame() {
 		setLayout(null);
 		this.add(p);
-		
+
 //		Main.backgroundMusic = new PlayMusic("gameMusic.mp3", true);
 //		Main.backgroundMusic.start();
-		
+
 		// player의 초기 위치를 잡아줌
 		p.setBounds(playerX, playerY, 40, 40);
 
@@ -428,9 +428,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		public result(int i) {
 			winDe = new JLabel();
-
 			setSize(FRAMEXSIZE, FRAMEYSIZE);
-
 			setLayout(new GridLayout(0, 1));
 			add(winDe);
 
@@ -447,7 +445,6 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 		public void winGame() {
 			winDe.setIcon(new ImageIcon("image/gif/YOUWIN.gif"));
-
 		}
 
 		// 패배
@@ -457,6 +454,7 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 				public void run() {
 					// TODO Auto-generated method stub
 					try {
+						int sec = 200;
 						for (int i = 0; i < block.length; i++) {
 							for (int j = 0; j < block[i].length; j++) {
 								if (minePosition[i][j] == true && block[i][j].getBlockState() == false) {
@@ -468,28 +466,30 @@ public class singleGame extends JPanel implements KeyListener { // 싱글
 
 						for (int i = 0; i < block.length; i++) {
 							for (int j = 0; j < block[i].length; j++) {
+
 								if (minePosition[i][j] == true && block[i][j].getBlockState() == false) {
-									Thread.sleep(15);
+									if (sec > 10)
+										sec -= 10;
+									Thread.sleep(sec);
+									playBGM = new PlayMusic("Object/boom.mp3", false);
+									playBGM.start();
+				
 									block[i][j].add(new mine(1), new Integer(3));
 								}
 
 							}
 						}
+						winDe.setIcon(new ImageIcon("image/gif/GAMEOVER (0).gif"));
+						Thread.sleep(1500);
+						winDe.setIcon(new ImageIcon("image/gif/GAMEOVER (1).gif"));
+
 					} catch (InterruptedException e) {
 					}
 
 				}
 			};
-
 			d_T = new Thread(defeat);
 			d_T.start();
-
-			try {
-				d_T.join(1000);
-				winDe.setIcon(new ImageIcon("image/gif/GAMEOVER(0).gif"));
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
 
 		}
 
