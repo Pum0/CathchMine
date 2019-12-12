@@ -92,7 +92,7 @@ public class Multi_Room extends JPanel {
 		// 멀티 방 패널
 		for (int i = 0; i < multiRoomButton.length; i++) {
 			multiRoomButton[i].addActionListener(al);
-   			multiRoomButton[i].addMouseListener(ml);
+			multiRoomButton[i].addMouseListener(ml);
 		}
 
 		add(de.setBackground());

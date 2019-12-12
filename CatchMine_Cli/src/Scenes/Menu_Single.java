@@ -1,4 +1,5 @@
 package Scenes;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class Menu_Single extends JPanel {
 	Key kl = new Key();
 	Mouse ml = new Mouse();
 	Design de = new Design();
-	
+
 	public Menu_Single() {
 		setSize(400, 600);
 		setLayout(null);
@@ -37,13 +38,13 @@ public class Menu_Single extends JPanel {
 		modeButton[1].setLocation(90, 200);
 		modeButton[2].setLocation(90, 300);
 		modeButton[3].setLocation(90, 400);
-		
+
 		// ½Ì±Û ÆÐ³Î
-				for (int i = 0; i < modeButton.length; i++) {
-					modeButton[i].addActionListener(al);
-					modeButton[i].addMouseListener(ml);
-				}
-		
+		for (int i = 0; i < modeButton.length; i++) {
+			modeButton[i].addActionListener(al);
+			modeButton[i].addMouseListener(ml);
+		}
+
 		add(de.setBackground());
 	}
 

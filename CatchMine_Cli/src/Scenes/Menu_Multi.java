@@ -62,8 +62,6 @@ public class Menu_Multi extends JPanel {
 
 		standbyRoom = new JList(new DefaultListModel<Roomlist>());
 		roomModel = (DefaultListModel) standbyRoom.getModel();
-		roomModel.addElement(new Roomlist("½Ã¹ßwaerwerrwewer", 1));
-		roomModel.addElement(new Roomlist("½Ã", 1));
 
 		multiButton = new JButton[3];
 		for (int i = 0; i < multiButton.length; i++) {

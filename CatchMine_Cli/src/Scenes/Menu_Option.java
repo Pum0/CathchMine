@@ -59,13 +59,11 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		mainPanel.add(music);
 		music.setBounds(110, 20, 150, 20);
 
-
-
 		// --------------------------------------------------------
 		IPset = new JLabel("IP 주소 입력");
 		IPset.setBounds(100, 310, 150, 20);
 		IPset.setFont(de.setFont(18));
-		
+
 		IPfield = new JTextField(10);
 		IPfield.setFont(de.setFont(18));
 		IPfield.setBounds(25, 350, 150, 30);
@@ -74,11 +72,10 @@ public class Menu_Option extends JPanel /* implements ActionListener */ {
 		setIP.setHorizontalTextPosition(SwingConstants.CENTER);
 		setIP.setBounds(185, 350, 90, 30);
 		// --------------------------------------------------------
-		
+
 		mainPanel.add(IPset);
 		mainPanel.add(IPfield);
 		mainPanel.add(setIP);
-		
 
 		backButton = new JButton("뒤로가기", new ImageIcon("image/button/100x40.png"));
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);

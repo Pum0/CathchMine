@@ -16,7 +16,6 @@ import MyListener.Key;
 import MyListener.Mouse;
 
 public class MainLogin extends JPanel {
-	
 
 	JPanel loginPanel, loginBottom;
 
@@ -69,8 +68,7 @@ public class MainLogin extends JPanel {
 		loginButton[0] = new JButton(new ImageIcon("image/button/40x50.png"));
 		loginButton[0].setBorderPainted(false);
 		loginButton[0].setBounds(195, 25, 45, 50);
-		
-		
+
 		loginPanel.add(idLabel);
 		loginPanel.add(pwLabel);
 		loginPanel.add(idText);
@@ -94,7 +92,7 @@ public class MainLogin extends JPanel {
 		add(loginPanel);
 
 		add(de.setBackground());
-		
+
 		for (int i = 0; i < loginButton.length; i++) {
 			loginButton[i].addActionListener(al);
 			loginButton[i].addMouseListener(ml);

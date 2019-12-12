@@ -9,19 +9,19 @@ import java.sql.SQLException;
 import javax.swing.JTextField;
 
 public class mariaDB {
-	
+
 	static String url = "jdbc:mysql://45.119.145.165:3306/catchmine";
 	static String id = "root";
 	static String pass = "daehwan";
 	static Connection conn = null;
 	static PreparedStatement pstmt = null;
-	// 여기도 non-static으로 변경
+
 	private static String NickName;
 
 	public static String getNickName() {
 		return NickName;
 	}
-	
+
 	public boolean LoginCheck(JTextField idText, JTextField pwText) {
 		if (!idText.getText().isEmpty() && !pwText.getText().isEmpty())
 			try {
@@ -44,7 +44,6 @@ public class mariaDB {
 
 		return false;
 	}
-	
 
 	public void intsertSQL(String id, String pw, String name, String nick) {
 		try {
